@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<TableSelectDialog id="ListClientes" noDataText="No Clients Found" title="Buscar Clientes" search="handleSearchClientes"
+		confirm="handleCloseClientes" cancel="handleCloseClientes" items="{ path : '/ClientesSet', sorter : { path : 'Nome', descending : false } }">
+		<ColumnListItem>
+			<cells>
+				<ObjectIdentifier title="{Codcliente}" text="{Nome}"/>
+				<Text text="{Nome}"/>
+				<Text text="{Cpf}{Cnpj}"/>
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column width="12em">
+				<header>
+					<Text text="{i18n>codigo}"/>
+				</header>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="Cliente"/>
+				</header>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+				<header>
+					<Text text="CPF/CNPJ"/>
+				</header>
+			</Column>
+		</columns>
+	</TableSelectDialog>
+</core:FragmentDefinition>

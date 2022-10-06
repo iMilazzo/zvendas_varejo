@@ -1,0 +1,64 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m" xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form"
+  xmlns:l="sap.ui.layout" xmlns:fb="sap.ui.comp.filterbar"
+  xmlns:arcelor="arcelor.controls"
+  controllerName="arcelor.controller.CriarFornecimento">
+  <Page id="page" showNavButton="true"
+    title="Gerar Fornecimento" navButtonPress="onNavBack"
+    enableScrolling="true">
+    <customHeader>
+      <Bar>
+        <contentLeft>
+          <Button id="back" icon="sap-icon://nav-back"
+            press="onNavBack" />
+        </contentLeft>
+        <contentMiddle>
+          <Title level="H2" tooltip="{i18n>welcomeDescription}"
+            text="Gerar Fornecimento Automático" />
+        </contentMiddle>
+        <contentRight>
+          <Button id="btnMenu" icon="sap-icon://full-screen"
+            press="onPressMenuButton" />
+        </contentRight>
+      </Bar>
+    </customHeader>
+    <content>
+      <f:SimpleForm id="SimpleFormDisplay1" editable="false"
+        layout="ResponsiveGridLayout" title="Fornecimento"
+        columnsL="2" columnsM="2" />
+      <Panel class="sapUiNoContentPadding">
+        <l:HorizontalLayout class="sapUiContentPadding">
+          <l:VerticalLayout>
+            <Label text="Data de Remessa:" labelFor="input-DtRemessa" required="true"/>
+            <DateRangeSelection id="input-DtRemessa" width="200px" change="handleChange" placeholder="dd/MM/yyyy - dd/MM/yyyy"/>
+          </l:VerticalLayout>
+
+
+          <l:VerticalLayout>
+            <Label text="" />
+            <Button text="Limpar Filtros" press="onClear" />
+          </l:VerticalLayout>
+        </l:HorizontalLayout>
+      </Panel>
+    </content>
+    <footer>
+      <Bar>
+        <contentRight>
+          <HBox justifyContent="End">
+            <HBox justifyContent="End" alignItems="End"
+              alignContent="End" class="sapUiTinyMarginEnd">
+              <customData>
+                <core:CustomData key="auth"
+                  value="btnProsseguir" writeToDom="true" />
+              </customData>
+              <items>
+                <Button xmlns="sap.m" text="Prosseguir" press="onCreate" />
+              </items>
+            </HBox>
+          </HBox>
+        </contentRight>
+
+      </Bar>
+    </footer>
+  </Page>
+</mvc:View>

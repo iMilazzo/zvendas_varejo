@@ -1,0 +1,137 @@
+<mvc:View controllerName="arcelor.controller.MonitorNfeRes" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:core="sap.ui.core"
+  xmlns:mvc="sap.ui.core.mvc" xmlns:tab="sap.ui.table">
+  <App>
+    <pages>
+      <Page title="Monitor Nfe" showNavButton="true" navButtonPress="onNavBack">
+        <customHeader>
+          <Bar>
+
+            <contentLeft>
+              <Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+            </contentLeft>
+            <contentMiddle>
+              <Title level="H2" text="Monitor NFe"/>
+            </contentMiddle>
+            <contentRight>
+            <HBox>
+                <HBox justifyContent="End" alignItems="End" alignContent="End" class="sapUiTinyMarginEnd">
+              <customData>
+                    <core:CustomData key="auth" value="btnReimprimirNF" writeToDom="true"/>
+                  </customData>
+              <Button icon="sap-icon://print" text="Reimprimir NF" press="onImprimirPress"/>
+</HBox>
+                <HBox justifyContent="End" alignItems="End" alignContent="End" class="sapUiTinyMarginEnd">
+                  <customData>
+                    <core:CustomData key="auth" value="btnCartadecorrecao" writeToDom="true"/>
+                  </customData>
+              <Button text="Carta Correção" icon="sap-icon://attachment-e-pub" press="onShowPopupCarta"/>
+              </HBox>
+              <Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+            </HBox>
+            </contentRight>
+          </Bar>
+        </customHeader>
+        <content>
+          <ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+            <Panel width="auto" accessibleRole="Region">
+              <HBox justifyContent="SpaceBetween">
+                <HBox>
+                  <Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+                </HBox>
+              </HBox>
+            </Panel>
+            <Table id="tabela_relatorio" growing="true" mode="SingleSelectLeft" growingThreshold="1000" sticky="HeaderToolbar,ColumnHeaders"
+              items="{path: '/result'}" fixedLayout="false">
+              <columns>
+                <Column>
+                  <Text text="Status" wrapping="false"/>
+                </Column>
+                <Column>
+                  <Text text="Log" wrapping="false"/>
+                </Column>
+                <Column>
+                  <Text text="Evento" wrapping="false"/>
+                </Column>
+                <Column>
+                  <Text text="Estornado" wrapping="false"/>
+                </Column>
+                <Column>
+                  <Text text="Núm.Doc." wrapping="false"/>
+                </Column>
+                <Column>
+                  <Text text="NF-e/NFC-e" wrapping="false"/>
+                </Column>
+                <Column>
+                  <Text text="Número OV" wrapping="false"/>
+                </Column>
+                <Column>
+                  <Text text="Cliente" wrapping="false"/>
+                </Column>
+                <Column>
+                  <Text text="Nome cliente" wrapping="false"/>
+                </Column>
+                <Column>
+                  <Text text="Data documento" wrapping="false"/>
+                </Column>
+              </columns>
+              <items>
+                <ColumnListItem detailPress="onSelectionChange">
+                  <cells>
+                    <Text text="{Docsta}" wrapping="false"/>
+                    <Text text="{Log}"/>
+                    <Text text="{ExtEvent}" wrapping="false"/>
+                    <Text text="{Cancel}" wrapping="false"/>
+                    <Text text="{Docnum}" wrapping="false"/>
+                    <Text text="{Nfenum}" wrapping="false"/>
+                    <Text text="{Vbeln}" wrapping="false"/>
+                    <Text text="{Kunnr}" wrapping="false"/>
+                    <Text text="{Name1}"/>
+                    <Text text="{path: 'Docdat', formatter: '.formatter.strToDataBrOneDay'}" wrapping="false"/>
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>
+          </ScrollContainer>
+        </content>
+        <footer>
+          <Bar>
+            <contentRight>
+              <HBox justifyContent="End">
+                <HBox justifyContent="End" alignItems="End" alignContent="End" class="sapUiTinyMarginEnd">
+                  <customData>
+                    <core:CustomData key="auth" value="btnReimprimirCert" writeToDom="true"/>
+                  </customData>
+                  <Button text="Reimprimir Certificado" press="onShowReimprimirNF"/>
+                </HBox>
+                <HBox justifyContent="End" alignItems="End" alignContent="End" class="sapUiTinyMarginEnd">
+                  <customData>
+                    <core:CustomData key="auth" value="btnSincronizarNF" writeToDom="true"/>
+                  </customData>
+                  <Button text="Sincronizar NF Cancelada" press="onShowSincronizarNF"/>
+                </HBox>
+                <HBox justifyContent="End" alignItems="End" alignContent="End" class="sapUiTinyMarginEnd">
+                  <customData>
+                    <core:CustomData key="auth" value="btnReenviarNF" writeToDom="true"/>
+                  </customData>
+                  <Button text="Reenviar NF" press="onShowReiviarNF"/>
+                </HBox>
+                <HBox class="sapUiTinyMarginEnd">
+                  <customData>
+                    <core:CustomData key="auth" value="btnCancelarNF1" writeToDom="true"/>
+                  </customData>
+                  <Button text="Cancelar NF" icon="sap-icon://sys-cancel" press="onShowPopupCancelNF"/>
+                </HBox>
+                <HBox alignItems="End" alignContent="End" justifyContent="End" class="sapUiTinyMarginEnd">
+                  <customData>
+                    <core:CustomData key="auth" value="btnNota" writeToDom="true"/>
+                  </customData>
+                  <Button id="button-fluxoov" text="Visualizar Nfe" press="onNotaFiscalFrag" icon="sap-icon://process"/>
+                </HBox>
+              </HBox>
+            </contentRight>
+          </Bar>
+        </footer>
+      </Page>
+    </pages>
+  </App>
+</mvc:View>

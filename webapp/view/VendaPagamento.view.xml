@@ -1,0 +1,98 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="arcelor.controller.VendaPagamento"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Confirmar Venda" showNavButton="true" navButtonPress="onNavBack">
+				<content>
+					<HBox id="__hbox0" justifyContent="Center" width="100%">
+						<items>
+							<HBox width="100%" id="__hbox3"/>
+							<VBox id="__hbox1" justifyContent="Center" width="100%">
+								<items>
+									<Image xmlns="sap.m" tooltip="Ordem de Venda"/>
+									<Label text="Ordem de Venda" width="100%" id="__labe22" textAlign="Left"/>
+								</items>
+							</VBox>
+							<HBox id="__hbox4" justifyContent="Center" width="100%">
+								<items>
+									<HBox width="100%" id="__hbox5"/>
+								</items>
+							</HBox>
+						</items>
+						<items></items>
+					</HBox>
+					<HBox>
+						<items>
+							<Label text="Cliente:"/>
+						</items>
+					</HBox>
+					<HBox>
+						<items>
+							<Label text="Entrega:"/>
+						</items>
+					</HBox>
+					<HBox>
+						<items>
+							<Label text="CNPJ:"/>
+						</items>
+					</HBox>
+					<HBox>
+						<items>
+							<Label text="Forma de Pagamento:"/>
+						</items>
+					</HBox>
+					<HBox>
+						<items>
+							<Label text="Itens"/>
+						</items>
+					</HBox>
+					<Table id="List" items="{/ProdutosSet}" showNoData="true" fixedLayout="false" width="auto" growing="true">
+						<columns>
+							<Column id="nameColumn1" hAlign="Left" width="8%">
+								<Text id="nameColumnTitle" text="Cód. do Produto"/>
+							</Column>
+							<Column id="nameColumn2" hAlign="Left">
+								<Text text="Descrição do Produto"/>
+							</Column>
+							<Column id="nameColumn4" hAlign="Left" width="10%">
+								<Text text="Preço"/>
+							</Column>
+							<Column id="nameColumn5" hAlign="Left" width="10%">
+								<Text text="Estoque"/>
+							</Column>
+							<Column id="nameColumn8" hAlign="Left" width="8%">
+								<Text text="Loja"/>
+							</Column>
+							<Column id="nameColumn6" hAlign="Left">
+								<Text text="Unidade de Medida"/>
+							</Column>
+							<Column id="nameColumn7" hAlign="Left">
+								<Text text="Grupo de Mercadoria"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem press="onPress" type="Navigation">
+								<cells>
+									<ObjectNumber number="{= parseFloat(${Codproduto}) }"/>
+									<Text text="{Descrprod}"/>
+									<ObjectNumber number="{ path: 'Precodezx', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2} }"/>
+									<ObjectNumber number="{ path: 'Estoque', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 10, scale: 3} }"/>
+									<Text text="{Loja}"/>
+									<Text text="{Undmedida}"/>
+									<Text text="{Grupomerc}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+				<footer>
+					<Bar>
+						<contentRight>
+							<ToggleButton text="Confirmar" press="onPressconfirmar"/>
+						</contentRight>
+					</Bar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

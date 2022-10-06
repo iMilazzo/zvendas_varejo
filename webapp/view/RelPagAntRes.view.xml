@@ -1,0 +1,151 @@
+<mvc:View controllerName="arcelor.controller.RelPagAntRes" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:tab="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="{i18n>relRelPagAntTitle}" showNavButton="true" navButtonPress="onNavBack">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" text="{i18n>relRelPagAntTitle}"/>
+						</contentMiddle>
+						<contentRight>
+							<Button icon="sap-icon://print" text="Imprimir" press="onImprimirPress"/>
+							<Button icon="sap-icon://excel-attachment" text="Gerar Excel" press="exportSpreadsheet"/>
+							<Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+						<Panel width="auto" accessibleRole="Region">
+							<HBox justifyContent="SpaceBetween">
+								<HBox>
+									<Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+								</HBox>
+								<HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center">
+									<Text text="" id="dataAtual"/>
+								</HBox>
+							</HBox>
+						</Panel>
+						<Table id="tabela_relatorio" growing="true" growingThreshold="1000" sticky="HeaderToolbar,ColumnHeaders" items="{path: '/result'}"
+							fixedLayout="false">
+							<columns>
+								<Column>
+									<Text text="{i18n>bukrs}" width="4rem"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>belnr}"/>
+								</Column>
+								<Column >
+									<Text text="{i18n>vbeln}" width="4rem"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>kunnr}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>bldat}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>wrbtr}"/>
+								</Column>
+								<Column >
+									<Text text="{i18n>txtlog}"/>
+								</Column>
+								<Column >
+									<Text text="{i18n>txtpgant}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>datadblq}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{Bukrs}" wrapping="false"/>
+										<Text text="{Belnr}" wrapping="false"/>
+										<Text text="{Vbel2}" wrapping="false"/>
+										<Text text="{Kunnr}" wrapping="false"/>
+										<Text text="{path: 'Bldat', formatter: '.formatter.strToDataBrOneDay'}" wrapping="false"/>
+										<Text text="{path: 'Wrbtr', formatter: '.formatter.price3'}" wrapping="false"/>
+										<Text text="{TxtLog}" wrapping="true"/>
+										<Text text="{TxtPgant}" wrapping="true"/>
+										<Text text="{path: 'DataDblq', formatter: '.formatter.strToDataBrOneDay'}" wrapping="false"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</ScrollContainer>
+					<tab:Table id="tabRelatorio" visible="false" rows="{/RelPagAntSet/}" title="" selectionMode="None" visibleRowCount="20">
+						<tab:toolbar>
+							<Toolbar>
+								<content>
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://excel-attachment" press="exportSpreadsheet" tooltip="{i18n>exportExcel}"/>
+								</content>
+							</Toolbar>
+						</tab:toolbar>
+						<tab:columns>
+							<tab:Column width="11rem">
+								<Label text="{i18n>bukrs}"/>
+								<tab:template>
+									<Text text="{Bukrs}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>belnr}"/>
+								<tab:template>
+									<Text text="{Belnr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>vbeln}"/>
+								<tab:template>
+									<Text text="{Vbel2}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>kunnr}"/>
+								<tab:template>
+									<Text text="{Kunnr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>bldat}"/>
+								<tab:template>
+									<Text text="{ path: 'Bldat', type: 'sap.ui.model.type.Date', formatOptions: {UTC:true} }" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>wrbtr}"/>
+								<tab:template>
+									<Text text="{Wrbtr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>txtLog}"/>
+								<tab:template>
+									<Text text="{TxtLog}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>txtpgant}"/>
+								<tab:template>
+									<Text text="{TxtPgant}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>datadblq}"/>
+								<tab:template>
+									<Text text="{ path: 'DataDblq', type: 'sap.ui.model.type.Date', formatOptions: {UTC:true} }" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+						</tab:columns>
+					</tab:Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

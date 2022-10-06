@@ -1,0 +1,221 @@
+<mvc:View controllerName="arcelor.controller.RelVolumeFaturamentoRes" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:tab="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="Volume de Vendas e Faturamento" showNavButton="true" navButtonPress="onNavBack">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" text="{i18n>relVolumeVendasResTitle}"/>
+						</contentMiddle>
+						<contentRight>
+							<Button icon="sap-icon://print" text="Imprimir" press="onImprimirPress"/>
+							<Button icon="sap-icon://excel-attachment" text="Gerar Excel" press="exportSpreadsheet"/>
+							<Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+						<Panel width="auto" accessibleRole="Region">
+							<HBox justifyContent="SpaceBetween">
+								<HBox>
+									<Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+								</HBox>
+								<HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center">
+									<Text text="" id="dataAtual"/>
+								</HBox>
+							</HBox>
+						</Panel>
+						<Table id="tabela_relatorio" growing="true" growingThreshold="500" sticky="HeaderToolbar,ColumnHeaders" items="{path: '/results'}"
+							width="120rem" contextualWidth="Auto" fixedLayout="false">
+							<columns>
+								<Column>
+									<Text text="Centro"/>
+								</Column>
+								<Column>
+									<Text text="Organização de Vendas"/>
+								</Column>
+								<Column>
+									<Text text="Cód. Esc. Vendas"/>
+								</Column>
+								<Column>
+									<Text text="Escrit. de Vendas"/>
+								</Column>
+								<Column>
+									<Text text="Cód. Eq. Vendas"/>
+								</Column>
+								<Column>
+									<Text text="Equipe de Vendas"/>
+								</Column>
+								<Column>
+									<Text text="Canal de Distribuição"/>
+								</Column>
+								<Column>
+									<Text text="Cód. Setor Atividade"/>
+								</Column>
+								<Column>
+									<Text text="Setor de Atividade"/>
+								</Column>
+								<Column>
+									<Text text="Cód. Grupo Material"/>
+								</Column>
+								<Column>
+									<Text text="Grupo de Material"/>
+								</Column>
+								<Column>
+									<Text text="Cód. Material"/>
+								</Column>
+								<Column>
+									<Text text="Material"/>
+								</Column>
+								<Column>
+									<Text text="Cód. Grupo Mercadoria"/>
+								</Column>
+								<Column>
+									<Text text="Grupo de Mercadoria"/>
+								</Column>
+								<Column>
+									<Text text="Qtd. Faturada"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{Werks}" width="4rem"/>
+										<Text text="{VkorgText}"/>
+										<Text text="{Vkbur}"/>
+										<Text text="{VkburText}"/>
+										<Text text="{Vkgrp}"/>
+										<Text text="{Bezei}"/>
+										<Text text="{VtwegText}"/>
+										<Text text="{Spart}"/>
+										<Text text="{SpartText}"/>
+										<Text text="{Kondm}"/>
+										<Text text="{Vtext}"/>
+										<Text text="{path: 'Matnr', formatter: '.formatter.setIntFormat'}" width="4rem"/>
+										<Text text="{Maktx}"/>
+										<Text text="{Matkl}"/>
+										<Text text="{Wgbez}"/>
+										<Text text="{path: 'Fkimg', formatter: '.formatter.price3'}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</ScrollContainer>
+					<tab:Table id="tabRelatorio" rows="{/RelVolumeFatSet/}" title="" visible="false" selectionMode="None" visibleRowCount="20">
+						<tab:toolbar>
+							<Toolbar>
+								<content>
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://excel-attachment" press="exportSpreadsheet" tooltip="{i18n>exportExcel}"/>
+								</content>
+							</Toolbar>
+						</tab:toolbar>
+						<tab:columns>
+							<tab:Column >
+								<Label text="{i18n>werks}"/>
+								<tab:template>
+									<Text text="{Werks}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="{i18n>vkorg}"/>
+								<tab:template>
+									<Text text="{Vkorg}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="{i18n>vkorg}"/>
+								<tab:template>
+									<Text text="{VkorgText}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="{i18n>vkbur}"/>
+								<tab:template>
+									<Text text="{Vkbur}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="{i18n>vkbur}"/>
+								<tab:template>
+									<Text text="{VkburText}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="{i18n>bezei}"/>
+								<tab:template>
+									<Text text="{Bezei}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="{i18n>vkgrp}"/>
+								<tab:template>
+									<Text text="{Vkgrp}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="{i18n>vtweg}"/>
+								<tab:template>
+									<Text text="{VtwegText}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="{i18n>spart}"/>
+								<tab:template>
+									<Text text="{SpartText}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="{i18n>vtext}"/>
+								<tab:template>
+									<Text text="{Vtext}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="{i18n>kondm}"/>
+								<tab:template>
+									<Text text="{Kondm}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="{i18n>matnr}"/>
+								<tab:template>
+									<Text text="{Matnr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="{i18n>maktx}"/>
+								<tab:template>
+									<Text text="{Maktx}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="{i18n>matkl}"/>
+								<tab:template>
+									<Text text="{Matkl}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="{i18n>wgbez}"/>
+								<tab:template>
+									<Text text="{Wgbez}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="{i18n>fkimg}"/>
+								<tab:template>
+									<Text text="{Fkimg}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+						</tab:columns>
+					</tab:Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

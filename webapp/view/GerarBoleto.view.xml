@@ -1,0 +1,71 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	controllerName="arcelor.controller.GerarBoleto" xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Gerar Boleto" showNavButton="true" navButtonPress="onNavBack">
+				<content>
+					<Panel width="auto" headerText="Dados para Geração do Boleto" class="sapUiTinyMargin">
+						<headerToolbar>
+							<OverflowToolbar height="1.9rem" style="Clear">
+								<Title text="Dados para Geração do Boleto"/>
+							</OverflowToolbar>
+						</headerToolbar>
+						<content>
+							<HBox justifyContent="Center" alignContent="Center" alignItems="Center">
+								<VBox justifyContent="Start" alignContent="Start" alignItems="Start">
+									<Label text="Ordem de Venda: " class="sapUiTinyMargin"/>
+									<Label text="Data de Vencimento: " class="sapUiTinyMargin"/>
+								</VBox>
+								<VBox justifyContent="Start" alignContent="Start" alignItems="Start">
+									<Input id="ordem" width="350px" value=""/>
+									<DatePicker width="350px" displayFormat="short" id="nova_data" placeholder="Entrar data ..."/>
+								</VBox>
+							</HBox>
+						</content>
+					</Panel>
+					<Panel width="auto" headerText="" class="sapUiTinyMargin">
+						<content>
+							<VBox justifyContent="Center" alignContent="Center" alignItems="Center">
+								<VBox>
+									<CheckBox text="Pagamento com cheque?" select="onParentClicked"/>
+									<RadioButton groupName="GroupA" id="libera-apos_r" text="A ordem de venda será liberada após o prazo de compensação" selected="false"
+										class="sapUiMediumMarginBegin" enabled="false"/>
+									<RadioButton groupName="GroupA" id="libera-imediatamente_r" text="A ordem de venda será liberada imediatamente (sob risco do DBA)"
+										selected="false" class="sapUiMediumMarginBegin" enabled="false"/>
+								</VBox>
+							</VBox>
+						</content>
+					</Panel>
+					<Panel width="auto" class="sapUiTinyMargin">
+						<content>
+							<VBox justifyContent="Start" alignContent="Start" alignItems="Start">
+								<CheckBox text="Enviar email?" select="onParentEmailClicked" class="marginEsquerda"/>
+							</VBox>
+							<VBox justifyContent="Center" alignContent="Center" alignItems="Center">
+								<HBox alignItems="Center" alignContent="Center">
+									<Label text="E-mail 1:"/>
+									<Input id="email1" value="" editable="false" class="sapUiTinyMarginBegin" width="25rem" enabled="false"/>
+								</HBox>
+								<HBox alignItems="Center" alignContent="Center">
+									<Label text="E-mail 2:"/>
+									<Input id="email2" value="" editable="false" class="sapUiTinyMarginBegin" width="25rem" enabled="false"/>
+								</HBox>
+								<HBox alignItems="Center" alignContent="Center">
+									<Label text="E-mail 3:"/>
+									<Input id="email3" value="" editable="false" class="sapUiTinyMarginBegin" width="25rem" enabled="false"/>
+								</HBox>
+							</VBox>
+						</content>
+					</Panel>
+				</content>
+				<footer>
+					<Bar>
+						<contentRight>
+							<ToggleButton text="Prosseguir" press="onProsseguir"/>
+						</contentRight>
+					</Bar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

@@ -1,0 +1,49 @@
+<core:FragmentDefinition 
+	xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m" 
+	xmlns:f="sap.ui.layout.form"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	
+	<Dialog
+	    type="Message"
+	    showHeader="true"
+	    title="Devolução NFC-e"
+	    draggable="true">
+               
+        <content>              
+			<f:SimpleForm
+				title="Devolução"
+				editable="false"
+				layout="ResponsiveGridLayout"
+				labelSpanXL="3"
+				labelSpanL="3"
+				labelSpanM="3"
+				labelSpanS="12"
+				emptySpanXL="4"
+				emptySpanL="4"
+				emptySpanM="4"	
+				emptySpanS="0"			
+				columnsXL="1"
+				columnsL="1"
+				columnsM="1"
+				singleContainerFullSize="false">
+				<f:content>	
+				
+					<Label text="Ordem de Venda"/>
+					<Text text="{view>/Vbeln}"/>
+					
+					<Label text="Fornecimento"/>
+					<Text text="{view>/VbelnVl}"/>											
+														
+				</f:content>
+			</f:SimpleForm>
+		</content>
+		
+        <buttons>
+        	<Button text="Devolver" press="onDevolverRob"/>
+            <Button text="Cancelar" press="onCancelarRob"/>
+        </buttons>		
+	</Dialog>	
+	
+</core:FragmentDefinition>

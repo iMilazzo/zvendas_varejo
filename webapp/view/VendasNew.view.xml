@@ -1,0 +1,578 @@
+<mvc:View 
+  xmlns:uxap="sap.uxap" 
+  xmlns="sap.m" 
+  xmlns:f="sap.ui.layout.form" 
+  xmlns:core="sap.ui.core" 
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:html="http://www.w3.org/1999/xhtml" 
+  controllerName="arcelor.controller.VendasNew">
+  <semantic:DetailPage 
+    id="page" showNavButton="true" navButtonPress="onNavBack" 
+    title="{SalesModel>/SalesTitle}" enableScrolling="true"
+    xmlns:semantic="sap.m.semantic" xmlns:layout="sap.ui.layout" xmlns:l="sap.ui.layout">
+    <semantic:customHeaderContent>
+      <HBox justifyContent="SpaceAround">
+        <HBox class="sapUiTinyMarginEnd">
+          <customData>
+
+            <core:CustomData key="auth" value="btnFluxoOV" writeToDom="true"/>
+          </customData>
+          <Button id="button-fluxoov" text="{i18n>fluxoOV}" press="handleExibirFluxoPress" visible="{SalesModel>/FunctionsVisible}"
+            icon="sap-icon://process"/>
+        </HBox>
+        <HBox class="sapUiTinyMarginEnd">
+          <customData>
+            <core:CustomData key="auth" value="btnGerarBoleto" writeToDom="true"/>
+          </customData>
+          <Button id="button-boleto" text="Boleto" press="handleBoletoOVPress" visible="{SalesModel>/FunctionsVisible}"
+            icon="sap-icon://bar-code"/>
+        </HBox>
+        
+        <HBox class="sapUiTinyMarginEnd">
+          <customData>
+            <core:CustomData key="auth" value="btnImprimirOv" writeToDom="true"/>
+          </customData>
+
+        <Button text="OV" press="onImprimirOv" icon="sap-icon://print" visible="{SalesModel>/EditVisible}" class="sapUiTinyMarginEnd"/>
+         </HBox>
+          <HBox class="sapUiTinyMarginEnd">
+          <customData>
+            <core:CustomData key="auth" value="btnImprimirCarre" writeToDom="true"/>
+          </customData>
+        <Button text="Doc. Carreg." press="onImprimir" icon="sap-icon://print" visible="{SalesModel>/EditVisible}" class="sapUiTinyMarginEnd"/>
+           </HBox>
+        <Button icon="sap-icon://full-screen" press="onPressMenuButton" class="botaoMenu"/>
+      </HBox>
+    </semantic:customHeaderContent>
+    <semantic:content>
+      <ScrollContainer height="95px" vertical="true" focusable="true">
+        <content>
+          <Panel width="auto" accessibleRole="Region">
+            <layout:HorizontalLayout>
+              <Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginTop sapUiSmallMarginEnd"/>
+              <layout:VerticalLayout>
+                <Label text="Status" class="sapUiTinyMarginTop"/>
+                <ObjectStatus text="{SalesModel>/Status}" state="Error"/>
+              </layout:VerticalLayout>
+              <layout:VerticalLayout>
+                <Label text="Ordem de Venda" class="sapUiTinyMarginTop sapUiTinyMarginBegin"
+                  visible="{= ${SalesModel>/Mode} !== 'Create' &amp;&amp; ${SalesModel>/Mode} !== 'Copy'}"/>
+                <ObjectStatus text="{SalesModel>/SalesOrder}" state="None" class="sapUiSmallMarginBegin"
+                  visible="{= ${SalesModel>/Mode} !== 'Create' &amp;&amp; ${SalesModel>/Mode} !== 'Copy' }"/>
+              </layout:VerticalLayout>
+              <layout:VerticalLayout>
+                <layout:HorizontalLayout class="sapUiLargeMarginBegin">
+                  <layout:VerticalLayout>
+                    <VBox>
+                      <Label text="Limbo" class="sapUiTinyMarginTop sapUiTinyMarginBegin"
+                        visible="{= ${SalesModel>/Mode} !== 'Create' &amp;&amp; ${SalesModel>/Mode} !== 'Copy'}"/>
+                      <core:Icon id="icon1" src="{path: 'SalesModel>/Status1'}" class="sapUiSmallMarginBegin"
+                        visible="{= ${SalesModel>/Mode} !== 'Create' &amp;&amp; ${SalesModel>/Mode} !== 'Copy'}"
+                        tooltip="{path: 'SalesModel>/Status1Txt'}">
+                        <core:customData>
+                          <core:CustomData key="status" value="{path: 'SalesModel>/Status1'}" writeToDom="true"/>
+                        </core:customData>
+                      </core:Icon>
+                    </VBox>
+                  </layout:VerticalLayout>
+                  <layout:VerticalLayout>
+                    <VBox>
+                      <Label text="Credito" class="sapUiTinyMarginTop sapUiTinyMarginBegin"
+                        visible="{= ${SalesModel>/Mode} !== 'Create' &amp;&amp; ${SalesModel>/Mode} !== 'Copy'}"/>
+                      <core:Icon id="icon2" src="{path: 'SalesModel>/Status2'}" class="sapUiSmallMarginBegin"
+                        visible="{= ${SalesModel>/Mode} !== 'Create' &amp;&amp; ${SalesModel>/Mode} !== 'Copy'}"
+                        tooltip="{path: 'SalesModel>/Status2Txt'}">
+                        <core:customData>
+                          <core:CustomData key="status" value="{path: 'SalesModel>/Status2'}" writeToDom="true"/>
+                        </core:customData>
+                      </core:Icon>
+                    </VBox>
+                  </layout:VerticalLayout>
+                  <layout:VerticalLayout>
+                    <VBox>
+                      <Label text="Remessa" class="sapUiTinyMarginTop sapUiTinyMarginBegin"
+                        visible="{= ${SalesModel>/Mode} !== 'Create' &amp;&amp; ${SalesModel>/Mode} !== 'Copy'}"/>
+                      <core:Icon id="icon3" src="{path: 'SalesModel>/Status3'}" class="sapUiSmallMarginBegin"
+                        visible="{= ${SalesModel>/Mode} !== 'Create' &amp;&amp; ${SalesModel>/Mode} !== 'Copy'}"
+                        tooltip="{path: 'SalesModel>/Status3Txt'}">
+                        <core:customData>
+                          <core:CustomData key="status" value="{path: 'SalesModel>/Status3'}" writeToDom="true"/>
+                        </core:customData>
+                      </core:Icon>
+                    </VBox>
+                  </layout:VerticalLayout>
+                  <layout:VerticalLayout>
+                    <VBox>
+                      <Label text="Fatura" class="sapUiTinyMarginTop sapUiTinyMarginBegin"
+                        visible="{= ${SalesModel>/Mode} !== 'Create' &amp;&amp; ${SalesModel>/Mode} !== 'Copy'}"/>
+                      <core:Icon id="icon4" src="{path: 'SalesModel>/Status4'}" class="sapUiSmallMarginBegin"
+                        visible="{= ${SalesModel>/Mode} !== 'Create' &amp;&amp; ${SalesModel>/Mode} !== 'Copy'}"
+                        tooltip="{path: 'SalesModel>/Status4Txt'}">
+                        <core:customData>
+                          <core:CustomData key="status" value="{path: 'SalesModel>/Status4'}" writeToDom="true"/>
+                        </core:customData>
+                      </core:Icon>
+                    </VBox>
+                  </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+              </layout:VerticalLayout>
+            </layout:HorizontalLayout>
+          </Panel>
+        </content>
+      </ScrollContainer>
+      <Panel width="auto" accessibleRole="Region">
+        <f:SimpleForm title="Dados Básicos" columnsL="3" columnsM="3" editable="true" layout="ResponsiveGridLayout">
+          <f:content>
+            <!--Coluna 01 - Dados Venda - Cliente -->
+            <core:Title text="" class="customFormTitle"/>
+            <Label text="{i18n>tipoOperacao}" textAlign="Left"/>
+            <ComboBox id="id-ComboTipoOperacao" placeholder="{i18n>tipoOperacao}" change="onChangeTipoOperacao" width="300px"
+              items="{ path: 'SalesModel>/ComboTipoOperacao'}" selectedKey="{SalesModel>/SalesType}" editable="{SalesModel>/Changeable01}">
+              <core:Item key="{SalesModel>Coddadomestre}" text="{SalesModel>Textodadomestre}"/>
+            </ComboBox>
+            <Label text="Cliente"/>
+            <FlexBox alignItems="Start">
+              <items>
+                <Input id="input-Cliente" type="Text" placeholder="Digite o Cliente ..." showValueHelp="true" value="{SalesModel>/CustomerId}"
+                  valueHelpRequest="onCustomerValueHelp" submit="onCustomerValueHelp" valueHelpOnly="true" editable="{SalesModel>/Changeable01}">
+                  <layoutData>
+                    <FlexItemData growFactor="3"/>
+                  </layoutData>
+                </Input>
+                <Button id="id-CriaCliente" type="Transparent" icon="sap-icon://add" press="actionCadastro" tooltip="Cadastrar Novo Cliente">
+                  <layoutData>
+                    <FlexItemData growFactor="1"/>
+                  </layoutData>
+                </Button>
+                <Button id="id-HistoricoOV" type="Transparent" icon="sap-icon://customer-history" press="actionHistorico"
+                  tooltip="Histórico de OV's do cliente">
+                  <layoutData>
+                    <FlexItemData growFactor="1"/>
+                  </layoutData>
+                </Button>
+              </items>
+            </FlexBox>
+            <Label text="Emissor" id="label-Codigo" visible="{SalesModel>/CustomerVisible}"/>
+            <Text width="100%" id="input-Codigo" visible="{SalesModel>/CustomerVisible}"/>
+            <Label id="textEntrega" text="Entrega" textAlign="Left"/>
+            <ComboBox id="id-ComboEntrega" placeholder="Entrega" width="300px" items="{ path: 'SalesModel>/ComboEntrega'}"
+              selectedKey="{SalesModel>/DeliveryAddress}" editable="{SalesModel>/CalculateVisible}">
+              <core:Item key="{SalesModel>Coddadomestre}" text="{SalesModel>Textodadomestre}"/>
+            </ComboBox>
+            <Label id="textCobranca" text="{i18n>cobranca}" textAlign="Left"/>
+            <ComboBox id="id-ComboCobranca" placeholder="{i18n>cobranca}" width="300px" items="{ path: 'SalesModel>/ComboCobranca'}"
+              selectedKey="{SalesModel>/BillingAddress}" editable="{SalesModel>/CalculateVisible}">
+              <core:Item key="{SalesModel>Coddadomestre}" text="{SalesModel>Textodadomestre}"/>
+            </ComboBox>
+            <Label id="textEscritorio" text="Escrit/Vend" textAlign="Left"/>
+            <ComboBox id="id-ComboEscritorio" placeholder="{i18n>escritorio}" width="300px" items="{ path: 'SalesModel>/ComboEscritorio', length: 1000 }"
+              selectedKey="{SalesModel>/SalesOffice}" editable="{SalesModel>/LiberaUnFre}">
+              <core:Item key="{SalesModel>Coddadomestre}" text="{SalesModel>Coddadomestre} - {SalesModel>Textodadomestre}"/>
+            </ComboBox>
+            <Label id="textCondPagto" text="Cond Pagto" textAlign="Left"/>
+            <ComboBox id="id-ComboCondPgto" placeholder="{i18n>condicaoPagamento}" width="300px" items="{ path: 'SalesModel>/ComboCondPagto', length: 1000 }"
+              selectedKey="{SalesModel>/SalesCondition}" editable="{SalesModel>/LiberaUnFre}">
+              <core:Item key="{SalesModel>Coddadomestre}" text="{SalesModel>Coddadomestre} - {SalesModel>Textodadomestre}"/>
+            </ComboBox>
+
+             <Label id="textFrete" text="Frete" textAlign="Left"/>
+            <ComboBox id="id-ComboFrete" placeholder="{i18n>Frete}" width="300px" items="{ path: 'SalesModel>/CarrierFreightHelper', length: 1000 }"
+              selectedKey="{SalesModel>/SalesFrete}" editable="{SalesModel>/LiberaUnFre}">
+              <core:Item key="{SalesModel>Coddadomestre}" text="{SalesModel>Coddadomestre} - {SalesModel>Textodadomestre}"/>
+            </ComboBox>
+
+            <!--Coluna 02 - Dados Venda - Data Entrega -->
+            <core:Title text="" class="customFormTitle"/>
+            <Label text="Dias Adicionais"/>
+            <MaskInput mask="99" id="input-diasAdd" value="{SalesModel>/AdditionalDays}" editable="{SalesModel>/LiberaUnFre}"/>
+            <Label text="Dt. Entrega"/>
+            <!-- VML Backup: formatOptions="{ UTC:true, style:'short'}" -->
+            <DatePicker id="input-DtDEntrega" valueFormat="dd/MM/yyyy" displayFormat="dd/MM/yyyy" value="{SalesModel>/DeliveryDate}"
+              editable="{SalesModel>/LiberaUnFre}"/>
+            <Label text="CPF/CNPJ" visible="{SalesModel>/CustomerVisible}"/>
+            <Input value="{SalesModel>/CustomerDoct}" id="label-CustomerDoct" maxLength="14" visible="{SalesModel>/CustomerVisible}"/>
+            <Label text="{i18n>domicilioFiscal}" id="label-domicilioFiscal" visible="{SalesModel>/CustomerVisible}"/>
+            <Text text="{SalesModel>/TaxDomcl}" id="input-TaxDomcl" visible="{SalesModel>/CustomerVisible}"/>
+            <Label text="Imposto"/>
+            <Text text="{SalesModel>/TaxDefnt}" id="text-imposto"/>
+            <Label text="Centro" visible="{= ${SalesModel>/Mode} !== 'Create' }"/>
+            <Text text="{SalesModel>/Plant}" visible="{= ${SalesModel>/Mode} !== 'Create' }"/>
+            <!--Coluna 03 - Dados Venda - Canal -->
+            <core:Title text="" class="customFormTitle"/>
+            <Label text="Canal" textAlign="Left"/>
+            <ComboBox id="id-ComboCanal" placeholder="Canal" width="300px" items="{ path: 'SalesModel>/ComboCanal'}" change="onCanalChange"
+              selectedKey="{SalesModel>/SalesChannel}" editable="{SalesModel>/CalculateVisible}">
+              <core:Item key="{SalesModel>Coddadomestre}" text="{SalesModel>Textodadomestre}"/>
+            </ComboBox>
+            <Label text="Num. Pedido"/>
+            <Input id="input-NumPedido" value="{SalesModel>/PurchaseOrder}" editable="{SalesModel>/LiberaUnFre}" maxLength="20"/>
+            <Label text="{i18n>utilizacao}" textAlign="Left"/>
+            <ComboBox id="id-ComboUtilizacao" placeholder="{i18n>utilizacao}" width="300px" items="{ path: 'SalesModel>/ComboUtilizacao'}"
+              selectedKey="{SalesModel>/Utilization}" editable="{SalesModel>/LiberaUnFre}">
+              <core:Item key="{SalesModel>Coddadomestre}" text="{SalesModel>Textodadomestre}"/>
+            </ComboBox>
+            <Label text="{i18n>versao}" textAlign="Left"/>
+            <ComboBox id="id-ComboVersao" placeholder="{i18n>versao}" width="300px" items="{ path: 'SalesModel>/ComboVersao'}"
+              selectedKey="{SalesModel>/Version}" editable="{SalesModel>/LiberaUnFre}">
+              <core:Item key="{SalesModel>Coddadomestre}" text="{SalesModel>Textodadomestre}"/>
+            </ComboBox>
+            <Label text="Data de Saída Mercadoria" visible="{= ${SalesModel>/Mode} !== 'Create' }"/>
+            <DatePicker id="input-DtMerc" valueFormat="dd/MM/yyyy" displayFormat="dd/MM/yyyy" value="{SalesModel>/MercadoriaDate}"
+             editable="{SalesModel>/LiberaUnFre}" visible="{= ${SalesModel>/Mode} !== 'Create' }"/>
+          </f:content>
+        </f:SimpleForm>
+      </Panel>
+      <Panel width="auto">
+        <f:SimpleForm title="Observações" columnsL="2" columnsM="2" editable="true" layout="ResponsiveGridLayout">
+          <f:content>
+            <core:Title text=""/>
+            <Label text="Obs. Nota Fiscal"/>
+            <Input type="Text" width="100%" placeholder="Obs. Linha 01" value="{SalesModel>/NFObs01}" editable="{SalesModel>/LiberaUnFre}"
+              maxLength="40"/>
+            <Label text=""/>
+            <Input type="Text" width="100%" placeholder="Obs. Linha 02" value="{SalesModel>/NFObs02}" editable="{SalesModel>/LiberaUnFre}"
+              maxLength="40"/>
+            <Label text="Obs. Carregamento"/>
+            <Input type="Text" width="100%" placeholder="Obs. Linha 01" value="{SalesModel>/LDObs01}" editable="{SalesModel>/LiberaUnFre}"
+              maxLength="40"/>
+            <core:Title text=""/>
+            <Label/>
+            <Input type="Text" width="100%" placeholder="Obs. Linha 03" value="{SalesModel>/NFObs03}" editable="{SalesModel>/LiberaUnFre}"
+              maxLength="40"/>
+            <Label/>
+            <Input type="Text" width="100%" placeholder="Obs. Linha 04" value="{SalesModel>/NFObs04}" editable="{SalesModel>/LiberaUnFre}"
+              maxLength="40"/>
+            <Label/>
+            <Input type="Text" width="100%" placeholder="Obs. Linha 02" value="{SalesModel>/LDObs02}" editable="{SalesModel>/LiberaUnFre}"
+              maxLength="40"/>
+          </f:content>
+        </f:SimpleForm>
+      </Panel>
+      <Panel width="auto">
+        <f:SimpleForm title="Transportadora" id="Transportadora_panel" columnsL="3" columnsM="3" editable="true" layout="ResponsiveGridLayout">
+          <f:content>
+            <!--Coluna 01 - Dados Transportadora - Base -->
+            <core:Title text=""/>
+            <Label text="Frete"/>
+            <ComboBox change="onLineChange" selectedKey="{SalesModel>/Frete}" enabled="true" editable="false"
+              items="{ path: 'SalesModel>/CarrierFreightHelper'}" showSecondaryValues="true">
+              <core:ListItem key="{SalesModel>Coddadomestre}" text="{SalesModel>Textodadomestre}" additionalText="{SalesModel>Textodadomestre}"/>
+            </ComboBox>
+            <Label text="Transportador"/>
+            <ComboBox id="id-ComboTransportador" placeholder="Transportador" width="100%" items="{ path: 'SalesModel>/ComboTransportadoras'}"
+              change="onSelectCarrier" selectedKey="{SalesModel>/Carrier}" editable="{SalesModel>/LiberaUnFre2}">
+              <core:Item key="{SalesModel>Id}" text="{SalesModel>Id} - {SalesModel>Descricao}"/>
+            </ComboBox>
+            <Label text="Nome Transportador"/>
+            <Input type="Text" width="100%" placeholder="Nome Transp" value="{SalesModel>/CarrierName}" editable="{SalesModel>/Changeable02}"
+              id="nomeCarrier"/>
+            <Label text="Tp.Docto"/>
+            <Select change="onLineChange" selectedKey="{SalesModel>/CarrierDoctTp}" enabled="{SalesModel>/Changeable02}" id="tipoDocCarrier">
+              <core:Item key="" text=""/>
+              <core:Item key="1" text="CPF"/>
+              <core:Item key="2" text="CNPJ"/>
+            </Select>
+            <Input type="Text" width="100%" placeholder="CPF/CNPJ" value="{SalesModel>/CarrierDoct}" editable="{SalesModel>/Changeable02}"
+              id="cpfcnpjCarrier"/>
+            <Label text="Inscr.Est."/>
+            <Input type="Text" width="100%" placeholder="{i18n>inscricaoEstadual}" id="carrierIE" value="{SalesModel>/CarrierIE}"
+              editable="{SalesModel>/Changeable02}" maxLength="18" liveChange="onChangeIe"/>
+            <!--Coluna 02 - Dados Transportadora - Endere�o -->
+            <core:Title text=""/>
+            <Label text="CEP"/>
+            <Input type="Text" width="100%" placeholder="CEP" value="{SalesModel>/CarrierCEP}" editable="{SalesModel>/Changeable02}"
+              change="onCEPChange" id="cepCarrier"/>
+            <Label text="Rua"/>
+            <Input type="Text" width="100%" placeholder="Rua" value="{SalesModel>/CarrierStreet}" editable="{SalesModel>/Changeable02}" id="ruaCarrier"/>
+            <Label text="{i18n>numero}"/>
+            <Input type="Text" width="100%" placeholder="{i18n>numero}" value="{SalesModel>/CarrierNumber}" editable="{SalesModel>/Changeable02}"
+              id="numeroCarrier"/>
+            <Label text="Bairro"/>
+            <Input type="Text" width="100%" placeholder="Bairro" value="{SalesModel>/CarrierNeighb}" editable="{SalesModel>/Changeable02}"
+              maxLength="40" id="bairroCarrier"/>
+            <Label text="Estado"/>
+            <ComboBox change="onLineChange" selectedKey="{SalesModel>/CarrierState}" items="{ path: 'SalesModel>/ComboEstados'}"
+              editable="{SalesModel>/Changeable02}" id="estadoCarrier">
+              <core:Item key="{SalesModel>Id}" text="{SalesModel>Descricao}"/>
+            </ComboBox>
+            <!--Coluna 03 - Dados Transportadora - Cidade/Caminh�o-->
+            <core:Title text=""/>
+            <Label text="Cidade"/>
+            <Input type="Text" width="100%" placeholder="Cidade" value="{SalesModel>/CarrierCity}" editable="{SalesModel>/Changeable02}"
+              id="cidadeCarrier"/>
+            <Label text="Placa"/>
+            <Input type="Text" width="100%" placeholder="Placa" value="{SalesModel>/CarrierPlate}"
+              editable="{= ${SalesModel>/LiberaUnFre2} &amp;&amp; ${SalesModel>/Carrier}.length > 0 }" maxLength="7" id="placaCarrier"/>
+            <Label text="ANTT"/>
+            <Input type="Text" width="100%" placeholder="ANTT" value="{SalesModel>/CarrierANTT}"
+              editable="{= ${SalesModel>/LiberaUnFre2} &amp;&amp; ${SalesModel>/Carrier}.length > 0 }" id="anttCarrier"/>
+            <Label text="{i18n>regiao}"/>
+            <ComboBox selectedKey="{SalesModel>/CarrierRegion}" items="{ path: 'SalesModel>/ComboEstados'}"
+              editable="{= ${SalesModel>/LiberaUnFre2} &amp;&amp; ${SalesModel>/Carrier}.length > 0 }" id="estadosCarrier">
+              <core:Item key="{SalesModel>Id}" text="{SalesModel>Descricao}"/>
+            </ComboBox>
+          </f:content>
+        </f:SimpleForm>
+      </Panel>
+      <Panel width="auto" headerText="Itens">
+        <ScrollContainer width="100%" horizontal="true" vertical="false">
+          <Table id="List" 
+            items="{
+              path : 'SalesModel>/SalesItems', 
+              filters:[{path:'Deleted', operator:'EQ', value1:false}],
+              sorter : {path: 'Item' }
+            }" 
+            showNoData="true"
+            fixedLayout="false" width="100rem" growing="true">
+            <headerToolbar>
+              <Toolbar width="100%">
+                <content>
+                  <Label text="Material : "/>
+                  <SearchField width="200px" placeholder="Buscar Material" id="__field4" search="onSearchMaterial" maxLength="20"
+                    enabled="{SalesModel>/FinalizeVisible}"/>
+                  <Label text="Total de Itens:"/>
+                  <!-- VML Backup: level="H1" -->
+                  <Text text="{path : 'SalesModel>/SalesItems', formatter : '.formatter.totalItems'}"/>
+                  <ToolbarSpacer width="60px"/>
+                  <Label text="Valor Total da Venda:"/>
+                  <!-- VML Backup: level="H1" -->
+                  <Text id="textValorTotalVenda" text="{path : 'SalesModel>/SalesItems', formatter : '.formatter.totalPrice'}"/>
+                  <ToolbarSpacer width="60px"/>
+                  <Label text="Nível de Serviço:"/>
+                  <Text id="textNivelServico" text="{path : 'SalesModel>/NivelServ'}"/>
+                  <ToolbarSpacer width="40px"/>
+                  <Label text="Valor do Serviço:"/>
+                  <Text id="textValorServico" text="{path : 'SalesModel>/ValorServ'}"/>
+                </content>
+              </Toolbar>
+            </headerToolbar>
+            <columns>
+              <Column id="nameColumn17" demandPopin="true" minScreenWidth="Tablet" width="4%">
+                <Text text=""/>
+              </Column>
+              <Column id="nameColumn1" width="4%">
+                <Text id="nameColumnTitle" text="Item"/>
+              </Column>
+              <Column id="nameColumn2" width="5%">
+                <Text text="{i18n>codigo}"/>
+              </Column>
+              <Column id="nameColumn3" demandPopin="true" minScreenWidth="Tablet" width="12%">
+                <Text text="{i18n>descricao}"/>
+              </Column>
+              <Column id="nameColumn4" demandPopin="true" minScreenWidth="Tablet" width="8%">
+                <Text text="Estoque"/>
+              </Column>
+              <Column id="nameColumn141" demandPopin="true" minScreenWidth="Tablet" width="8%">
+                <Text text="Estoque Fisico"/>
+              </Column>
+              <Column id="nameColumn5" demandPopin="true" minScreenWidth="Tablet" width="5%">
+                <Text text="Qtde"/>
+              </Column>
+              <Column id="nameColumn6" demandPopin="true" minScreenWidth="Tablet" width="7%">
+                <Text text="UM"/>
+              </Column>
+              <Column id="nameColumn9" demandPopin="true" minScreenWidth="Tablet" width="6%">
+                <Text text="Pr. Neg. s/IPI"/>
+              </Column>
+              <Column id="nameColumn10" demandPopin="true" minScreenWidth="Tablet" width="4%">
+                <Text text="Desc.%"/>
+              </Column>
+              <Column id="nameColumn14" demandPopin="true" minScreenWidth="Tablet" width="7%">
+                <Text text="Centro"/>
+              </Column>
+              <Column id="nameColumn16" demandPopin="true" minScreenWidth="Tablet" width="3%">
+                <Text text="Item Pedido Cliente"/>
+              </Column>
+              <Column id="nameColumn15" demandPopin="true" minScreenWidth="Tablet" width="6%">
+                <Text text="Frete"/>
+              </Column>
+              <Column id="nameColumn7" demandPopin="true" minScreenWidth="Tablet" width="4%">
+                <Text text="Pr. Tabela s/IPI"/>
+              </Column>
+              <Column id="nameColumn8" demandPopin="true" minScreenWidth="Tablet" width="4%">
+                <Text text="Pr. Neg. c/IPI"/>
+              </Column>
+              <!-- <Column id="nameColumn18" demandPopin="true" minScreenWidth="Tablet" width="4%" visible="{= ${SalesModel>markup} !== 9999 }"> -->
+              <Column id="nameColumn18" demandPopin="true" minScreenWidth="Tablet" width="4%">
+                <Text text="% Markup"/>
+              </Column>
+              <Column id="nameColumn11" demandPopin="true" minScreenWidth="Tablet" width="4%">
+                <Text text="Valor tot. item"/>
+              </Column>
+              <Column id="nameColumn12" demandPopin="true" minScreenWidth="Tablet" width="4%">
+                <Text text="{i18n>precoTarget}"/>
+              </Column>
+              <Column id="nameColumn13" demandPopin="true" minScreenWidth="Tablet" width="4%">
+                <Text text="Valor ST"/>
+              </Column>
+              <Column id="nameColumnLimbo" demandPopin="true" minScreenWidth="Tablet" width="15%">
+                <Text text="Limbo"/>
+              </Column>
+              <Column id="nameColumndtconf" demandPopin="true" minScreenWidth="Tablet" width="10%">
+                <Text text="Data Confirmada"/>
+              </Column>
+              <Column id="nameColumnTipo" demandPopin="true" minScreenWidth="Tablet" width="15%">
+                <Text text="Tipo"/>
+              </Column>
+              <Column id="nameColumn172" demandPopin="true" minScreenWidth="Tablet" width="5%">
+                <Text text=""/>
+              </Column>
+            </columns>
+            <items>
+              <ColumnListItem press="onPress" type="Active">
+                <cells>
+                  <Button icon="sap-icon://delete" press="onDeleteSalesItem" enabled="{= ${SalesModel>/EditVisible} === false}" id="deleteItem"/>
+                  <ObjectNumber number="{= parseFloat(${path : 'SalesModel>Item'}) }" class="customCell"/>
+                  <ObjectNumber number="{= parseFloat(${path : 'SalesModel>Material'}) }" class="customCell"/>
+                  <Text text="{SalesModel>Descricao}" class="customMText"/>
+                  <Text text="{SalesModel>Estque}" class="customMText"/>
+                  <Text text="{SalesModel>Fisico}" class="customMText"/>
+                  <Input value="{path: 'SalesModel>Qtd'}" editable="{SalesModel>/LiberaUnFre}" class="InputStyle customCell" change="onChangeQtd" id="qtdItem"
+                    maxLength="15"/>
+                  <ComboBox class="customCell" change="onChangeQtd" selectedKey="{SalesModel>Unidade}" enabled="{SalesModel>/LiberaUnFre}"
+                    editable="{SalesModel>/LiberaUnFre}" items="{ path: 'SalesModel>UnitHelper'}" showSecondaryValues="true">
+                    <core:ListItem key="{SalesModel>Coddadomestre}" text="{SalesModel>Coddadomestre}" additionalText="{SalesModel>Textodadomestre}"/>
+                  </ComboBox>
+                  <Input id="ipi" value="{SalesModel>PrecoNegSemIPI}" type="Number" editable="{SalesModel>/LiberaUnFre}" class="InputStyle customCell"
+                    valueState="{SalesModel>PrecoNegSemIPIState}" change="onChangePrecoSemIPI" valueStateText="{SalesModel>PrecoNegSemIPIStateText}"/>
+                  <Input id="des" value="{SalesModel>DescPercentual}" type="Number" editable="{SalesModel>/LiberaUnFre}" class="InputStyle customCell"
+                    change="onChangeDesconto" valueState="{SalesModel>DescPercentualState}" valueStateText="{SalesModel>DescPercentualStateText}"/>
+                  <ComboBox class="customCell" id="comboCentro" change="onChangeQtd" selectedKey="{SalesModel>Centro}"
+                    enabled="{= ${SalesModel>/Mode} === 'Create' }" editable="{= ${SalesModel>/Mode} === 'Create' }" items="{ path: 'SalesModel>PlantHelper'}"
+                    showSecondaryValues="true">
+                    <core:ListItem key="{SalesModel>Coddadomestre}" text="{SalesModel>Coddadomestre}" additionalText="{SalesModel>Textodadomestre}"/>
+                  </ComboBox>
+                  <Input value="{SalesModel>ItemPedidoCliente}" liveChange="onLineChange" type="Number" editable="{SalesModel>/LiberaUnFre}"
+                    class="InputStyle customCell"/>
+                  <!-- VML Backup: liveChange="onLineChange" -->
+                  <ComboBox id="freteItem" class="customCell" change="onChangeQtd" selectedKey="{SalesModel>Frete}"
+                    editable="false"  items="{ path: 'SalesModel>FreightHelper'}" showSecondaryValues="true">
+                    <core:ListItem key="{SalesModel>Coddadomestre}" text="{SalesModel>Coddadomestre}" additionalText="{SalesModel>Textodadomestre}"/>
+                  </ComboBox>
+                   <ObjectNumber number="{ path: 'SalesModel>PrecoTbSemIPI', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2} }"
+                    class="customCell"/>
+                  <ObjectNumber
+                    number="{ path: 'SalesModel>PrecoNegComIPI', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2} }"
+                    class="customCell"/>
+                  <ObjectNumber id="objNumberPercMarkup" number="{ path: 'SalesModel>Markup', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2} }"
+                    class="customCell">
+                  </ObjectNumber>
+                  <ObjectNumber number="{ path: 'SalesModel>ValorTotItem', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2} }"
+                    class="customCell"/>
+                  <ObjectNumber number="{ path: 'SalesModel>PrecoTarget', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2} }"
+                    class="customCell"/>
+                  <ObjectNumber number="{ path: 'SalesModel>ValorST', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2} }"
+                    class="customCell"/>
+                  <Text text="{path: 'SalesModel>Cepok'}"/>
+                  <Text text="{path: 'SalesModel>dtconfirmada'}" class="customMText"/>                  
+                  <ComboBox class="customCell" selectedKey="{SalesModel>Tipo}"
+                    enabled="{= (${SalesModel>PermiteTipo} &amp;&amp; ${SalesModel>/LiberaUnFre}) }" 
+                    editable="{= (${SalesModel>PermiteTipo} &amp;&amp; ${SalesModel>/LiberaUnFre}) }">
+                    <core:Item key=""      text=" " />
+          <core:Item key="Reto"    text="Reto" />
+          <core:Item key="Dobrado" text="Dobrado" />
+                  </ComboBox>
+                  <Text text="" class="customMText"/>
+                </cells>
+              </ColumnListItem>
+            </items>
+          </Table>
+        </ScrollContainer>
+      </Panel>
+      <Panel width="auto" class="sapuiSmallMarginTop"></Panel>
+    </semantic:content>
+    <semantic:customFooterContent>
+      <OverflowToolbar>
+        <HBox >
+          <customData>
+            <core:CustomData key="auth" value="btnLiberarRemessa" writeToDom="true"/>
+          </customData>
+          <Button text="{i18n>liberarOvParaRemessa}" id="button-liberarovremessa" press="handleLiberarParaRemessaPress"
+            visible="{SalesModel>/FunctionsVisible}"/>
+        </HBox>
+        <HBox >
+          <customData>
+            <core:CustomData key="auth" value="btnLiberarLimbo" writeToDom="true"/>
+          </customData>
+          <Button text="{i18n>liberarCreditoRemessa}" id="button-liberarremessa" press="handleLiberarRemessaPress"
+            visible="{SalesModel>/FunctionsVisible}"/>
+        </HBox>
+        <HBox >
+          <customData>
+            <core:CustomData key="auth" value="btnLiberarLimbo" writeToDom="true"/>
+          </customData>
+          <Button text="Lib. Limbo" press="onLiberarLimbo" visible="{SalesModel>/FunctionsVisible}"/>
+        </HBox>
+        <HBox >
+          <customData>
+            <core:CustomData key="auth" value="btnLiberarCredito" writeToDom="true"/>
+          </customData>
+          <Button text="{i18n>liberarCreditoOV}" id="button-liberarcredito" press="onLiberarCredito" visible="{SalesModel>/FunctionsVisible}"/>
+        </HBox>
+        <HBox class="sapUiLargeMarginEnd">
+          <customData>
+            <core:CustomData key="auth" value="btnLiberarAntecipacao" writeToDom="true"/>
+          </customData>
+          <Button text="{i18n>liberarPagamentoAntecipado}" id="button-pagamentoAntecipado" press="handleLiberarParaRemessaPress"
+            visible="{SalesModel>/FunctionsVisible}"/>
+        </HBox>
+        <ToolbarSpacer/>
+        <ToolbarSpacer width="100px" class="sapUiLargeMarginEnd"/>
+    <HBox>
+      <customData>
+        <core:CustomData key="auth" value="btnFornecerOV" writeToDom="true"/>
+      </customData>
+      <Button text="Fornecer" press="handleFornecerOVPress" icon="sap-icon://supplier"/>
+    </HBox>
+        <HBox>         
+          <customData>
+            <core:CustomData key="auth" value="btnAlterarOV" writeToDom="true"/>
+          </customData>
+          <Button text="Alterar" visible="{SalesModel>/EditVisible}" press="onAlterarOV" icon="sap-icon://edit" tooltip="Alterar OV"/>
+        </HBox>
+        <HBox >
+          <customData>
+            <core:CustomData key="auth" value="btnFaturarOV" writeToDom="true"/>
+          </customData>
+          <Button text="Faturar" press="onEfetuarFaturamento" visible="{SalesModel>/FunctionsVisible}" icon="sap-icon://expense-report"/>
+        </HBox>
+        <HBox >
+          <customData>
+            <core:CustomData key="auth" value="btnEliminarOV" writeToDom="true"/>
+          </customData>
+          <Button id="button-eliminarov" text="Eliminar" press="handleEliminarOVPress" icon="sap-icon://delete"
+            visible="{= ${SalesModel>/Mode} === 'Change' }" tooltip="Eliminar OV"/>
+        </HBox>
+        <HBox >
+          <customData>
+            <core:CustomData key="auth" value="btnPagamento" writeToDom="true"/>
+          </customData>
+          <Button id="button-pagarov" text="Pagamento" press="onEfetuarPagamento" visible="{SalesModel>/FunctionsVisible}" tooltip="Pagamento cartão"
+            icon="sap-icon://credit-card"/>
+        </HBox>
+        <HBox >
+          <customData>
+            <core:CustomData key="auth" value="btnCalcular" writeToDom="true"/>
+          </customData>
+          <Button text="Calcular" press="onCalcular" icon="sap-icon://simulate" visible="{SalesModel>/LiberaUnFreBtn}"/>
+        </HBox>
+        <HBox >
+          <customData>
+            <core:CustomData key="auth" value="btnServico" writeToDom="true"/>
+          </customData>
+          <Button text="Atrib.Serviço" press="onServico" icon="sap-icon://simulate" visible="{SalesModel>/LiberaUnFreBtn}"/>
+        </HBox>        
+        <HBox >
+          <customData>
+            <core:CustomData key="auth" value="btnFinalizarOV" writeToDom="true"/>
+          </customData>
+          <Button text="Salvar" id="bnt-salvar" press="onFinalizar" enabled="{SalesModel>/FinalizeEnabled}" visible="{SalesModel>/FinalizeVisible}"
+            icon="sap-icon://accept" tooltip="Salvar"/>
+        </HBox>
+        <HBox>
+          <Button text="Cancelar" press="onCancelar" visible="{SalesModel>/FinalizeVisible}" icon="sap-icon://cancel"/>
+        </HBox>
+      </OverflowToolbar>
+    </semantic:customFooterContent>
+  </semantic:DetailPage>
+</mvc:View>

@@ -1,0 +1,75 @@
+<mvc:View controllerName="arcelor.controller.RelChequeMoradiaPesq" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:form="sap.ui.layout.form">
+	<App>
+		<pages>
+			<Page title=" Relatório e Indicadores – Gestão Cheque Moradia" showNavButton="true" navButtonPress="onNavBack">
+				<content>
+					<VBox class="sapUiSmallMargin">
+						<form:Form id="idForm1" editable="true">
+							<form:title>
+								<core:Title text="{i18n>paramSelecao}"/>
+							</form:title>
+							<form:layout>
+								<form:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="3" adjustLabelSpan="true" emptySpanXL="1"
+									emptySpanL="1" emptySpanM="1" emptySpanS="1" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+							</form:layout>
+							<form:formContainers>
+								<form:FormContainer>
+									<form:formElements>
+										<!-- Período do Relatório -->
+										<form:FormElement label="Data de Lançamento">
+											<form:fields>
+												<DatePicker id="idDataCriacaoDe" placeholder="{i18n>dataDe}" displayFormat="dd/MM/yyyy" class="sapUiSmallMarginBottom"/>
+												<DatePicker id="idDataCriacaoAte" placeholder="{i18n>dataAte}" displayFormat="dd/MM/yyyy" class="sapUiSmallMarginBottom"/>
+											</form:fields>
+										</form:FormElement>
+										<!-- Botão "Pesquisar" -->
+										<form:FormElement label="Ordem de venda">
+											<form:fields>
+												<Input id="salesOrderFilterFrom"/>
+												<Input id="salesOrderFilterTo"/>
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="Cheque">
+											<form:fields>
+												<Input id="checkFrom"/>
+												<Input id="checkTo"/>
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="Cpf/Cnpj">
+											<form:fields>
+												<Input id="salesCPFCNPF"/>
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="Nro. de Baixa">
+											<form:fields>
+												<Input id="salesBaixaFrom"/>
+												<Input id="salesBaixaTo"/>
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="Status">
+											<form:fields>
+												<ComboBox xmlns:sap.ui.core="sap.ui.core" id="status">
+													<items>
+														<sap.ui.core:ListItem key="P" text="Pendente" enabled="true"/>
+														<sap.ui.core:ListItem key="B" text="Baixado" enabled="true"/>
+														<sap.ui.core:ListItem key="F" text="Faturado" enabled="true"/>
+													</items>
+												</ComboBox>
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="">
+											<form:fields>
+												<Button width="20%" text="{i18n>pesquisarDesc}" press="onSearch"/>
+											</form:fields>
+										</form:FormElement>
+									</form:formElements>
+								</form:FormContainer>
+							</form:formContainers>
+						</form:Form>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

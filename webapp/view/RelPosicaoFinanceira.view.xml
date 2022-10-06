@@ -1,0 +1,266 @@
+<mvc:View 
+  xmlns:core="sap.ui.core" 
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m" 
+  xmlns:u="sap.ui.unified" 
+  xmlns:f="sap.ui.layout.form"
+  xmlns:l="sap.ui.layout" 
+  xmlns:t="sap.ui.table"
+  xmlns:fb="sap.ui.comp.filterbar"
+  xmlns:arcelor="arcelor.controls"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  controllerName="arcelor.controller.RelPosicaoFinanceira">
+ 
+	  <Page id="page" showNavButton="true"
+	    title="Relatório Posição Financeira" navButtonPress="onNavBack">
+	    <customHeader>
+	      <Bar>
+	        <contentLeft>
+	          <Button id="back" icon="sap-icon://nav-back"
+	            press="onNavBack" />
+	        </contentLeft>
+	        <contentMiddle>
+	          <Title level="H2" tooltip="{i18n>welcomeDescription}"
+	            text="Relatório Posição Financeira" />
+	        </contentMiddle>
+	        <contentRight>
+	          <Button icon="sap-icon://print" text="Imprimir" press="onImprimirPress"/>
+	          <Button icon="sap-icon://excel-attachment" text="Gerar Excel" press="exportSpreadsheet"/>
+	          <Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+	        </contentRight>
+	      </Bar>
+	    </customHeader>
+	    <content>
+	      <ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">	
+	       <!-- Carregamento dos dados mestre: Escritorio de Vendas -->
+	      <Table id="inputDadoMestre" items="{/DadoMestreSet}" visible="false" updateStarted="inicioUpdateTabela" updateFinished="fimUpdateTabela">
+	         <columns>
+	           <Column hAlign="Left">
+	             <Text text="Codconsulta"/>
+	           </Column>
+	           <Column hAlign="Left">
+	             <Text text="Coddadomestre"/>
+	           </Column>
+	           <Column hAlign="Left">
+	             <Text text="Textodadomestre"/>
+	           </Column>
+	         </columns>
+	         <items>
+	           <ColumnListItem type="Active">
+	             <cells>
+	               <Input value="{Codconsulta}"/>
+	               <Input value="{Coddadomestre}"/>
+	               <Input value="{Textodadomestre}"/>
+	             </cells>
+	           </ColumnListItem>
+	         </items>
+	       </Table>
+	       <!-- Carregamento dos dados mestre: Versão -->
+	       <Table id="inputDadoMestreVersao" items="{/DadoMestreSetPr}" visible="false">
+	         <columns>
+	           <Column hAlign="Left">
+	             <Text text="Codconsulta"/>
+	           </Column>
+	           <Column hAlign="Left">
+	             <Text text="Coddadomestre"/>
+	           </Column>
+	           <Column hAlign="Left">
+	             <Text text="Textodadomestre"/>
+	           </Column>
+	         </columns>
+	         <items>
+	           <ColumnListItem type="Active">
+	             <cells>
+	               <Input value="{Codconsulta}"/>
+	               <Input value="{Coddadomestre}"/>
+	               <Input value="{Textodadomestre}"/>
+	             </cells>
+	           </ColumnListItem>
+	         </items>
+	      </Table>    
+	      <f:SimpleForm id="SimpleFormDisplay1" editable="false"
+	        layout="ResponsiveGridLayout" title="Parâmetros de seleção"
+	        columnsL="2" columnsM="2" />
+	      <Panel class="sapUiNoContentPadding">
+	        <l:HorizontalLayout class="sapUiContentPadding" allowWrapping="true">
+	          <l:VerticalLayout class="sapUiSmallMarginEnd sapUiSmallMarginTop">
+	             <Label text="Escritório de Vendas:"/>
+	             <ComboBox width="300px" id="idComboBoxEscritVendasVen" showSecondaryValues="true" items="{/modelEscritVendasVen}"
+										loadItems="onLoadItemsCbEscritVendasVen">
+						<core:ListItem key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+				</ComboBox>             
+	          </l:VerticalLayout>
+	          
+	          <l:VerticalLayout class="sapUiSmallMarginEnd sapUiSmallMarginTop">
+	            <Label text="Intervalo de Pesquisa:" />
+	            <DateRangeSelection id="idDataCriacao" width="250px" change="handleChange" placeholder="dd/MM/yyyy - dd/MM/yyyy"/>
+	          </l:VerticalLayout>
+	          
+			<l:VerticalLayout class="sapUiSmallMarginEnd sapUiSmallMarginTop">
+				<Label text="Cliente:" />
+				<Input id="input-Cliente" type="Text" placeholder="Digite o Cliente ..." showSuggestion="true" showValueHelp="true"
+					   valueHelpRequest="handleValueHelp" width="250px" submit="handleValueHelp" suggestionItems="{/ClientesSet}" enabled="true">
+						<suggestionItems>
+								<core:Item text="{Codcliente}"/>
+						</suggestionItems>
+				</Input>				
+			</l:VerticalLayout>	                           
+	
+	          <l:VerticalLayout class="sapUiSmallMarginEnd sapUiSmallMarginTop">
+	            <Label text="" />
+	            <l:HorizontalLayout>
+	            	<Button text="Pesquisar" press="onSearch" class="sapUiSmallMarginBeginEnd"/>
+	            	<Button text="Limpar Filtros" press="onClear" />
+	            </l:HorizontalLayout>
+	          </l:VerticalLayout>         
+	        </l:HorizontalLayout>
+	      </Panel>
+	      
+	      <l:Grid class="sapUiSmallMarginBegin sapUiSmallMarginTop">
+			<l:content>
+				<Text text="Belgo Siderurgia S/A">
+					<layoutData>
+					       <l:GridData span="XL8 L8 M8 S8" />
+					</layoutData>
+				</Text>
+				<Text text="Data: {worklistView>/dataAtual}">
+					<layoutData>
+					       <l:GridData span="XL2 L2 M2 S2" />
+					</layoutData>
+				</Text>
+				<Text text="Hora: {worklistView>/horaAtual}">
+					<layoutData>
+					       <l:GridData span="XL2 L2 M2 S2" />
+					</layoutData>
+				</Text>
+				
+			</l:content>
+		 </l:Grid>
+	      
+		 <Table
+		  	id="tbPosicaoFinanceira"
+		  	items="{path: 'PosicaoFinanceira>/', sorter: {path: 'PosicaoFinanceira>Name1', group: true}, groupHeaderFactory: '.getGroupHeader'}"
+		  	sticky="HeaderToolbar,ColumnHeaders"
+		  	growing="true" growingThreshold="500"
+		  	alternateRowColors="true" 
+		  	width="140rem" 
+		  	contextualWidth="Auto" 
+		  	fixedLayout="false">
+			<columns>
+				<Column hAlign="Center" width="100px">
+					<Text text="Esc. Vendas"/>
+				</Column>	
+				<Column hAlign="Center" width="100px">
+					<Text text="Grp. Vendedores"/>
+				</Column>
+				<Column hAlign="Left" width="150px">
+					<Text text="Cliente"/>
+				</Column>
+				<Column hAlign="Left" width="300px">
+					<Text text="Razão Social"/>
+				</Column>
+				<Column hAlign="Left" width="70px">
+					<Text text="Risco"/>
+				</Column>
+				<Column hAlign="Left" width="120px">
+					<Text text="Lim. Crédito"/>
+				</Column>
+				<Column hAlign="Left" width="150px">
+					<Text text="Telefone"/>
+				</Column>
+				<Column hAlign="Center" width="100px">
+					<Text text="Estado"/>
+				</Column>
+				<Column hAlign="Left" width="200px">
+					<Text text="Cidade"/>
+				</Column>
+				<Column hAlign="Center" width="100px">
+					<Text text="Status"/>
+				</Column>
+				<Column hAlign="Left" width="100px">
+					<Text text="Tp. Documento"/>
+				</Column>
+				<Column hAlign="Left" width="150px">
+					<Text text="Documento"/>
+					</Column>
+				<Column hAlign="Left" width="70px">
+					<Text text="Item"/>
+				</Column>
+				<Column hAlign="Left" width="200px">
+					<Text text="Referência"/>
+				</Column>
+				<Column hAlign="Center" width="90px">
+					<Text text="Cond. Pagto."/>
+				</Column>
+				<Column hAlign="Center" width="100px">
+					<Text text="Razão Esp."/>
+				</Column>
+				<Column hAlign="Left" width="100px">
+					<Text text="Data Lançamento"/>
+				</Column>
+				<Column hAlign="Left" width="100px">
+					<Text text="Data Vencimento"/>
+				</Column>
+				<Column hAlign="Center" width="100px">
+					<Text text="Atraso"/>
+				</Column>
+				<Column hAlign="Right" width="150px">
+					<Text text="Valor"/>
+				</Column>
+				<Column hAlign="Left" width="100px">
+					<Text text="Banco"/>
+				</Column>
+				<Column hAlign="Left" width="100px">
+					<Text text="Nº Banco"/>
+				</Column>
+				<Column hAlign="Left" width="180px">
+					<Text text="PEFIN"/>
+				</Column>		
+			</columns>
+			
+	        <items>
+	        	<ColumnListItem>
+	            	<cells>
+	            		<Text text="{PosicaoFinanceira>Vkbur}"/>
+	            		<Text text="{PosicaoFinanceira>Vkgrp}"/>
+						<Text text="{= parseFloat(${PosicaoFinanceira>Kunnr}) }"/>
+						<Text text="{PosicaoFinanceira>Name1}"/>
+						<Text text="{PosicaoFinanceira>Ctlpc}"/>
+						<Text text="{ path: 'PosicaoFinanceira>Klimk',
+									  type: 'sap.ui.model.type.Float',                                                                     
+									  formatOptions: { groupingEnabled: true, 
+													   groupingSeparator: '.', 
+													   decimalSeparator : ',', 
+													   minFractionDigits: 2 } }"/>
+						<Text text="{PosicaoFinanceira>Telf1}"/>
+						<Text text="{PosicaoFinanceira>Regio}"/>
+						<Text text="{PosicaoFinanceira>Ort01}"/>
+						<Text text="{PosicaoFinanceira>Status}"/>
+						<Text text="{PosicaoFinanceira>Blart}"/>
+						<Text text="{PosicaoFinanceira>Belnr}"/>
+						<Text text="{= parseFloat(${PosicaoFinanceira>Buzei}) }"/>
+						<Text text="{PosicaoFinanceira>Xblnr}"/>
+						<Text text="{PosicaoFinanceira>Zterm}"/>
+						<Text text="{PosicaoFinanceira>Umskz}"/>
+						<Text text="{ path: 'PosicaoFinanceira>Budat', type:'sap.ui.model.type.Date', formatOptions : { UTC:true, style:'short'} }" />
+						<Text text="{ path: 'PosicaoFinanceira>Dtvnc', type:'sap.ui.model.type.Date', formatOptions : { UTC:true, style:'short'} }" />
+						<Text text="{PosicaoFinanceira>Atraso}"/>
+						<Text text="{ path: 'PosicaoFinanceira>Dmbtr',
+									  type: 'sap.ui.model.type.Float',                                                                     
+									  formatOptions: { groupingEnabled: true, 
+													   groupingSeparator: '.', 
+													   decimalSeparator : ',', 
+													   minFractionDigits: 2 } }"/>					
+						<Text text="{PosicaoFinanceira>Hbkid}"/>
+						<Text text="{PosicaoFinanceira>Xref3}"/>
+						<Text text="{PosicaoFinanceira>Hzuon}"/>            		
+	            		
+	            	</cells>
+	           	</ColumnListItem>
+	        </items>
+		  </Table>
+	  </ScrollContainer>      
+    </content>
+  </Page>
+				  
+</mvc:View>

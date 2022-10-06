@@ -1,0 +1,138 @@
+<mvc:View
+    controllerName="arcelor.controller.RelGrupoRes"
+    xmlns="sap.m"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:tab="sap.ui.table">
+  <App>
+    <pages>
+      <Page title="Relatório de Estoque" showNavButton="true" navButtonPress="onNavBack">
+        <customHeader>
+          <Bar>
+            <contentLeft>
+              <Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+            </contentLeft>
+            <contentMiddle>
+              <Title level="H2" text="Relatório Estoque"/>
+            </contentMiddle>
+            <contentRight>
+              <Button icon="sap-icon://print" text="Imprimir" press="onImprimirPress"/>
+              <Button icon="sap-icon://excel-attachment" text="Gerar Excel" press="exportSpreadsheet"/>
+              <Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+            </contentRight>
+          </Bar>
+        </customHeader>
+        <content>
+          <ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+            <Panel width="auto" accessibleRole="Region">
+              <HBox justifyContent="SpaceBetween">
+                <HBox>
+                  <Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+                </HBox>
+                <HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center">
+                  <Text text="" id="dataAtual"/>
+                </HBox>
+              </HBox>
+            </Panel>
+            <Table id="relatorio_grupo" growing="true" growingThreshold="500"
+                   sticky="HeaderToolbar,ColumnHeaders" items="{path: '/results'}">
+              <columns>
+                <Column >
+                  <Text text="Material"/> <!-- reswk -->
+                </Column>
+                <Column >
+                  <Text text="Descrição"/> <!-- werks -->
+                </Column>
+                <Column >
+                  <Text text="Físico"/> <!-- matkl -->
+                </Column>
+                <Column >
+                  <Text text="Disponível"/> <!-- bedat -->
+                </Column>
+                <Column >
+                  <Text text="Data"/> <!-- ebelp -->
+                </Column>
+                <Column >
+                  <Text text="Unidade"/> <!-- banfn -->
+                </Column>
+                <Column >
+                  <Text text="Grupo Merc"/> <!-- bnfpo -->
+                </Column>
+              </columns>
+              <items>
+                <ColumnListItem>
+                  <cells>
+                    <Text text="{Matnr}"/>
+                    <Text text="{Maktx}"/>
+                    <Text text="{path: 'Fisico', formatter: '.formatter.price3'}"/>
+                    <Text text="{path: 'Disponivel', formatter: '.formatter.price3'}"/>
+                    <Text text="{path: 'DataConfirmada', formatter: '.formatter.strToDataBrOneDay'}"/>
+                    <Text text="{UNIT}"/>
+                    <Text text="{Grupo_1}"/>
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>
+          </ScrollContainer>
+          <tab:Table visible="false" id="tabRelatorio" rows="{/GrupoSet/}" title="" selectionMode="None" visibleRowCount="20">
+            <tab:toolbar>
+              <Toolbar>
+                <content>
+                  <ToolbarSpacer/>
+                  <Button icon="sap-icon://excel-attachment" press="exportSpreadsheet" tooltip="{i18n>exportExcel}"/>
+                </content>
+              </Toolbar>
+            </tab:toolbar>
+            <tab:columns>
+              <tab:Column width="5em">
+                <Label text="Material"/>
+                <tab:template>
+                  <Text text="{Matnr}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="5em">
+                <Label text="Descrição"/>
+                <tab:template>
+                  <Text text="{Maktx}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="7em">
+                <Label text="Fisico"/>
+                <tab:template>
+                  <Text text="{path: 'Fisico', formatter: '.formatter.price3'}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="7em">
+                <Label text="Disponível"/>
+                <tab:template>
+             
+                  <Text text="{path: 'Disponivel', formatter: '.formatter.price3'}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="5em">
+                <Label text="Data:"/>
+                <tab:template>
+                  <Text text="{path: 'DataConfirmada', formatter: '.formatter.strToDataBrOneDay'}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="7em">
+                <Label text="Unidade"/>
+                <tab:template>
+                  <Text text="{UNIT}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="7em">
+                <Label text="Grupo"/>
+                <tab:template>
+                  <Text text="{Grupo_1}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+             
+            </tab:columns>
+          </tab:Table>
+        </content>
+      </Page>
+    </pages>
+  </App>
+</mvc:View>

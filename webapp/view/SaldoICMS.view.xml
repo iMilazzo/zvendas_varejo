@@ -1,0 +1,71 @@
+<mvc:View 
+	xmlns="sap.uxap" 
+	xmlns:f="sap.ui.layout.form" 
+	xmlns:m="sap.m" 
+	xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:fb="sap.ui.comp.filterbar"
+	controllerName="arcelor.controller.SaldoICMS">
+	<semantic:DetailPage 
+		id="page" showNavButton="true" navButtonPress="onNavBase" title="Consulta Saldo ICMS" 
+		enableScrolling="true" xmlns:semantic="sap.m.semantic" xmlns:layout="sap.ui.layout">
+		<semantic:content>
+			<fb:FilterBar search="onSearch" showFilterConfiguration="false">
+				<fb:filterItems>
+					<fb:FilterItem name="FilterPeriodFrom" label="Período de" mandatory="true">
+						<fb:control>
+							<m:MaskInput mask="99/9999" placeholderSymbol="_" id="periodFilterFrom" value="{saldoICMSModel>/periodFrom}"/>
+						</fb:control>
+					</fb:FilterItem>
+					<fb:FilterItem name="FilterPeriodTo" label="Período até" mandatory="true">
+						<fb:control>
+							<m:MaskInput mask="99/9999" placeholderSymbol="_" id="periodFilterTo" value="{saldoICMSModel>/periodTo}"/>
+						</fb:control>
+					</fb:FilterItem>
+				</fb:filterItems>
+			</fb:FilterBar>
+			<m:Table id="idReportTable" items="{ path: '/SaldoICMSSet' }" mode="None" growingScrollToLoad="true" growing="true">
+				<m:columns>
+					<m:Column>
+						<m:Label text="Período"/>
+					</m:Column>
+					<m:Column>
+						<m:Label text="Empresa"/>
+					</m:Column>
+					<m:Column>
+						<m:Label text="Filial"/>
+					</m:Column>
+					<m:Column>
+						<m:Label text="Centro"/>
+					</m:Column>
+					<m:Column>
+						<m:Label text="Valor Líquido"/>
+					</m:Column>
+					<m:Column>
+						<m:Label text="Usuário"/>
+					</m:Column>
+					<m:Column>
+						<m:Label text="Data"/>
+					</m:Column>
+					<m:Column>
+						<m:Label text="Hora"/>
+					</m:Column>
+				</m:columns>
+				<m:items>
+					<m:ColumnListItem>
+						<m:cells>
+							<m:Text text="{ path: 'Periodo', formatter: '.formatPeriod' }"/>
+							<m:Text text="{Empresa}"/>
+							<m:Text text="{Filial}"/>
+							<m:Text text="{Centro}"/>
+							<m:Text text="{path: 'Saldo', formatter: '.formatter.price' }"/>
+							<m:Text text="{Usuario}"/>
+							<m:Text text="{ path: 'Data', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy', UTC: true }}"/>
+							<m:Text text="{ path: 'Hora', formatter: '.formatTime' }"/>
+						</m:cells>
+					</m:ColumnListItem>
+				</m:items>
+			</m:Table>
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>

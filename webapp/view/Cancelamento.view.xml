@@ -1,0 +1,10 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="arcelor.controller.Cancelamento">
+	<App>
+		<pages>
+			<Page title="Troca, Cancelamentos e Devoluções" showNavButton="true">
+				<content/>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

@@ -1,0 +1,76 @@
+<mvc:View
+  controllerName="arcelor.controller.ClienteconsultaResF"
+  xmlns="sap.m"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:core="sap.ui.core"
+  xmlns:mvc="sap.ui.core.mvc" >
+  <App>
+    <pages>
+      <Page title="Administracao de Credito" showNavButton="true" navButtonPress="onNavBack">
+        <customHeader>
+          <Bar>
+            <contentLeft>
+              <Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+            </contentLeft>
+            <contentMiddle>
+              <Title level="H2" text="Administracao de Crédito"/>
+            </contentMiddle>
+            <contentRight>
+              <Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+            </contentRight>
+          </Bar>
+        </customHeader>
+        <content>
+            <!-- Logotipo -->
+            <Panel width="auto" accessibleRole="Region">
+              <HBox justifyContent="SpaceBetween">
+                <HBox>
+                  <Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+                </HBox>
+                <HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center">
+                  <Text text="" id="dataAtual"/>
+                </HBox>
+              </HBox>
+            </Panel>
+            <!-- 1a Parte: ACSS -->
+            <List
+              id="tblAcss"
+              items="{path: 'acss>/results'}"
+              growing="true"
+              growingThreshold="5000"
+              growingScrollToLoad="false">
+              <headerToolbar>
+                <OverflowToolbar>
+                  <Title text="Área de Crédito ArcelorMittal (ACSS)" class="monoText14" />
+                </OverflowToolbar>
+              </headerToolbar>
+              <CustomListItem>
+                <Text text="{acss>linha}" renderWhitespace="true" class="monoText12"/>
+              </CustomListItem>
+            </List>
+
+            <!-- Space -->
+            <Panel headerText="" BackgroundDesign="Transparent"/>
+
+            <!-- 2a Parte: ACMD -->
+            <List
+              id="tblAcmd"
+              items="{path: 'acmd>/results'}"
+              headerText=""
+              growing="true"
+              growingThreshold="5000"
+              growingScrollToLoad="false">
+              <headerToolbar>
+                <OverflowToolbar>
+                  <Title text="Área de Crédito AMCard (ACMD)" class="monoText14" />
+                </OverflowToolbar>
+              </headerToolbar>
+              <CustomListItem>
+                <Text text="{acmd>linha}" renderWhitespace="true" class="monoText12"/>
+              </CustomListItem>
+            </List>
+        </content>
+      </Page>
+    </pages>
+  </App>
+</mvc:View>

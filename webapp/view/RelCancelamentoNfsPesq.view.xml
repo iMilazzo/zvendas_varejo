@@ -1,0 +1,39 @@
+<mvc:View controllerName="arcelor.controller.RelCancelamentoNfsPesq" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:form="sap.ui.layout.form">
+	<App>
+		<pages>
+			<Page title="{i18n>relCancelamentoNfsPesqTitle}" showNavButton="true" navButtonPress="onNavBack">
+				<content>
+					<VBox class="sapUiSmallMargin">
+						<form:Form id="idForm1" editable="true">
+							<form:title>
+								<core:Title text="{i18n>paramSelecao}"/>
+							</form:title>
+							<form:layout>
+								<form:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="3" adjustLabelSpan="true" emptySpanXL="1"
+									emptySpanL="1" emptySpanM="1" emptySpanS="1" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+							</form:layout>
+							<form:formContainers>
+								<form:FormContainer>
+									<form:formElements>
+										<form:FormElement label="{i18n>periodoRelatorio}">
+											<form:fields>
+												<DatePicker id="idDataDe" placeholder="{i18n>dataDe}" displayFormat="short" class="sapUiSmallMarginBottom"/>
+												<DatePicker id="idDataAte" placeholder="{i18n>dataAte}" displayFormat="short" class="sapUiSmallMarginBottom"/>
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="">
+											<form:fields>
+												<Button width="20%" text="{i18n>pesquisarDesc}" press="onSearch"/>
+											</form:fields>
+										</form:FormElement>
+									</form:formElements>
+								</form:FormContainer>
+							</form:formContainers>
+						</form:Form>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

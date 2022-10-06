@@ -1,0 +1,152 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core"
+	controllerName="arcelor.controller.ClientesDetalhe">
+	<VBox class="sapUiSmallMargin">
+		<f:SimpleForm id="SimpleFormDisplay480_121201" editable="false" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="12"
+			title="Dados Pessoais" adjustLabelSpan="false" emptySpanL="0" emptySpanM="0" columnsL="3" columnsM="3">
+			<f:content>
+				<core:Title text=""/>
+				<Label text="CPF/CNPJ"/>
+				<Text text="{Cpf}{Cnpj}"/>
+				<Label text="{i18n>codigoCliente}"/>
+				<Text text="{Codcliente}"/>
+				<Label text="Rua"/>
+				<Text text="{Endereco}"/>
+				<Label text="Bairro"/>
+				<Text text="{Bairro}"/>
+				<Label text="Cep"/>
+				<Text text="{Cep}"/>
+				<Label text="{i18n>classificacao}"/>
+				<Text text="{Classifcli}"/>
+				<Label text="CNAE"/>
+				<Text text=" "/>
+				<core:Title text=""/>
+				<Label text=" "/>
+				<Text text=" "/>
+				<Label text="Nome"/>
+				<Text text="{Nome}"/>
+				<Label text="Numero"/>
+				<Text text="{Numero}"/>
+				<Label text="Cidade"/>
+				<Text text="{Cidade}"/>
+				<Label text=" "/>
+				<Text text=" "/>
+				<Label text="Origem"/>
+				<Text text="{Origem}"/>
+				<core:Title text=""/>
+				<Label text="Data do Cadastro"/>
+				<Text id="idDateToday" text="08/11/2018"/>
+				<Label text="Matriz"/>
+				<Text text="{Clientematriz}"/>
+				<Label text="Complemento"/>
+				<Text text="{Complemento}"/>
+				<Label text="Estado"/>
+				<Text text="{Regiao}"/>
+				<Label text=" "/>
+				<Text text=" "/>
+				<Label text="Setor Industrial"/>
+				<Text text="{Setoratividade}"/>
+			</f:content>
+		</f:SimpleForm>
+		<f:SimpleForm id="SimpleFormDisplay480_121202" editable="false" layout="ResponsiveGridLayout" title="{ultimaCompraLimite}" labelSpanL="4"
+			labelSpanM="12" adjustLabelSpan="false" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
+			<f:content>
+				<core:Title text=""/>
+				<HBox>
+					<core:Icon src="sap-icon://cart" size="2.25rem"/>
+				</HBox>
+				<Label text="{i18n>dataUltimaCompra}"/>
+				<Text text="{path: 'Dtultcompra', type: 'sap.ui.model.type.Date', formatOptions: {UTC:true, pattern: 'dd/MM/yyyy'} }"/>
+				<Label text="{i18n>ultimaOrdemVenda}"/>
+				<Link text="375883" press="handleLinkPress"/>
+				<core:Title text=""/>
+				<HBox>
+					<core:Icon src="sap-icon://official-service" size="2.25rem"/>
+				</HBox>
+				<Label text="{i18n>limiteDeCredito}"/>
+				<Text text="R$ { path: 'Limitecreditocli', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 10, scale: 2} }"/>
+				<Label text="Limite AM Card"/>
+				<Text text="R$ { path: 'Limitecreditocard', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 10, scale: 2} }"/>
+			</f:content>
+		</f:SimpleForm>
+		<f:SimpleForm id="SimpleFormDisplay480_121203" editable="false" layout="ResponsiveGridLayout" title="{i18n>areasDeVendas}" labelSpanL="4"
+			labelSpanM="12" adjustLabelSpan="false" emptySpanL="0" emptySpanM="0" columnsL="3" columnsM="3">
+			<f:content>
+				<core:Title text=""/>
+				<Label text="{i18n>organizacao}"/>
+				<Select forceSelection="false" autoAdjustWidth="true">
+					<core:Item key="0" text="{i18n>organizacao} 1"/>
+					<core:Item key="1" text="{i18n>organizacao} 2"/>
+					<core:Item key="2" text="{i18n>organizacao} 3"/>
+				</Select>
+				<core:Title text=""/>
+				<Label text="Canal"/>
+				<Select forceSelection="false" autoAdjustWidth="true">
+					<core:Item key="0" text="Canal 1"/>
+					<core:Item key="1" text="Canal 2"/>
+					<core:Item key="2" text="Canal 3"/>
+				</Select>
+				<core:Title text=""/>
+				<Label text="Setor de Atividade"/>
+				<Select forceSelection="false" autoAdjustWidth="true">
+					<core:Item key="0" text="Setor 1"/>
+					<core:Item key="1" text="Setor 2"/>
+					<core:Item key="2" text="Setor 3"/>
+				</Select>
+			</f:content>
+		</f:SimpleForm>
+		<f:SimpleForm id="SimpleFormDisplay480_121204" editable="false" layout="ResponsiveGridLayout" title="Contatos" labelSpanL="4"
+			labelSpanM="12" adjustLabelSpan="false" emptySpanL="0" emptySpanM="0" columnsL="3" columnsM="3">
+			<f:content>
+				<Table id="ListContatos" items="{/modelData}" showNoData="true" fixedLayout="false" width="auto" growing="true">
+					<columns>
+						<Column id="nameColumn1" hAlign="Left">
+							<Text id="nameColumnTitle" text="Nome"/>
+						</Column>
+						<Column id="nameColumn2" hAlign="Left">
+							<Text text="Telefone"/>
+						</Column>
+						<Column id="nameColumn4" hAlign="Left">
+							<Text text="Email"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem press="onPress" type="Active">
+							<cells>
+								<Text text="{Nome}"/>
+								<Text text="{Telefone}"/>
+								<Text text="{Email}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</f:content>
+		</f:SimpleForm>
+		<f:SimpleForm id="SimpleFormDisplay480_121206" editable="false" layout="ResponsiveGridLayout" title="Vincular Cliente" labelSpanL="4"
+			labelSpanM="12" adjustLabelSpan="false" emptySpanL="0" emptySpanM="0" columnsL="3" columnsM="3">
+			<f:content>
+				<Table id="ListVincularClientes" items="{/modelData}" showNoData="true" fixedLayout="false" width="auto" growing="true">
+					<columns>
+						<Column id="nameColumn10" hAlign="Left">
+							<Text id="nameColumnTitle1" text="Recebedor Mercadoria"/>
+						</Column>
+						<Column id="nameColumn11" hAlign="Left">
+							<Text text="{i18n>codigo}"/>
+						</Column>
+						<Column id="nameColumn12" hAlign="Left">
+							<Text text="Recebedor"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem press="onPress" type="Active">
+							<cells>
+								<Text text="{Nome}"/>
+								<Text text="{Telefone}"/>
+								<Text text="{Email}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</f:content>
+		</f:SimpleForm>
+	</VBox>
+</core:FragmentDefinition>

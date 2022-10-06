@@ -1,0 +1,165 @@
+<mvc:View controllerName="arcelor.controller.RelTabelaPrecoPesq" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:form="sap.ui.layout.form">
+  <App>
+    <pages>
+      <Page title="{i18n>relTabelaPrecoPesqTitle}" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+          <!-- Carregamento dos dados mestre: Centro, Grupo de Material, Canal de Distribuição, Setor de Atividade SD -->
+          <Table id="inputDadoMestre" items="{/DadoMestreSet}" visible="false" updateStarted="inicioUpdateTabela" updateFinished="fimUpdateTabela">
+            <columns>
+              <Column hAlign="Left">
+                <Text text="Codconsulta"/>
+              </Column>
+              <Column hAlign="Left">
+                <Text text="Coddadomestre"/>
+              </Column>
+              <Column hAlign="Left">
+                <Text text="Textodadomestre"/>
+              </Column>
+            </columns>
+            <items>
+              <ColumnListItem type="Active">
+                <cells>
+                  <Input value="{Codconsulta}"/>
+                  <Input value="{Coddadomestre}"/>
+                  <Input value="{Textodadomestre}"/>
+                </cells>
+              </ColumnListItem>
+            </items>
+          </Table>
+          <!-- Carregamento dos dados mestre:
+            Versão -->
+          <Table id="inputDadoMestreVersao" items="{/DadoMestreSetPr}" visible="false">
+            <columns>
+              <Column hAlign="Left">
+                <Text text="Codconsulta"/>
+              </Column>
+              <Column hAlign="Left">
+                <Text text="Coddadomestre"/>
+              </Column>
+              <Column hAlign="Left">
+                <Text text="Textodadomestre"/>
+              </Column>
+            </columns>
+            <items>
+              <ColumnListItem type="Active">
+                <cells>
+                  <Input value="{Codconsulta}"/>
+                  <Input value="{Coddadomestre}"/>
+                  <Input value="{Textodadomestre}"/>
+                </cells>
+              </ColumnListItem>
+            </items>
+          </Table>
+          <VBox class="sapUiSmallMargin">
+            <form:Form id="idForm1" editable="true">
+              <form:title>
+                <core:Title text="{i18n>paramSelecao}"/>
+              </form:title>
+              <form:layout>
+                <form:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="3" adjustLabelSpan="true" emptySpanXL="1"
+                  emptySpanL="1" emptySpanM="1" emptySpanS="1" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+              </form:layout>
+              <form:formContainers>
+                <form:FormContainer>
+                  <form:formElements>
+                    <!-- Centro -->
+                    <form:FormElement label="{i18n>centro}">
+                      <form:fields>
+                        <ComboBox id="idComboBoxCentro" showSecondaryValues="true" items="{/modelCentro}" change="onLoadItemsCbVersao"
+                          loadItems="onLoadItemsCbCentro">
+                          <core:ListItem key="{Coddadomestre}" text="{Textodadomestre}"/>
+                        </ComboBox>
+                      </form:fields>
+                    </form:FormElement>
+                    <!-- Versão -->
+                    <form:FormElement label="{i18n>versao}">
+                      <form:fields>
+                        <ComboBox id="idComboBoxVersao" showSecondaryValues="true" items="{/modelVersao}">
+                          <core:ListItem key="{Coddadomestre} " text="{Coddadomestre} "/>
+                        </ComboBox>
+                      </form:fields>
+                    </form:FormElement>
+                    <!-- Grupo de Materiais -->
+                    <form:FormElement label="{i18n>grupoMateriais}">
+                      <form:fields>
+                        <ComboBox id="idComboBoxGrupoMateriaisDe" placeholder="{i18n>de}" showSecondaryValues="true" items="{/modelGrupoMateriais}"
+                          loadItems="onLoadItemsCbGrupoMateriais">
+                          <core:ListItem key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+                        </ComboBox>
+                      </form:fields>
+                      <form:fields>
+                        <ComboBox id="idComboBoxGrupoMateriaisAte" placeholder="{i18n>ate}" showSecondaryValues="true" items="{/modelGrupoMateriais}"
+                          loadItems="onLoadItemsCbGrupoMateriais">
+                          <core:ListItem key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+                        </ComboBox>
+                      </form:fields>
+                    </form:FormElement>
+                    <!-- Canal de Distribuição -->
+                    <form:FormElement label="{i18n>canalDistribuicao}">
+                      <form:fields>
+                        <ComboBox id="idComboBoxCanalDistrDe" placeholder="{i18n>de}" showSecondaryValues="true" items="{/modelCanalDistr}"
+                          loadItems="onLoadItemsCbCanalDistr">
+                          <core:ListItem key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+                        </ComboBox>
+                      </form:fields>
+                      <form:fields>
+                        <ComboBox id="idComboBoxCanalDistrAte" placeholder="{i18n>ate}" showSecondaryValues="true" items="{/modelCanalDistr}"
+                          loadItems="onLoadItemsCbCanalDistr">
+                          <core:ListItem key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+                        </ComboBox>
+                      </form:fields>
+                    </form:FormElement>
+                    <!-- Setor de Atividade SD -->
+                    <form:FormElement label="{i18n>setorAtiv}">
+                      <form:fields>
+                        <ComboBox id="idComboBoxSetorAtivSdDe" placeholder="{i18n>de}" showSecondaryValues="true" items="{/modelSetorAtivSd}"
+                          loadItems="onLoadItemsCbSetorAtivSd">
+                          <core:ListItem key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+                        </ComboBox>
+                      </form:fields>
+                      <form:fields>
+                        <ComboBox id="idComboBoxSetorAtivSdAte" placeholder="{i18n>ate}" showSecondaryValues="true" items="{/modelSetorAtivSd}"
+                          loadItems="onLoadItemsCbSetorAtivSd">
+                          <core:ListItem key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+                        </ComboBox>
+                      </form:fields>
+                    </form:FormElement>
+                    <!-- Escritório de Vendas -->
+                    <form:FormElement label="{i18n>escritVendas}">
+                      <form:fields>
+                        <ComboBox id="idCboEscritorioDe" placeholder="{i18n>de}" items="{/modelEV}">
+                          <core:ListItem key="{Coddadomestre}" text="{Textodadomestre}"/>
+                        </ComboBox>
+                      </form:fields>
+                      <form:fields>
+                        <ComboBox id="idCboEscritorioAte" placeholder="{i18n>ate}" items="{/modelEV}">
+                          <core:ListItem key="{Coddadomestre}" text="{Textodadomestre}"/>
+                        </ComboBox>
+                      </form:fields>
+                    </form:FormElement>
+                    <!-- Impostos -->
+                    <form:FormElement label="{i18n>impostos}">
+                      <RadioButtonGroup columns="3" width="100%" class="sapUiMediumMarginBottom">
+                        <buttons>
+                          <RadioButton id="RB1-1" text="{i18n>comIPI}" enabled="true" editable="true"/>
+                          <RadioButton id="RB1-2" text="{i18n>semIPI}" enabled="true" editable="true"/>
+                        </buttons>
+                      </RadioButtonGroup>
+                    </form:FormElement>
+                    <!-- Botão "Pesquisar" -->
+                    <form:FormElement label="">
+                      <form:fields>
+                        <Button width="20%" text="{i18n>pesquisarDesc}" press="onSearch"/>
+                      </form:fields>
+                    </form:FormElement>
+                  </form:formElements>
+                </form:FormContainer>
+              </form:formContainers>
+            </form:Form>
+          </VBox>
+        </content>
+      </Page>
+    </pages>
+  </App>
+</mvc:View>

@@ -1,0 +1,50 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<!-- VML Backup: fixedLayout="false" width="auto" -->
+<TableSelectDialog id="ListProdutos" noDataText="No Material Found" title="Buscar Material" search="handleSearchMaterial"
+	confirm="handleCloseMaterial" cancel="handleCloseMaterial" growing="true"
+	items="{ path : '/ProdutosSet', sorter : { path : 'Descrprod', descending : false } }">
+	<ColumnListItem>
+		<cells>
+			<ObjectNumber number="{= parseFloat(${Codproduto}) }"/>
+			<Text text="{Descrprod}"/>
+			<Text text="{Loja}"/>
+			<ObjectNumber number="{ path: 'Estoque', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 10, scale: 3} }"/>
+			<ObjectNumber
+				number="{ path: 'Fisico',formatter : '.toFloat', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 10, scale: 3} }"/>
+			<ObjectNumber number="{ path: 'Precodezx', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 10, scale: 3} }"/>
+		</cells>
+	</ColumnListItem>
+	<columns>
+		<Column width="5em" hAlign="Left">
+			<header>
+				<Text text="{Código}"/>
+			</header>
+		</Column>
+		<Column hAlign="Left" width="25em">
+			<header>
+				<Text text="Material"/>
+			</header>
+		</Column>
+		<Column hAlign="Left" width="5em">
+			<header>
+				<Text text="Centro"/>
+			</header>
+		</Column>
+		<Column hAlign="Left" width="8em">
+			<header>
+				<Text text="Estoque"/>
+			</header>
+		</Column>
+		<Column hAlign="Left" width="8em">
+			<header>
+				<Text text="Estoque Físico"/>
+			</header>
+		</Column>
+		<Column hAlign="Left" width="8em">
+			<header>
+				<Text text="Preço"/>
+			</header>
+		</Column>
+	</columns>
+</TableSelectDialog>
+</core:FragmentDefinition>

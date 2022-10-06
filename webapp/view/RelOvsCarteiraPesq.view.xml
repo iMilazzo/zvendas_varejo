@@ -1,0 +1,130 @@
+<mvc:View controllerName="arcelor.controller.RelOvsCarteiraPesq" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:form="sap.ui.layout.form">
+	<App>
+		<pages>
+			<Page title="{i18n>relOvsCarteiraPesqTitle}" showNavButton="true" navButtonPress="onNavBack">
+				<content>
+					<!-- Carregamento dos dados mestre: Rotas -->
+					<Table id="inputDadoMestre" items="{/DadoMestreSet}" visible="false" updateStarted="inicioUpdateTabela" updateFinished="fimUpdateTabela">
+						<columns>
+							<Column hAlign="Left">
+								<Text text="Codconsulta"/>
+							</Column>
+							<Column hAlign="Left">
+								<Text text="Coddadomestre"/>
+							</Column>
+							<Column hAlign="Left">
+								<Text text="Textodadomestre"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem type="Active">
+								<cells>
+									<Input value="{Codconsulta}"/>
+									<Input value="{Coddadomestre}"/>
+									<Input value="{Textodadomestre}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+					<VBox class="sapUiSmallMargin" width="80%">
+						<form:Form id="idForm1" editable="true">
+							<form:title>
+								<core:Title text="{i18n>paramSelecao}"/>
+							</form:title>
+							<form:layout>
+								<form:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="3" adjustLabelSpan="true" emptySpanXL="1"
+									emptySpanL="1" emptySpanM="1" emptySpanS="1" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+							</form:layout>
+							<form:formContainers>
+								<form:FormContainer>
+									<form:formElements>
+										<!-- Número da ordem -->
+										<form:FormElement label="{i18n>docVendas}">
+											<form:fields>
+												<Input id="idNumOrdem" type="Text"/>
+											</form:fields>
+										</form:FormElement>
+										<!-- Data da remessa -->
+										<form:FormElement label="{i18n>dataRemessa}">
+											<form:fields>
+												<DatePicker id="idDataDe" placeholder="{i18n>dataDe}" displayFormat="short" />
+												<DatePicker id="idDataAte" placeholder="{i18n>dataAte}" displayFormat="short" />
+											</form:fields>
+										</form:FormElement>
+										<!-- Criacao -->
+										<form:FormElement label="{i18n>erdat}">
+											<form:fields>
+												<DatePicker id="idDataDeCria" placeholder="{i18n>dataDe}" displayFormat="short" />
+												<DatePicker id="idDataAteCria" placeholder="{i18n>dataAte}" displayFormat="short" />
+											</form:fields>
+										</form:FormElement>
+										<!-- Cliente -->
+										<form:FormElement label="{i18n>clienteDesc}">
+											<form:fields>
+												<Input id="idCodCliente" type="Text" placeholder="{i18n>pesqCodCliNomeCnpjCpf}" showSuggestion="true" startSuggestion="3"
+													showTableSuggestionValueHelp="false" suggest="handleSuggest" suggestionRows="{/ClientesSet}">
+													<suggestionColumns>
+														<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+															<Label text="{i18n>codClienteDesc}"/>
+														</Column>
+														<Column hAlign="Center" popinDisplay="Inline" demandPopin="true">
+															<Label text="{i18n>nomeDesc}"/>
+														</Column>
+														<Column hAlign="Center" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+															<Label text="{i18n>cnpjDesc}"/>
+														</Column>
+														<Column hAlign="End" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+															<Label text="{i18n>cpfDesc}"/>
+														</Column>
+													</suggestionColumns>
+													<suggestionRows>
+														<ColumnListItem>
+															<cells>
+																<Label text="{Codcliente}"/>
+																<Label text="{Nome}"/>
+																<Label text="{Cnpj}"/>
+																<Label text="{Cpf}"/>
+															</cells>
+														</ColumnListItem>
+													</suggestionRows>
+												</Input>
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="{i18n>rota}">
+											<form:fields>
+												<ComboBox id="idComboBoxRotas" showSecondaryValues="true" items="{/modelRotas}" loadItems="onLoadItemsCbRotas">
+													<core:ListItem key="{Coddadomestre}" text="{Textodadomestre}"/>
+												</ComboBox>
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label=" ">
+											<form:fields>
+												<RadioButtonGroup
+													id="idTipoRel"
+													columns="3">
+													<buttons>
+														<RadioButton id="idDadosGerais" text="Dados gerais" />
+														<RadioButton id="idResumido" text="Resumido" />
+														<RadioButton id="idNaoImpressos" text="Resumido não impressos" />
+													</buttons>
+												</RadioButtonGroup>
+											</form:fields>
+										</form:FormElement>										
+										
+										<!-- Botão "Pesquisar" -->
+										<form:FormElement label="">
+											<form:fields>
+												<Button width="20%" text="{i18n>pesquisarDesc}" press="onSearch"/>
+											</form:fields>
+										</form:FormElement>
+									</form:formElements>
+								</form:FormContainer>
+							</form:formContainers>
+						</form:Form>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

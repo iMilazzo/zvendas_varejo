@@ -1,0 +1,59 @@
+<core:FragmentDefinition 
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout" 
+	xmlns:f="sap.ui.layout.form" 
+	xmlns:core="sap.ui.core">
+	<Dialog title="Fornecimentos da ov">
+		<content>
+			<Table
+				items="{view>/}"
+			    width="100%">
+				<columns>
+					<Column>
+						<Text text="Documento de Vendas"/>
+					</Column>
+							 
+					<Column>
+						<Text text="Item Documento de Vendas" />
+					</Column>
+
+					<Column>						
+						<Text text="Fornecimento" />						
+					</Column>
+					
+					<Column>						
+						<Text text="Item Fornecimento" />						
+					</Column>
+					
+					<Column hAlign="Center">						
+						<Text text="Quantidade" />						
+					</Column>
+					
+					<Column hAlign="Center">						
+						<Text text="Unidade de Medida" />						
+					</Column>																			
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{view>Vbeln}"/>
+							<Text text="{view>Posnr}"/>
+							<Text text="{view>VbelnVl}"/>
+							<Text text="{view>PosnrVl}"/>
+							<Text text="{path:'view>Rfmng',type:'sap.ui.model.type.Float', formatter: '.formatQtdPeso'}" />
+							<Text text="{view>Meins}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			
+			<FlexBox alignItems="Center" justifyContent="Center">
+				<items>
+					<Button text="Prossegir" visible="true" press="prosseguirDialogFornecimentoOV"/>
+					<Button text="Cancelar" visible="true" press="cancelarDialogFornecimentoOV"/>				
+				</items>
+			</FlexBox>				
+		</content>
+		
+	</Dialog>
+</core:FragmentDefinition>

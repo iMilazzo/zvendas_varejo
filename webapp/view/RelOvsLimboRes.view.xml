@@ -1,0 +1,221 @@
+<mvc:View controllerName="arcelor.controller.RelOvsLimboRes" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:tab="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="{i18n>relOvsLimboResTitle}" showNavButton="true" navButtonPress="onNavBack">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" text="{i18n>relOvsLimboResTitle}"/>
+						</contentMiddle>
+						<contentRight>
+							<Button icon="sap-icon://print" text="Imprimir" press="onImprimirPress"/>
+							<Button icon="sap-icon://excel-attachment" text="Gerar Excel" press="exportSpreadsheet"/>
+							<Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+						<Panel width="auto" accessibleRole="Region">
+							<HBox justifyContent="SpaceBetween">
+								<HBox>
+									<Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+								</HBox>
+								<HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center">
+									<Text text="" id="dataAtual"/>
+								</HBox>
+							</HBox>
+						</Panel>
+						<Table id="tabela_relatorio" growing="true" growingThreshold="1000" sticky="HeaderToolbar,ColumnHeaders" items="{path: '/results'}"
+							fixedLayout="false">
+							<columns>
+								<Column>
+									<Text text="{i18n>vbeln}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>auart}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>kunnr}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>name1}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>matnr}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>arktx}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>vrkme}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="Preço Liq." wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="Preço Com Imp." wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>erdat}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>werks}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="Escritório Vend" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="Desc.Escritório Vend." wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="Vendedor" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="Desc.Vendedor" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>vtweg}" wrapping="false"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{Vbeln}" wrapping="false"/>
+										<Text text="{Auart}" wrapping="false"/>
+										<Text text="{Kunnr}" wrapping="false"/>
+										<Text text="{Name1}" wrapping="true"/>
+										<Text text="{Matnr}" wrapping="false"/>
+										<Text text="{Arktx}" wrapping="true"/>
+										<Text text="{Vrkme}" wrapping="false"/>
+										<Text text="{path: 'Netwr', formatter: '.formatter.price'}" wrapping="false"/>
+										<Text text="{path: 'Netpr', formatter: '.formatter.price'}" wrapping="false"/>
+										<Text text="{ path: 'Erdat', formatter: '.formatter.strToDataBrOneDay' }" wrapping="false"/>
+										<Text text="{WerksTxt}" wrapping="false"/>
+										<Text text="{Vkbur}" wrapping="false"/>
+										<Text text="{VkburTxt}" wrapping="false"/>
+										<Text text="{Vkgrp}" wrapping="false"/>
+										<Text text="{VkgrpTxt}" wrapping="false"/>
+										<Text text="{Vtweg}" wrapping="false"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</ScrollContainer>
+					<tab:Table id="tabRelatorio" rows="{/RelOvsLimboSet}" visible="false" title="" selectionMode="None" visibleRowCount="20">
+						<tab:toolbar>
+							<Toolbar>
+								<content>
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://excel-attachment" press="exportSpreadsheet" tooltip="{i18n>exportExcel}"/>
+								</content>
+							</Toolbar>
+						</tab:toolbar>
+						<tab:columns>
+							<tab:Column width="11rem">
+								<Label text="{i18n>vbeln}" wrapping="false"/>
+								<tab:template>
+									<Text text="{Vbeln}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>auart}" wrapping="false"/>
+								<tab:template>
+									<Text text="{Auart}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>kunnr}" wrapping="false"/>
+								<tab:template>
+									<Text text="{Kunnr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>name1}" wrapping="false"/>
+								<tab:template>
+									<Text text="{Name1}" wrapping="true"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>matnr}" wrapping="false"/>
+								<tab:template>
+									<Text text="{Matnr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>arktx}" wrapping="false"/>
+								<tab:template>
+									<Text text="{Arktx}" wrapping="true"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>vrkme}" wrapping="false"/>
+								<tab:template>
+									<Text text="{Vrkme}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="Preço Liq." wrapping="false"/>
+								<tab:template>
+									<Text text="{Netwr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="Preço Com Imp." wrapping="false"/>
+								<tab:template>
+									<Text text="{Netpr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>erdat}" wrapping="false"/>
+								<tab:template>
+									<Text text="{Erdat}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>werks}" wrapping="false"/>
+								<tab:template>
+									<Text text="{Werks}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>vkbur}" wrapping="false"/>
+								<tab:template>
+									<Text text="{Vkbur}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="Desc.Escritório Vend." wrapping="false"/>
+								<tab:template>
+									<Text text="{VkburTxt}" wrapping="true"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>vkgrp}" wrapping="false"/>
+								<tab:template>
+									<Text text="{Vkgrp}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="Desc.Vendedor" wrapping="false"/>
+								<tab:template>
+									<Text text="{VkgrpTxt}" wrapping="true"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>vtweg}" wrapping="false"/>
+								<tab:template>
+									<Text text="{Vtweg}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+						</tab:columns>
+					</tab:Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

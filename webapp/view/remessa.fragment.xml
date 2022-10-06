@@ -1,0 +1,37 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog title="Fluxo de documentos da ov" contentHeight="30%" contentWidth="50%">
+		<content>
+			<Table id="idProductsTable" items="{ path: '/' }">
+				<columns>
+					<Column hAlign="Left" width="25%">
+						<Text text="Ordem de Venda"/>
+					</Column>
+					<Column hAlign="Left" width="25%">
+						<Text text="Fornecimento"/>
+					</Column>
+					<Column hAlign="Left" width="25%">
+						<Text text="Fatura"/>
+					</Column>
+					<Column hAlign="Left" width="25%">
+						<Text text="Nota Fiscal"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem press="onPress" class="statusUIIcon">
+						<cells>
+							<ObjectIdentifier title="{ov}" titleActive="true" titlePress="onSalesOrderFrag"/>
+							<Text text="{fornecimento}"/>
+							<Text text="{fatura}"/>
+							<ObjectIdentifier title="{nf}" titleActive="true" titlePress="onNotaFiscalFrag"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			<FlexBox alignItems="Center" justifyContent="Center">
+				<items>
+					<Button text="Fechar" visible="true" press="handleFecharPress"/>
+				</items>
+			</FlexBox>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

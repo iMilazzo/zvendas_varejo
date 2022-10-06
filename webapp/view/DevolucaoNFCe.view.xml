@@ -1,0 +1,40 @@
+<mvc:View 
+	xmlns="sap.uxap"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:m="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc" controllerName="arcelor.controller.DevolucaoNFCe">
+	<semantic:DetailPage id="page" showNavButton="true" navButtonPress="onNavBase" title="Devolucao NFC-e" enableScrolling="true" xmlns:semantic="sap.m.semantic" xmlns:layout="sap.ui.layout">
+		<semantic:content>
+			<m:VBox class="sapUiSmallMargin">
+				<f:Form editable="true">
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="Número de NFC-e">
+									<f:fields>
+										<m:Input id="fldNumNFCe" value="{devolucaoNFCe>/ordemVenda}"></m:Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Motivo">
+									<f:fields>
+										<m:Select
+											forceSelection="false"
+											selectedKey="{devolucaoNFCe>/motivo}"
+											items="{ path: 'devolucaoNFCe>/motivos' }">
+											<core:Item key="{devolucaoNFCe>key}" text="{devolucaoNFCe>text}" />
+										</m:Select>
+										<m:Button text="Prosseguir" type="Default" iconFirst="true" width="auto" press="onDevolucaoNFCe" iconDensityAware="false"/>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+			</m:VBox>
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>

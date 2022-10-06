@@ -1,0 +1,177 @@
+<mvc:View controllerName="arcelor.controller.PainelRelatorios" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:core="sap.ui.core"
+  xmlns:mvc="sap.ui.core.mvc" xmlns:c="arcelor.controls" xmlns="sap.m">
+  <App>
+    <pages>
+
+      <Page title="{i18n>painelRelatoriosTitle}">
+        <customHeader>
+          <Bar>
+            <contentLeft>
+              <Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+            </contentLeft>
+            <contentMiddle>
+              <Title level="H2" text="Painel Relatórios"/>
+            </contentMiddle>
+            <contentRight>
+              <Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+            </contentRight>
+          </Bar>
+        </customHeader>
+        <content>
+          <HBox class="sapUiSmallMargin" width="100%">
+            <HBox>
+              <customData>
+                <core:CustomData key="auth" value="divCarteiraVendas" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelCarteiraOvsDet" backgroundColor="#ff5a16E6" image="image/carteira_vendas.jpg" title="Ordens Criadas"
+                press="onPressTilesRelatorios"/>
+            </HBox>
+            <HBox>
+              <customData>
+                <core:CustomData key="auth" value="divVolumeVendas" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelVolumeVendas" backgroundColor="#ff5a16E6" image="image/volume_vendas.jpg" title="Volume de Vendas"
+                press="onPressTilesRelatorios"/>
+            </HBox>
+            <HBox>
+              <customData>
+                <core:CustomData key="auth" value="divVendasDiarias" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelVendasDiarias" backgroundColor="#ff5a16E6" image="image/vendas_diarias.jpg" title="Vendas Diárias"
+                press="onPressTilesRelatorios"/>
+            </HBox>
+            <HBox>
+              <customData>
+                <core:CustomData key="auth" value="divTransferencias" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelTransferencia" backgroundColor="#ff5a16E6" image="image/transferir_grupo_responsavel.png" title="Transferência"
+                press="onPressTilesRelatorios"/>
+            </HBox>
+            <HBox>
+              <customData>
+                <core:CustomData key="auth" value="divCancelamentoNF" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelCancelamentoNfs" backgroundColor="#ff5a16E6" image="image/nota_fiscal.jpg" title="Cancelamento NF"
+                press="onPressTilesRelatorios"/>
+            </HBox>
+            <HBox visible="true">
+              <customData>
+                <core:CustomData key="auth" value="divOvsLimb" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelOvsLimboPesq" backgroundColor="#ff5a16E6" image="image/volume_vendas.jpg" title="OV's Limbo"
+                press="onPressTilesRelatorios"/>
+            </HBox>
+            <HBox visible="true">
+              <customData>
+                <core:CustomData key="auth" value="divOvsCarteira" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelOvsCarteiraPesq" backgroundColor="#ff5a16E6" image="image/carteira_vendas.jpg" title="OV's Carteira"
+                press="onPressTilesRelatorios"/>
+            </HBox>
+          </HBox>
+          <HBox class="sapUiSmallMargin" width="">
+            <HBox>
+              <customData>
+                <core:CustomData key="auth" value="divNfPeriodo" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelNfPeriodo" backgroundColor="#ff5a16E6" image="image/nota_fiscal.jpg" title="NF do Período"
+                press="onPressTilesRelatorios"/>
+            </HBox>
+            <HBox>
+              <customData>
+                <core:CustomData key="auth" value="divInfoComercial" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelInfoComercial" backgroundColor="#ff5a16E6" image="image/informacoes_comerciais.jpg" title="Info. Comercial"
+                press="onPressTilesRelatorios"/>
+            </HBox>
+            <HBox>
+              <customData>
+                <core:CustomData key="auth" value="divTabelaPreco" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelTabelaPreco" backgroundColor="#ff5a16E6" image="image/tabela_precos.jpg" title="Tabela de Preço"
+                press="onPressTilesRelatorios"/>
+            </HBox>
+            <HBox>
+              <customData>
+                <core:CustomData key="auth" value="divVolumeFaturamento" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelVolumeFaturamento" backgroundColor="#ff5a16E6" image="image/volumeVendas_faturamento.jpg" title="Volume Vendas Fatur."
+                press="onPressTilesRelatorios"/>
+            </HBox>
+            <HBox>
+              <customData>
+                <core:CustomData key="auth" value="divPagamentoAntecipa" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelPagamentoAntecipado" backgroundColor="#ff5a16E6" image="image/pagamento_antecipado.jpg" title="Pagamento Antecipado"
+                press="onPressTilesRelatorios"/>
+            </HBox>
+            <HBox>
+              <customData>
+                <core:CustomData key="auth" value="divVerificacaoCredito" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelVerificacaoCredito" backgroundColor="#ff5a16E6" image="image/verificacao_credito.jpg" title="Verificação de Crédito"
+                press="onPressTilesRelatorios"/>
+            </HBox>
+            <HBox visible="true">
+              <customData>
+                <core:CustomData key="auth" value="divDadosCobranca" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelDadosCobranca" backgroundColor="#ff5a16E6" image="image/tabela_precos.jpg" title="Dados de Cobrança"
+                press="onPressTilesRelatorios"/>
+            </HBox>
+          </HBox>
+          <HBox class="sapUiSmallMargin" width="">
+            <HBox>
+              <customData>
+                <core:CustomData key="auth" value="divPosicaoFinanceira" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelPosicaoFinanceira" backgroundColor="#ff5a16E6" image="image/pagamento_antecipado.jpg" title="Posição Financeira"
+                press="onPressTilesRelatorios"/>
+            </HBox>
+            <HBox>
+              <customData>
+                <core:CustomData key="auth" value="divImpressaoEtiquetas" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelImpressaoEtiqueta" backgroundColor="#ff5a16E6" image="image/etiqueta.jpg" title="Impressão de Etiquetas"
+                press="onPressTilesRelatorios"/>
+            </HBox>
+            <HBox>
+              <customData>
+                <core:CustomData key="auth" value="divVolumeVendas" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelDevolucao" backgroundColor="#ff5a16E6" image="image/dinheiro-de-volta.jpg" title="Devoluções"
+                press="onPressTilesRelatorios"/>
+            </HBox>
+            <HBox width="">
+              <customData>
+                <core:CustomData key="auth" value="divPowerBI" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelPowerBI" backgroundColor="#ff5a16E6" image="image/power-bi.png" title="Power BI" press="onPressPowerBI"/>
+            </HBox>
+            <HBox width="">
+              <customData>
+                <core:CustomData key="auth" value="divGRCNFe" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelGRCNFe" backgroundColor="#ff5a16E6" image="image/GRC_NF-e.png" title="GRC NF-e" press="onPressGRCNfe"/>
+            </HBox>
+            <HBox>
+              <customData>
+                <core:CustomData key="auth" value="divElimi" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelelimi" backgroundColor="#ff5a16E6" image="image/log_1.jpg" title="Log Mod. OV"
+                press="onPressTilesRelatorios"/>
+            </HBox>
+
+            <HBox width="">
+              <customData>
+                <core:CustomData key="auth" value="divEstoque" writeToDom="true"/>
+              </customData>
+              <c:Card id="idTileRelEstoque" backgroundColor="#ff5a16E6" image="image/1966087.png" title="Relatório de estoque" press="onPressTilesRelatorios"/>
+            </HBox>
+
+          </HBox>
+        </content>
+      </Page>
+    </pages>
+  </App>
+</mvc:View>

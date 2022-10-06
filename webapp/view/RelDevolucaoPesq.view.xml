@@ -1,0 +1,101 @@
+<mvc:View controllerName="arcelor.controller.RelDevolucaoPesq" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:form="sap.ui.layout.form">
+	<App>
+		<pages>
+			<Page title="{i18n>relVolumeVendasPesqTitle}" showNavButton="true" navButtonPress="onNavBack">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" text="Devolução"/>
+						</contentMiddle>
+						<contentRight>
+							<Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<!-- Carregamento dos dados mestre:
+					    Escritório de Vendas / Vendedor
+					    Canal de Distribuição
+					    Grupo de Materiais -->
+					<Table id="inputDadoMestre" items="{/DadoMestreSet}" visible="false" updateStarted="inicioUpdateTabela" updateFinished="fimUpdateTabela">
+						<columns>
+							<Column hAlign="Left">
+								<Text text="Codconsulta"/>
+							</Column>
+							<Column hAlign="Left">
+								<Text text="Coddadomestre"/>
+							</Column>
+							<Column hAlign="Left">
+								<Text text="Textodadomestre"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem type="Active">
+								<cells>
+									<Input value="{Codconsulta}"/>
+									<Input value="{Coddadomestre}"/>
+									<Input value="{Textodadomestre}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+					<Panel headerText="Parâmetros do Relatório">
+						<VBox width="700px" alignContent="Center" alignItems="Center">
+							<HBox alignItems="Center" justifyContent="Start" alignContent="Start">
+								<Text text="De: " class="sapUiTinyMarginEnd"/>
+								<DatePicker id="idDataDe" placeholder="{i18n>dataDe}" displayFormat="short" />
+								<Text text="Até: " class="sapUiSmallMarginBegin "/>
+								<DatePicker id="idDataAte" placeholder="{i18n>dataAte}" displayFormat="short" class="sapUiTinyMarginBegin"/>
+							</HBox>
+							<VBox alignItems="Start" class="sapUiTinyMargin">
+								<Text text="Escritório de Vendas: "/>
+								<ComboBox width="500px" id="idComboBoxEscritVendasVen" showSecondaryValues="true" items="{/modelEscritVendasVen}"
+									loadItems="onLoadItemsCbEscritVendasVen">
+									<core:ListItem key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+								</ComboBox>
+							</VBox>
+							<VBox alignItems="Start" class="sapUiTinyMargin">
+								<Text text="Cliente: "/>
+								<Input width="500px" id="idCodCliente" type="Text" placeholder="{i18n>pesqCodCliNomeCnpjCpf}" showSuggestion="true" startSuggestion="3"
+									showTableSuggestionValueHelp="false" suggest="handleSuggest" suggestionRows="{/ClientesSet}">
+									<suggestionColumns>
+										<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+											<Label text="{i18n>codClienteDesc}"/>
+										</Column>
+										<Column hAlign="Center" popinDisplay="Inline" demandPopin="true">
+											<Label text="{i18n>nomeDesc}"/>
+										</Column>
+										<Column hAlign="Center" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+											<Label text="{i18n>cnpjDesc}"/>
+										</Column>
+										<Column hAlign="End" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+											<Label text="{i18n>cpfDesc}"/>
+										</Column>
+									</suggestionColumns>
+									<suggestionRows>
+										<ColumnListItem>
+											<cells>
+												<Label text="{Codcliente}"/>
+												<Label text="{Nome}"/>
+												<Label text="{Cnpj}"/>
+												<Label text="{Cpf}"/>
+											</cells>
+										</ColumnListItem>
+									</suggestionRows>
+								</Input>
+							</VBox>
+							<HBox alignItems="End" class="sapUiTinyMargin">
+								<Button icon="sap-icon://search" text="{i18n>pesquisarDesc}" press="onSearch" class="sapUiTinyMarginEnd"/>
+								<Button icon="sap-icon://clear-filter" text="Limpar Filtros" press="onLimparFiltros"/>
+							</HBox>
+						</VBox>
+					</Panel>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

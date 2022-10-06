@@ -1,0 +1,95 @@
+<mvc:View controllerName="arcelor.controller.HistoricoVendas" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns="sap.m">
+	<Page title="Histórico de Ordem de Vendas"
+		class="sapUiContentPadding sapUiResponsivePadding--header sapUiResponsivePadding--subHeader sapUiResponsivePadding--content sapUiResponsivePadding--footer">
+		<customHeader>
+			<Bar>
+				<contentLeft>
+					<Button icon="sap-icon://nav-back" press="pressVoltar"/>
+				</contentLeft>
+				<contentMiddle>
+					<Title level="H2" text="Histórico de Ordem de Vendas: "/>
+				</contentMiddle>
+				<contentRight>
+					<Button icon="sap-icon://full-screen" press="onPressMenuButton"/>
+				</contentRight>
+			</Bar>
+		</customHeader>
+		<content>
+			<HBox class="sapUiSmallMarginBegin" justifyContent="SpaceAround" alignItems="Start" alignContent="Start">
+				<HBox alignItems="Start" alignContent="Start">
+					<List id="ovs" headerText="Histórico de OV" noDataText="Nenhuma OV encontrada" items="{path: '/results'}" growing="true"
+						growingThreshold="5" mode="SingleSelectMaster" itemPress="onItemPress">
+						<items>
+							<!-- VML Backup:
+							<CustomListItem type="Navigation" itemPress="onItemPress">
+							-->
+							<CustomListItem type="Navigation">
+								<HBox alignItems="Center" alignContent="Center">
+									<Label text="{Erdat}"/>
+									<VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+										<Link text="{Vbeln}" press="onPressOrder"/>
+										<Label text="R$ {path: 'Total', formatter: '.formatter.price'}"/>
+									</VBox>
+								</HBox>
+							</CustomListItem>
+						</items>
+					</List>
+				</HBox>
+				<HBox alignItems="Start" alignContent="Start" class="sapUiSmallMarginTop" id="boxItens" visible="false">
+					<VBox>
+						<Title level="H2" id="ovSelecionada" text="OV selecionada: " class="sapUiSmallMarginTop" visible="false"/>
+						<Table id="ovsTable" inset="false" visible="false" items="{path: '/others'}" fixedLayout="false" class="sapUiSmallMarginTop">
+							<columns>
+								<Column>
+									<Text text="Item"/>
+								</Column>
+								<Column>
+									<Text text="Material"/>
+								</Column>
+								<Column>
+									<Text text="Qtd / Un"/>
+								</Column>
+								<Column>
+									<Text text="Pr. Neg. s/IPI"/>
+								</Column>
+								<Column>
+									<Text text="Centro"/>
+								</Column>
+								<Column>
+									<Text text="Frete"/>
+								</Column>
+								<Column>
+									<Text text="Pr. Tabela s/IPI"/>
+								</Column>
+								<Column>
+									<Text text="Valor Tot. Item"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<ObjectIdentifier text="{path: 'Item', formatter: '.formatter.setIntFormat'}"/>
+										<ObjectIdentifier title="{Matnr}" text="{Descricao}"/>
+										<ObjectNumber number="{path: 'Quantidade', formatter: '.formatter.price3'}" unit="{UnidadeMedida}"/>
+										<ObjectNumber number="{path: 'VlTotSipi', formatter: '.formatter.price3'}"/>
+										<Text text="{Centro}"/>
+										<Text text="{path: 'Frete', formatter: '.formatter.setFreigthText'}"/>
+										<ObjectNumber number="{path: 'ValPrecoT', formatter: '.formatter.price'}"/>
+										<ObjectNumber number="{path: 'ValorTotalItem', formatter: '.formatter.price'}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+						<HBox class="sapUiSmallMargin">
+							<Title level="H2" text="Total da OV R$: " class="sapUiSmallMarginTop" visible="false" id="totalOv"/>
+						</HBox>
+						<HBox justifyContent="End" class="sapUiSmallMargin">
+							<Button text="Voltar" id="btnVoltar" class="sapUiTinyMarginEnd" visible="false" icon="sap-icon://undo" press="pressVoltar"/>
+							<Button text="Copiar OV" id="btnCopiar" press="pressCopiarOv" visible="false" icon="sap-icon://copy"/>
+						</HBox>
+					</VBox>
+				</HBox>
+			</HBox>
+		</content>
+	</Page>
+</mvc:View>

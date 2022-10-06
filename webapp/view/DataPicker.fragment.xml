@@ -1,0 +1,28 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <Dialog title="Informar data de Vencimento" contentHeight="40%" contentWidth="30%">
+    <content>
+
+    <VBox class="sapUiSmallMargin">
+     <DatePicker id="idStartDate" dateValue="{StartDate}" width="100%"/>
+<!--     <Input id="idParcelas" enabled="True"/> -->
+    </VBox>
+
+    <VBox class="sapUiSmallMargin">
+     <Label text="Selecionar Parcela" labelFor="idParcelas" />
+     <ComboBox id="idParcelas" items="{ path: '/myList' }" width="100%">
+      <core:Item key="{Parcela}" text="{Name}"/>
+     </ComboBox>
+    </VBox>
+
+    <FlexBox
+        alignItems="Center"
+        justifyContent="Center">
+     <Button id="saveboleto" text="Ok" visible="true" press="handleOkboletoPress" class="sapUiTinyMarginEnd"/>
+     <Button id="Cancelarboleto" text="Cancelar" visible="true" press="handleCancelboletoPress" />
+    </FlexBox>
+
+    </content>
+  </Dialog>
+</core:FragmentDefinition>

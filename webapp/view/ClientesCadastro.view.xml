@@ -1,0 +1,412 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns="sap.m" xmlns:f="sap.f"
+	xmlns:u="sap.ui.unified" xmlns:ff="sap.ui.layout.form" controllerName="arcelor.controller.ClientesCadastro">
+	<semantic:DetailPage id="page" showNavButton="true" navButtonPress="onNavBack" title="Cadastrar Clientes" enableScrolling="true">
+		<semantic:customHeaderContent>
+			<Button icon="sap-icon://full-screen" press="onPressMenuButton"/>
+		</semantic:customHeaderContent>
+		<semantic:content>
+			<Panel id="__panel0">
+				<content>
+					<Table id="input-dadosMestres" items="{/DM_DadoMestreAllSet}" visible="false">
+						<columns>
+							<Column hAlign="Left">
+								<Text text="Codconsulta"/>
+							</Column>
+							<Column hAlign="Left">
+								<Text text="Coddadomestre"/>
+							</Column>
+							<Column hAlign="Left">
+								<Text text="Textodadomestre"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem press="onPress" type="Active">
+								<cells>
+									<Input value="{Codconsulta}"/>
+									<Input value="{Coddadomestre}"/>
+									<Input value="{Textodadomestre}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+					<Table id="input-cidadesDM" items="{/DM_CidadesSet}" visible="false">
+						<columns>
+							<Column hAlign="Left">
+								<Text text="Codcidade"/>
+							</Column>
+							<Column hAlign="Left">
+								<Text text="Cidade"/>
+							</Column>
+							<Column hAlign="Left">
+								<Text text="Estado"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem press="onPress" type="Active">
+								<cells>
+									<Input value="{Codcidade}"/>
+									<Input value="{Cidade}"/>
+									<Input value="{Estado}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+					<HBox width="100%" id="__hbox0" justifyContent="SpaceAround" alignItems="Center">
+						<HBox alignItems="Center" justifyContent="SpaceBetween">
+							<Text text="Tipo Pessoa: "/>
+							<ComboBox id="combo-tipoPessoa">
+								<core:Item key="0" text=""/>
+								<core:Item key="F" text="{i18n>pessoaFisica}"/>
+								<core:Item key="J" text="{i18n>pessoaJuridica}"/>
+								<core:Item key="C" text="{i18n>enderecoCobranca}"/>
+								<core:Item key="E" text="{i18n>enderecoEntrega}"/>
+								<core:Item key="G" text="{i18n>enderecoEntregaFisica}"/>
+							</ComboBox>
+						</HBox>
+						<HBox alignItems="Center" justifyContent="SpaceBetween">
+							<Label text="CPF/CNPJ: "/>
+							<SearchField width="100%" placeholder="Pesquisar por CNPJ/CPF" id="searchCnpjCpf" search="onSearch" maxLength="20" enableSuggestions="true"
+								liveChange="onMaskCPFCNPJ"/>
+						</HBox>
+					</HBox>
+				</content>
+			</Panel>
+			<ff:SimpleForm id="SimpleFormCadastro2" editable="false" layout="ResponsiveGridLayout" title="Dados Pessoais" labelSpanL="4" labelSpanM="12"
+				adjustLabelSpan="false" emptySpanL="0" emptySpanM="0" columnsL="3" columnsM="3"/>
+			<Panel id="__panel1">
+				<HBox justifyContent="SpaceBetween" width="100%">
+					<VBox width="100%" justifyContent="SpaceBetween">
+						<VBox>
+							<Label text="{i18n>codigoCliente}:"/>
+							<Input id="input-Codcliente" value="{Codcliente}" enabled="false" width="40%"/>
+						</VBox>
+						<Label text="Nome:" required="true"/>
+						<Input id="input-nome" value="{Nome}" maxLength="35" enabled="false" submit="onTabField" width="85%" valueHelpRequest="onTabField"
+							required="true" validateFieldGroup="onTabField" suggestionItemSelected="suggestionItemSelected"/>
+						<Label text="CEP:" required="true"/>
+						<Input id="input-Cep" value="{Cep}" maxLength="9" enabled="false" width="60%" submit="onTabField" liveChange="onMaskCEP" required="true"/>
+						<Label text="Rua:" required="true"/>
+						<Input id="input-endereco" value="{Endereco}" maxLength="60" enabled="false" width="90%" submit="onTabField" required="true"/>
+						<Label text="{i18n>numero}:" required="true"/>
+						<Input id="input-numero" value="{Numero}" maxLength="10" enabled="false" width="40%" submit="onTabField" required="true"/>
+						<Label text="Complemento:"/>
+						<Input id="input-Complemento" value="{Complemento}" maxLength="10" enabled="false" width="70%" submit="onTabField" required="true"/>
+						<VBox>
+							<Label text="Bairro:" required="true"/>
+							<Input id="input-Bairro" value="{Bairro}" maxLength="35" enabled="false" width="90%" submit="onTabField" required="true"/>
+						</VBox>
+					</VBox>
+					<VBox width="100%">
+						<Label text="Estado:" required="true"/>
+						<ComboBox id="input-Regiao" placeholder="" width="75%" items="{/modelDataUf}" selectionChange="onSearchCity" enabled="false"
+							fieldGroupIds="">
+							<core:Item key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+						</ComboBox>
+						<VBox>
+							<Label text="Cidade:" required="true"/>
+							<ComboBox id="input-Cidade" placeholder="" width="75%" items="{/DM_CidadesSet}" selectionChange="onSelectCity" enabled="false"
+								fieldGroupIds="" change="onLimiteCidade">
+								<core:Item key="{CodCidade}" text="{Cidade}"/>
+							</ComboBox>
+						</VBox>
+						<Label text="Telefone:"/>
+						<Input id="input-Telefone" value="{Telefone}" maxLength="15" enabled="false" width="50%" submit="onTabField" liveChange="onMaskTelefone"/>
+						<Label text="Email:"/>
+						<Input id="input-Email" value="{Email}" maxLength="240" enabled="false" width="68%" submit="onTabField"/>
+						<Label text="Origem:"/>
+						<Input id="input-Origem" value="{Origem}" enabled="false" width="60%" submit="onTabField" maxLength="20"/>
+						<Label text="{i18n>classificacao}:"/>
+						<ComboBox id="input-Kukla" placeholder="{i18n>classificacao}" width="80%" enabled="false" editable="false" items="{/modelDataClassific}"
+							selectionChange="onLojaFilter" fieldGroupIds="">
+							<core:Item key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+						</ComboBox>
+						<Label text="{i18n>classificacao}:" visible="false"/>
+						<Input id="input-Classifcli" value="{Classifcli}" enabled="false" visible="false"/>
+						<Label id="label-Cnae" text="CNAE:" required="true"/>
+						<ComboBox id="input-Cnae" placeholder="Cnae" width="85%" items="{/modelDataCnae}" selectionChange="onLojaFilter" enabled="false">
+							<core:Item key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+						</ComboBox>
+					</VBox>
+					<VBox width="100%">
+						<Label text="{i18n>domicilioFiscal}:" required="true"/>
+						<ComboBox id="input-DomicilioFiscal" placeholder="{i18n>domicilioFiscal}" width="65%" items="" enabled="false"
+							selectionChange="onLojaFilter">
+							<core:Item key="X" text="{i18n>contribuinte}"/>
+							<core:Item key="Z" text="{i18n>naoContribuinte}"/>
+							<core:Item key="S" text="{i18n>simplesNacional}"/>
+						</ComboBox>
+						<Label text="{i18n>substTributaria}:" required="true"/>
+						<ComboBox id="input-SubstTributaria" placeholder="{i18n>substTributaria}" width="65%" items="" enabled="false"
+							selectionChange="onLojaFilter">
+							<core:Item key="X" text="{i18n>semSubstTributaria}"/>
+							<core:Item key="Z" text="{i18n>comSubstTributaria}"/>
+						</ComboBox>
+						<Label text="Matriz:"/>
+						<Input id="input-Matriz" type="Text" placeholder="Digite o Cliente ..." width="50%" showSuggestion="true" showValueHelp="true"
+							valueHelpRequest="handleValueHelp" submit="handleValueHelp" suggestionItems="{/ClientesSet}" enabled="false">
+							<suggestionItems>
+								<core:Item text="{Codcliente}"/>
+							</suggestionItems>
+						</Input>
+						<Label text="Setor Industrial:" required="true"/>
+						<ComboBox id="input-SetorInd" placeholder="Setor industrial" width="60%" items="{/modelDataSetorInd}" enabled="false"
+							selectionChange="onLojaFilter" fieldGroupIds="">
+							<core:Item key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+						</ComboBox>
+						<Label text="{i18n>inscricaoEstadual}:"/>
+						<Input id="input-InscricaoEstadual" maxLength="18" value="{Inscrestadual}" liveChange="onChangeIe" enabled="false" width="70%"/>
+						<Label text="Suframa:"/>
+						<Input id="input-Suframa" maxLength="9" value="{Suframa}" enabled="false" width="70%" change="onChangeSuframa"/>
+						<Label text="Validade Suframa:"/>
+						<DatePicker id="input-DtSufurama" enabled="false" valueFormat="dd/MM/yyyy" displayFormat="dd/MM/yyyy" width="50%"/>
+					</VBox>
+				</HBox>
+			</Panel>
+			<ff:SimpleForm id="SimpleFormDisplay480_213" editable="false" layout="ResponsiveGridLayout" title="{i18n>areaDeVendas}" columnsL="3"
+				columnsM="3"/>
+			<Panel>
+				<!-- VML Backup
+					<HBox alignContent="Left" alignItems="Left" justifyContent="SpaceAround" width="100%"> 
+					<HBox alignItems="Left" justifyContent="Left" width="80%">
+				-->
+				<HBox justifyContent="SpaceAround" width="100%">
+					<HBox width="80%">
+						<Label text="{i18n>organizacao}: "/>
+						<MultiComboBox selectionFinish="onCategoriaFilter" id="input-multiComboxOrganizacao" items="{/modelDataOrgVendas}" enabled="false"
+							placeholder="" width="85%">
+							<core:Item key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+						</MultiComboBox>
+					</HBox>
+					<!-- VML Backup
+						<HBox alignItems="Left" justifyContent="Left" width="100%">
+					-->
+					<HBox width="100%">
+						<Label text="Canal: "/>
+						<MultiComboBox selectionFinish="onCategoriaFilter" id="input-multiComboxCanal" items="{/modelDataCanalDist}" enabled="false" placeholder=""
+							width="90%">
+							<core:Item key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+						</MultiComboBox>
+					</HBox>
+					<HBox>
+						<Label text="Setor de Atividade: " visible="false"/>
+						<MultiComboBox selectionFinish="onCategoriaFilter" id="input-multiComboxSetorAtividade" items="{/modelDataSetorAtiv}" enabled="false"
+							placeholder="" width="100%" visible="false">
+							<core:Item key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+						</MultiComboBox>
+					</HBox>
+				</HBox>
+			</Panel>
+			<ff:SimpleForm id="SimpleFormContatos" visible="false" layout="ResponsiveGridLayout" title="Contatos">
+				<ff:content>
+					<VBox >
+						<Button id="input-button" icon="sap-icon://add" press="onCreateItems" enabled="false"/>
+						<Table id="input-listContatos" items="{/modelData}" showNoData="true">
+							<columns>
+								<Column id="nameColumn1" hAlign="Left">
+									<Text text="Nome"/>
+								</Column>
+								<Column id="nameColumn2" hAlign="Left">
+									<Text text="Sobrenome"/>
+								</Column>
+								<Column id="nameColumn3" hAlign="Left">
+									<Text text="Telefone"/>
+								</Column>
+								<Column id="nameColumn4" hAlign="Left">
+									<Text text="Email"/>
+								</Column>
+								<Column hAlign="Left">
+									<Text text="Funcao"/>
+								</Column>
+								<Column id="nameColumn5" hAlign="Left" width="6%">
+									<Text text=""/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem press="onPress" type="Active">
+									<cells>
+										<Input id="input-listContatosNome" value="{Nome}" enabled="{Status}" maxLength="30"/>
+										<Input id="input-listContatosSobrenome" value="{Sobrenome}" enabled="{Status}" maxLength="35"/>
+										<Input id="input-listContatosTelefone" value="{Telefone}" enabled="{Status}" change="onMaskTelefoneContato"/>
+										<Input id="input-listContatosEmail" value="{Email}" enabled="{Status}" maxLength="100"/>
+										<ComboBox id="combo-Funcao" enabled="{Status}" value="{Funcao/Kunnr}" selectedKey="{Funcao/Kunnr}" items="{Funcao}">
+											<core:ListItem key="{Kunnr}" text="{Pafkt} {Parau}"/>
+										</ComboBox>
+										<Button id="input-listContatosDelete" icon="sap-icon://sys-cancel-2" enabled="{Status}" press="onDeleteSelectedItems"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</VBox>
+				</ff:content>
+			</ff:SimpleForm>
+			<ff:SimpleForm id="SimpleFormRecebedorMerc" layout="ResponsiveGridLayout" title="Vincular Cliente" visible="false">
+				<ff:content>
+					<VBox>
+						<Button id="input-buttonRecebedor" icon="sap-icon://add" press="onCreateItemsRecebedor" enabled="false"/>
+						<Table id="listRecebedorMerc" items="{/modelDataRecebedorMerc}" showNoData="true">
+							<columns>
+								<Column hAlign="Left">
+									<Text text="{i18n>pesquisarRecebedor}"/>
+								</Column>
+								<Column hAlign="Left">
+									<Text text="{i18n>codigoRecebedor}"/>
+								</Column>
+								<Column hAlign="Left">
+									<Text text="{i18n>recebedor}"/>
+								</Column>
+								<Column hAlign="Left">
+									<Text text="{i18n>endereco}"/>
+								</Column>
+								<Column hAlign="Left">
+									<Text text="Cidade"/>
+								</Column>
+								<Column hAlign="Left" width="6%">
+									<Text text=""/>
+								</Column>
+							</columns>
+							<items>
+								<!-- VML Backup: enabled="true" -->
+								<ColumnListItem press="onPress">
+									<cells>
+										<Input id="input-recebedorMercPesquisa" type="Text" value="{path : 'Codcliente', mode: 'OneWay' }" showValueHelp="true"
+											valueHelpRequest="handleValueHelpRecebedor" submit="handleValueHelpRecebedor" enabled="{Status}" placeholder="Digite o Cliente" width="60%">
+											<suggestionItems>
+												<core:ListItem text="{Codcliente}"/>
+											</suggestionItems>
+										</Input>
+										<Input id="input-recebedorMercCodigo" value="{RecebedorMercCodigo}" enabled="false" change="onMaskTelefoneContato"/>
+										<Input id="input-recebedorMercNome" value="{RecebedorMercNome}" enabled="false"/>
+										<Input id="input-recebedorMercEndereco" value="{RecebedorMercEndereco}" enabled="false"/>
+										<Input id="input-recebedorMercLocal" value="{RecebedorMercLocal}" enabled="false"/>
+										<Button id="input-recebedorMercDelete" icon="sap-icon://sys-cancel-2" press="onDeleteSelectedItemsRecebedor" enabled="{Status}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</VBox>
+				</ff:content>
+			</ff:SimpleForm>
+			<ff:SimpleForm id="SimpleFormCobrancaMerc" layout="ResponsiveGridLayout" visible="false">
+				<ff:content>
+					<VBox>
+						<Button id="input-buttonCobranca" icon="sap-icon://add" press="onCreateItemsCobranca" enabled="false"/>
+						<Table id="listCobrancaMerc" items="{/modelDataCobrancaMerc}" showNoData="true">
+							<columns>
+								<Column hAlign="Left">
+									<Text text="{i18n>pesquisarCobranca}"/>
+								</Column>
+								<Column hAlign="Left">
+									<Text text="{i18n>codigoCobranca}"/>
+								</Column>
+								<Column hAlign="Left">
+									<Text text="{i18n>cobranca}"/>
+								</Column>
+								<Column hAlign="Left">
+									<Text text="{i18n>endereco}"/>
+								</Column>
+								<Column hAlign="Left">
+									<Text text="Cidade"/>
+								</Column>
+								<Column hAlign="Left" width="6%">
+									<Text text=""/>
+								</Column>
+							</columns>
+							<items>
+								<!-- VML Backup: enabled="true" -->
+								<ColumnListItem press="onPress">
+									<cells>
+										<Input id="input-cobrancaMercPesquisa" type="Text" value="{path : 'Codcliente', mode: 'OneWay' }" showValueHelp="true"
+											valueHelpRequest="handleValueHelpCobranca" submit="handleValueHelpCobranca" enabled="{Status}" placeholder="Digite o Cliente" width="60%">
+											<suggestionItems>
+												<core:ListItem text="{Codcliente}"/>
+											</suggestionItems>
+										</Input>
+										<Input id="input-cobrancaMercCodigo" value="{CobrancaMercCodigo}" enabled="false" change="onMaskTelefoneContato"/>
+										<Input id="input-cobrancaMercNome" value="{CobrancaMercNome}" enabled="false"/>
+										<Input id="input-cobrancaMercEndereco" value="{CobrancaMercEndereco}" enabled="false"/>
+										<Input id="input-cobrancaMercLocal" value="{CobrancaMercLocal}" enabled="false"/>
+										<Button id="input-cobrancaMercDelete" icon="sap-icon://sys-cancel-2" press="onDeleteSelectedItemsCobranca" enabled="{Status}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</VBox>
+				</ff:content>
+			</ff:SimpleForm>
+			<ff:SimpleForm id="SimpleFormVincularCliente" visible="false" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="12"
+				adjustLabelSpan="false" emptySpanL="0" emptySpanM="0" columnsL="4" columnsM="4">
+				<ff:content>
+					<core:Title text=""/>
+					<VBox>
+						<Label text="{i18n>recebedorDeMercadoria}" visible="false"/>
+						<Input id="input-RecebedorMercadoria" type="Text" placeholder="" enabled="false" showSuggestion="true" showValueHelp="true"
+							valueHelpRequest="handleValueHelp" submit="handleValueHelp" suggestionItems="{/ClientesSet}" width="60%" visible="false">
+							<suggestionItems>
+								<core:Item text="{Recebedormercadoria}"/>
+							</suggestionItems>
+						</Input>
+						<Label text="{i18n>pagador}"/>
+						<Input id="input-Pagador" type="Text" placeholder="" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelp"
+							submit="handleValueHelp" suggestionItems="{/ClientesSet}" enabled="false" width="60%" liveChange="lonChangeMatriz">
+							<suggestionItems>
+								<core:Item text="{Pagador}"/>
+							</suggestionItems>
+						</Input>
+						<Label text="{i18n>recebedorDeFatura}" visible="false"/>
+						<Input id="input-RecebedorFatura" type="Text" placeholder="" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelp"
+							submit="handleValueHelp" suggestionItems="{/ClientesSet}" visible="false" width="60%">
+							<suggestionItems>
+								<core:Item text="{Recebedorfatura}"/>
+							</suggestionItems>
+						</Input>
+						<Label text="{i18n>cobranca}" visible="false"/>
+						<Input id="input-Cobranca" type="Text" placeholder="" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelp"
+							submit="handleValueHelp" suggestionItems="{/ClientesSet}" enabled="false" width="60%" visible="false">
+							<suggestionItems>
+								<core:Item text="{Codcliente}"/>
+							</suggestionItems>
+						</Input>
+					</VBox>
+					<core:Title text=""/>
+					<VBox>
+						<Label text="{i18n>codigoRecebedor}" visible="false"/>
+						<Input id="input-RecebedorCodigo" value="{Regiao}" enabled="false" visible="false"/>
+						<Label text="{i18n>codigoPagador}"/>
+						<Input id="input-PagadorCodigo" value="{Regiao}" enabled="false"/>
+						<Label text="{i18n>codigoRecebedorFatura}" visible="false"/>
+						<Input id="input-RecebedorFaturaCodigo" value="{Regiao}" visible="false"/>
+						<Label text="{i18n>codigoCobranca}" visible="false"/>
+						<Input id="input-CobrancaCodigo" value="" enabled="false" visible="false"/>
+					</VBox>
+					<core:Title text=""/>
+					<VBox>
+						<Label text="{i18n>recebedor}" visible="false"/>
+						<Input id="input-RecebedorMercadoriaNome" value="{Regiao}" enabled="false" visible="false"/>
+						<Label text="{i18n>pagador}"/>
+						<Input id="input-PagadorNome" value="{Regiao}" enabled="false"/>
+						<Label text="{i18n>recebedorDeFatura}" visible="false"/>
+						<Input id="input-RecebedorFaturaNome" value="{Regiao}" visible="false"/>
+						<Label text="{i18n>cobrancaNome}" visible="false"/>
+						<Input id="input-CobrancaNome" value="" enabled="false" visible="false"/>
+					</VBox>
+					<core:Title text=""/>
+					<VBox>
+						<Label text="" visible="false"/>
+						<Button id="btn-Recebedor" icon="sap-icon://sys-cancel-2" press="onDeleteRecebedor" enabled="false" visible="false"/>
+						<Label text=""/>
+						<Button id="btn-Pagador" icon="sap-icon://sys-cancel-2" press="onDeletePagador" enabled="false"/>
+						<Label text="" visible="false"/>
+						<Button id="btn-RecebedorFatura" icon="sap-icon://sys-cancel-2" press="onDeleteRecebedorFatura" visible="false"/>
+						<Label text="" visible="false"/>
+						<Button id="btn-Cobranca" icon="sap-icon://sys-cancel-2" press="onDeleteCobranca" enabled="false" visible="false"/>
+					</VBox>
+				</ff:content>
+			</ff:SimpleForm>
+		</semantic:content>
+		<semantic:customFooterContent>
+			<Button id="save" text="Salvar" visible="false" press="handleSavePress"/>
+			<Button id="edit" text="Alterar" visible="false" press="handleEditPress"/>
+			<Button id="cancel" text="Cancelar" visible="false" press="handleCancelPress"/>
+		</semantic:customFooterContent>
+	</semantic:DetailPage>
+</mvc:View>

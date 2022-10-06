@@ -1,0 +1,67 @@
+<mvc:View controllerName="arcelor.controller.RelVendasDiariasPesq" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:form="sap.ui.layout.form">
+	<App>
+		<pages>
+			<Page title="{i18n>relVendasDiariasPesqTitle}" showNavButton="true" navButtonPress="onNavBack">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" text="{i18n>relVendasDiariasPesqTitle}"/>
+						</contentMiddle>
+						<contentRight>
+							<Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<!-- Carregamento dos dados mestre: Condição de Pagamento -->
+					<Table id="inputDadoMestre" items="{/DadoMestreSet}" visible="false" updateStarted="inicioUpdateTabela" updateFinished="fimUpdateTabela">
+						<columns>
+							<Column hAlign="Left">
+								<Text text="Codconsulta"/>
+							</Column>
+							<Column hAlign="Left">
+								<Text text="Coddadomestre"/>
+							</Column>
+							<Column hAlign="Left">
+								<Text text="Textodadomestre"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem type="Active">
+								<cells>
+									<Input value="{Codconsulta}"/>
+									<Input value="{Coddadomestre}"/>
+									<Input value="{Textodadomestre}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+					<Panel headerText="Parâmetros do Relatório">
+						<HBox justifyContent="Center" alignItems="Center" class="sapUiSmallMargin">
+							<Text text="Período: " class="sapUiTinyMarginEnd"/>
+							<DatePicker id="idDataDe" placeholder="{i18n>dataDe}" displayFormat="dd/MM/yyyy" class="sapUiTinyMarginBegin"/>
+							<DatePicker id="idDataAte" placeholder="{i18n>dataAte}" displayFormat="dd/MM/yyyy" class="sapUiTinyMarginBegin"/>
+						</HBox>
+						<HBox justifyContent="Start" alignItems="Center" class="alinhamentoBox">
+							<Text text="Condição de Pagamento: " class="sapUiTinyMarginEnd"/>
+							<ComboBox width="450px" id="idComboBoxCondPagamento" showSecondaryValues="true" items="{/modelCondPagamento}"
+								loadItems="onLoadItemsCbCondPagamento">
+								<core:ListItem key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+							</ComboBox>
+							<ComboBox id="idComboBoxCentro" visible="false" showSecondaryValues="true" items="{path: '/LojasSet', sorter: { path: 'Loja' } }">
+								<core:Item key="{Loja}" text="{Loja}"/>
+							</ComboBox>
+						</HBox>
+						<HBox justifyContent="Center" alignItems="Center" class="sapUiTinyMarginTop">
+							<Button text="{i18n>pesquisarDesc}" press="onSearch"/>
+						</HBox>
+					</Panel>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

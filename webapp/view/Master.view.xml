@@ -1,0 +1,33 @@
+<mvc:View 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:core="sap.ui.core" 
+	xmlns="sap.m" 
+	xmlns:semantic="sap.m.semantic" 
+	xmlns:f="sap.f"
+	xmlns:u="sap.ui.unified" 
+	controllerName="arcelor.controller.Master">
+	<semantic:MasterPage id="page" showNavButton="false">
+		<semantic:content>
+			<List 
+				id="list" 
+				items="{path: '/MenuSet', sorter: {path: 'Id', descending: false} }" 
+				busyIndicatorDelay="{masterView>/delay}"
+				noDataText="Nenhum Menu" 
+				mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}" 
+				growing="true" 
+				growingScrollToLoad="true"
+				updateFinished="onUpdateFinished" 
+				selectionChange="onSelectionChange">
+				<CustomListItem>
+					<core:Icon 
+						size="1.4rem" src="{Icone}" 
+						class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"/>
+					<Label text="{Descricao}" class="titleMenu"/>
+				</CustomListItem>
+			</List>
+		</semantic:content>
+		<semantic:customFooterContent>
+			<OverflowToolbarButton icon="sap-icon://log" tooltip="Sair" press="closeapp"/>
+		</semantic:customFooterContent>
+	</semantic:MasterPage>
+</mvc:View>

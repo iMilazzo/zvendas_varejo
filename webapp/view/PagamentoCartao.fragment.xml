@@ -1,0 +1,71 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:l="sap.ui.layout"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:core="sap.ui.core"
+  xmlns:html="http://www.w3.org/1999/xhtml">
+  <Dialog title="Efetuar Pagamento" contentWidth="1000px" class="sapUiSizeCompact">
+    <content>
+      <!-- Trecho original Pagamento em Cartão -->
+      <f:SimpleForm id="sfPagtoCartao" title="Dados de Pagamento" visible="true" editable="true"
+        layout="ResponsiveGridLayout" columnsL="2" columnsM="2" >
+        <f:content>
+          <Label text="OV"/>
+          <Text id="input-ovPag"/>
+          <Label text="Total da Venda"/>
+          <Text id="textValorTotalVendapag"/>
+          <Label text="Cliente"/>
+          <Text id="input-Cliente_pag"/>
+          <Label text="Cond Pag"/>
+          <Text id="input-condpag"/>
+          <core:Title text="" class="customFormTitle"/>
+          <VBox>
+            <html:div id="input-venda">
+              <html:div id="tef_titulo"></html:div>
+              <html:br/>
+              <html:div id="tef_corpo"></html:div>
+            </html:div>
+            <html:div>
+              <Input type="Text" id="DADOS" visible="false"/>
+              <Button id="bnt_okPag" text="OK" press="trataColeta" visible="false"/>
+              <Button id="bnt_cancel" text="Cancelar" press="trataColeta" visible="false"/>
+            </html:div>
+          </VBox>
+          <Button id="bnt_simPag" text="OK" press="simPag" visible="false"/>
+          <Button id="bnt_cancelpag" text="Cancelar" press="cancelPag" visible="false"/>
+        </f:content>
+      </f:SimpleForm>
+      <!-- Trecho Criação Link Pagamento maxiPago! -->
+
+      <VBox class="sapUiTinyMargin">
+        <f:SimpleForm id="sfMaxiPago" title="Pagamento com maxiPago!" editable="true" visible="true"
+          layout="ResponsiveGridLayout" columnsL="1" columnsM="1" labelSpanL="1" labelSpanM="2">
+          <f:content>
+            <Label text="E-mail" />
+            <Input id="inEmail" class="sapUiMediumMarginEnd" required="true" >
+              <layoutData>
+                <l:GridData span="XL8 L8 M8 S12" />
+              </layoutData>
+            </Input>
+            <Label text="Telefone" />
+            <Input id="inTelefone" value="{Telefone}" maxLength="15" submit="onTabField" liveChange="onMaskTelefone" class="sapUiMediumMarginEnd"  required="true">
+              <layoutData>
+                <l:GridData span="XL8 L8 M8 S12" />
+              </layoutData>
+            </Input>
+          </f:content>
+        </f:SimpleForm>
+      </VBox>
+      <!-- Botões -->
+      <FlexBox alignItems="Center" justifyContent="Center">
+        <items>
+          <Button text="Efetuar Pagamento" class="sapUiSmallMarginBottom" press="onConfirmPagamento" icon="sap-icon://credit-card" visible="true"/>
+          <Button id="btnCriarLinkMaxiPago" class="sapUiTinyMarginBegin sapUiSmallMarginBottom" text="Criar Link Pagto." press="onCriarLinkPagamento"
+            tooltip="Criar Link Pagamento no MaxiPago" icon="sap-icon://chain-link" visible="true"/>
+          <Button id="btnCancelar" text="Cancelar" class="sapUiTinyMarginBegin sapUiSmallMarginBottom" press="onClosePagamentoDialog"
+            icon="sap-icon://decline" visible="true" />
+        </items>
+      </FlexBox>
+    </content>
+  </Dialog>
+</core:FragmentDefinition>

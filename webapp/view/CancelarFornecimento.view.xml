@@ -1,0 +1,145 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m" xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form"
+  xmlns:l="sap.ui.layout" xmlns:fb="sap.ui.comp.filterbar"
+  xmlns:arcelor="arcelor.controls"
+  controllerName="arcelor.controller.CancelarFornecimento">
+  <Page id="page" showNavButton="true"
+    title="Gestão de Fornecimento" navButtonPress="onNavBack"
+    enableScrolling="true">
+    <customHeader>
+      <Bar>
+        <contentLeft>
+          <Button id="back" icon="sap-icon://nav-back"
+            press="onNavBack" />
+        </contentLeft>
+        <contentMiddle>
+          <Title level="H2" tooltip="{i18n>welcomeDescription}"
+            text="Gestão de Fornecimento" />
+        </contentMiddle>
+        <contentRight>
+          <Button id="btnMenu" icon="sap-icon://full-screen"
+            press="onPressMenuButton" />
+        </contentRight>
+      </Bar>
+    </customHeader>
+    <content>
+      <f:SimpleForm id="SimpleFormDisplay1" editable="false"
+        layout="ResponsiveGridLayout" title="Buscar Remessas"
+        columnsL="2" columnsM="2" />
+      <Panel class="sapUiNoContentPadding">
+        <l:HorizontalLayout class="sapUiContentPadding">
+          <l:VerticalLayout>
+            <Label text="{i18n>numOrdem}:"/>
+            <MultiInput id="multiinput-ordem" width="200px" submit="onAddTokenOrdem" showValueHelp="false"/>
+          </l:VerticalLayout>
+
+          <l:VerticalLayout>
+            <Label text="Cliente:"/>
+            <Input id="input-Cliente" type="Text" placeholder="Digite o Cliente ..." showSuggestion="true" showValueHelp="true"
+              valueHelpRequest="handleValueHelp" width="200px" submit="handleValueHelp" suggestionItems="{/ClientesSet}" enabled="true">
+              <suggestionItems>
+                <core:Item text="{Codcliente}"/>
+              </suggestionItems>
+            </Input>
+          </l:VerticalLayout>
+        </l:HorizontalLayout>
+
+        <l:VerticalLayout>
+          <Label text="Nº Remessa (teclar enter):"/>
+          <MultiInput id="multiinput-remessa" width="200px" submit="onAddTokenRemessa" showValueHelp="false"/>
+        </l:VerticalLayout>
+
+
+        <l:HorizontalLayout class="sapUiContentPadding">
+          <l:VerticalLayout>
+            <Label text="Data de Remessa:" labelFor="input-DtRemessa" required="true"/>
+            <DateRangeSelection id="input-remessa" width="200px" change="handleChange" placeholder="dd/MM/yyyy - dd/MM/yyyy"/>
+          </l:VerticalLayout>
+        </l:HorizontalLayout>
+
+        <l:HorizontalLayout class="sapUiSmallMarginBottom">
+          <l:VerticalLayout>
+            <Label text="" />
+            <l:HorizontalLayout>
+              <Button text="Buscar" press="onSearch"
+                icon="sap-icon://search" class="sapUiSmallMarginBeginEnd" />
+              <Button text="Limpar Filtros" press="onClearFilters" />
+            </l:HorizontalLayout>
+          </l:VerticalLayout>
+        </l:HorizontalLayout>
+      </Panel>
+
+      <Table id="List" items="{fornecimentos>/}" showNoData="true" fixedLayout="false" width="auto" growing="true" mode="MultiSelect">
+        <columns>
+          <Column hAlign="Left">
+            <Text text="Nº OV"/>
+          </Column>
+          <Column hAlign="Left">
+            <Text text="Emissor"/>
+          </Column>
+          <Column hAlign="Left">
+            <Text text="Fornecimento"/>
+          </Column>
+          <Column hAlign="Center">
+            <Text text="Status G.Créd"/>
+          </Column> 
+          <Column hAlign="Center">
+            <Text text="Saída de Mercadoria"/>
+          </Column>
+          <Column hAlign="Center">
+            <Text text="Picking"/>
+          </Column>
+          <Column hAlign="Center">
+            <Text text="Fatura"/>
+          </Column>
+        </columns>
+        <items>
+          <ColumnListItem>
+            <cells>
+              <ObjectIdentifier title="{= parseFloat(${fornecimentos>Vgbel}) }" titleActive="true" titlePress="onOrdemVendaPress">
+                <customData>
+                  <core:CustomData key="auth" value="btnAlterarOV" writeToDom="true"/>
+                </customData>
+              </ObjectIdentifier>
+              <Text text="{fornecimentos>Name1}"/>
+              <ObjectIdentifier title="{= parseFloat(${fornecimentos>Vbeln}) }" titleActive="true" titlePress="onFornecimentoPress">
+                <customData>
+                  <core:CustomData key="auth" value="btnAlterarOV" writeToDom="true"/>
+                </customData>
+              </ObjectIdentifier>
+
+              <Text text="{path: 'fornecimentos>Cmgst', formatter: '.statusCmgst'}"/>
+
+              <core:Icon id="icon1" src="{path: 'fornecimentos>Wbstk', formatter: '.status'}" 
+                tooltip="{path: 'fornecimentos>Wbstk', formatter: '.statusText'}">
+                <core:customData>
+                  <core:CustomData key="status" value="{fornecimentos>Wbstk}" writeToDom="true"/>
+                </core:customData>
+              </core:Icon>
+              <core:Icon id="icon2"  src="{path: 'fornecimentos>Kostk', formatter: '.status'}"
+                tooltip="{path: 'fornecimentos>Kostk', formatter: '.statusText'}">
+                <core:customData>
+                  <core:CustomData key="status" value="{fornecimentos>Kostk}" writeToDom="true"/>
+                </core:customData>
+              </core:Icon>
+              <core:Icon id="icon3" src="{path: 'fornecimentos>Fkstk', formatter: '.status'}"
+                tooltip="{path: 'fornecimentos>Fkstk', formatter: '.statusText'}">
+                <core:customData>
+                  <core:CustomData key="status" value="{fornecimentos>Fkstk}" writeToDom="true"/>
+                </core:customData>
+              </core:Icon>
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+    </content>
+    <footer>
+      <Bar>
+        <contentRight>
+          <Button id="button-alterar" enabled="false" text="Alterar Quantidade" press="onAlterar" />
+          <Button id="button-eliminar" enabled="false" text="Eliminar" press="onEliminar" icon="sap-icon://delete"/>
+        </contentRight>
+      </Bar>
+    </footer>
+  </Page>
+</mvc:View>

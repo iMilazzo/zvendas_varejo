@@ -1,0 +1,127 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns="sap.m" xmlns:f="sap.f"
+  xmlns:e="sap.ui.core.Element" xmlns:u="sap.ui.unified" xmlns:ff="sap.ui.layout.form" controllerName="arcelor.controller.transporte"
+  xmlns:arcelor="arcelor.controls">
+  <Page id="page" showNavButton="true" title="FATURAMENTO AUTOMÁTICO" navButtonPress="onNavBack" enableScrolling="true">
+    <customHeader>
+      <Bar>
+
+        <contentLeft>
+          <Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+        </contentLeft>
+        <contentMiddle>
+          <Title level="H2" tooltip="{i18n>welcomeDescription}" text="Buscar documento de transporte"/>
+        </contentMiddle>
+        <contentRight>
+          <HBox>
+            <Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton" class="sapUiTinyMarginBegin"/>
+          </HBox>
+        </contentRight>
+      </Bar>
+    </customHeader>
+    <content>
+      <ff:SimpleForm id="SimpleFormDisplay1" editable="false" layout="ResponsiveGridLayout" columnsL="2" columnsM="2"/>
+      <Panel id="__panel1">
+        <content>
+          <Table id="input-dadosMestres" items="{/DM_FaturarOVSet}" visible="false">
+            <columns>
+              <Column hAlign="Left">
+                <Text text="Codconsulta"/>
+              </Column>
+              <Column hAlign="Left">
+                <Text text="Coddadomestre"/>
+              </Column>
+              <Column hAlign="Left">
+                <Text text="Textodadomestre"/>
+              </Column>
+            </columns>
+            <items>
+              <ColumnListItem press="onPress" type="Active">
+                <cells>
+                  <Input value="{Codconsulta}"/>
+                  <Input value="{Coddadomestre}"/>
+                  <Input value="{Textodadomestre}"/>
+                </cells>
+              </ColumnListItem>
+            </items>
+          </Table>
+          <HBox justifyContent="SpaceBetween" width="100%">
+            <VBox width="50%" justifyContent="SpaceBetween">
+              <Label text="Documento de transporte:"/>
+              <Input id="multiinput-ordem" width="90%" change="handleChange2" showValueHelp="false"/>
+              <Label text="Data de Criação:" labelFor="input-dateEmitidas"/>
+              <DateRangeSelection id="input-dateEmitidas" width="60%" change="handleChange" placeholder="dd/MM/yyyy - dd/MM/yyyy"/>
+              <HBox justifyContent="SpaceBetween" width="100%">
+                <VBox width="100%" justifyContent="SpaceBetween" alignItems="Center">
+                  <Button id="id-buscar" text="Buscar" visible="true" press="onSearch" icon="sap-icon://search"/>
+                </VBox>
+                <VBox width="100%" justifyContent="SpaceBetween" alignItems="Center">
+                  <Button id="id-limpar" text="Limpar Filtros" visible="true" press="handleClearFields"/>
+                </VBox>
+              </HBox>
+            </VBox>
+          </HBox>
+        </content>
+      </Panel>
+      <Panel id="__panel2" visible="true">
+        <content>
+          <HBox justifyContent="SpaceBetween" width="100%">
+          </HBox>
+        </content>
+      </Panel>
+      <Table id="List" growing="true" growingThreshold="500" sticky="HeaderToolbar,ColumnHeaders" items="{OVModel>/OVData}" contextualWidth="Auto"
+        fixedLayout="false">
+        <columns>
+          <Column>
+            <Text id="nameColumnTitle" text="Documento de transporte"/>
+          </Column>
+          <Column>
+            <Text text="Tipo Doc."/>
+          </Column>
+          <Column>
+            <Text text="Data de Criação"/>
+          </Column>
+          <Column>
+            <Text text="Centro"/>
+          </Column>
+          <Column>
+            <Text text="Loc. Org Transp."/>
+          </Column>
+        </columns>
+        <items>
+          <ColumnListItem press="onPress" class="statusUIIcon">
+            <cells>
+              <ObjectIdentifier title="{= parseFloat(${OVModel>Tknum}) }" titleActive="true" titlePress="onSalesOrder">
+                <customData>
+                  <core:CustomData key="auth" value="btnAlterarOV" writeToDom="true"/>
+                </customData>
+              </ObjectIdentifier>
+              <Text text="{OVModel>tipodoc}"/>
+              <Text text="{path: 'OVModel>Data',formatter: '.formatter.strToDataBrOneDay'}" wrapping="true"/>
+              <Text text="{OVModel>cabecalho}"/>
+              <Text text="{OVModel>Tplst}"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+    </content>
+    <footer>
+      <OverflowToolbar>
+        <Button id="button-popover" icon="sap-icon://message-popup" visible="false" text="{/messagesLength}" press="handleMessagePopoverPress"/>
+        <HBox>
+          <customData>
+            <core:CustomData key="auth" value="btnFaturarTransporte" writeToDom="true"/>
+          </customData>
+          <Button text="Faturar Transporte" id="button-liberarlimbo" press="handleLiberarLimboPress" visible="false"/>
+        </HBox>
+        <ToolbarSpacer/>
+        <HBox class="sapUiTinyMarginEnd">
+          <customData>
+            <core:CustomData key="auth" value="btnEliminarOV" writeToDom="true"/>
+          </customData>
+          <Button id="button-pagarov" text="Pagamento" press="onEfetuarPagamento" visible="false" tooltip="Pagamento cartão"
+            icon="sap-icon://credit-card"/>
+        </HBox>
+      </OverflowToolbar>
+    </footer>
+  </Page>
+</mvc:View>

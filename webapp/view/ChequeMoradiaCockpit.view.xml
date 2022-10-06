@@ -1,0 +1,63 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="arcelor.controller.ChequeMoradiaCockpit">
+	<App>
+		<pages>
+			<Page title="Cockpit Cheque Moradia" showNavButton="false">
+				<content>
+					<Panel height="100%">
+						<content>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Consulta" subheader="Saldo ICMS" press="navigateICMSReport">
+								<tileContent>
+									<TileContent>
+										<content>
+											<ImageContent src="sap-icon://collections-insight"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Lançamento" subheader="Cheque Moradia"
+								press="navigateCheckLaunch">
+								<tileContent>
+									<TileContent>
+										<content>
+											<ImageContent src="sap-icon://travel-expense-report"></ImageContent>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Liberação" subheader="Bloqueio Fatura"
+								press="navigateBillingRelease">
+								<tileContent>
+									<TileContent>
+										<content>
+											<ImageContent src="sap-icon://permission"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Baixa" subheader="Cheque Moradia"
+								press="navigateCheckRelease">
+								<tileContent>
+									<TileContent>
+										<content>
+											<ImageContent src="sap-icon://my-sales-order"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Relatório Gerencial" press="navigateCheckReport">
+								<tileContent>
+									<TileContent>
+										<content>
+											<ImageContent src="sap-icon://expense-report"/>
+										</content>
+									</TileContent>
+								</tileContent>
+							</GenericTile>
+						</content>
+					</Panel>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

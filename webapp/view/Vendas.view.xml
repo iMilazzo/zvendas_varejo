@@ -1,0 +1,254 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns="sap.m" xmlns:f="sap.f"
+  xmlns:u="sap.ui.unified" xmlns:ff="sap.ui.layout.form" controllerName="arcelor.controller.Vendas">
+  <semantic:DetailPage id="page" showNavButton="true" navButtonPress="onNavBack" title="Vendas" enableScrolling="true">
+    <semantic:content>
+      <Table id="input-DM_DadoMestreOVSet" items="{/DM_DadoMestreOVSet}" visible="false" updateFinished="onProcessarTable">
+        <columns>
+          <Column hAlign="Left">
+            <Text text="Codconsulta"/>
+          </Column>
+          <Column hAlign="Left">
+            <Text text="Coddadomestre"/>
+          </Column>
+          <Column hAlign="Left">
+            <Text text="Textodadomestre"/>
+          </Column>
+          <Column hAlign="Left">
+            <Text text="Material"/>
+          </Column>
+        </columns>
+        <items>
+          <ColumnListItem press="onPress" type="Active">
+            <cells>
+              <Input value="{Codconsulta}"/>
+              <Input value="{Coddadomestre}"/>
+              <Input value="{Textodadomestre}"/>
+              <Input value="{Material}"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+      <ff:SimpleForm id="SimpleFormCadastro1" editable="false" layout="ResponsiveGridLayout" title="Dados Pessoais" labelSpanL="4" labelSpanM="12"
+        adjustLabelSpan="false" emptySpanL="0" emptySpanM="0" columnsL="3" columnsM="3"/>
+      <Panel id="__panel1">
+        <HBox justifyContent="SpaceBetween" width="100%">
+          <VBox width="100%" justifyContent="SpaceBetween">
+            <Label text="{i18n>tipoDeOperacao}" textAlign="Left"/>
+            <ComboBox id="id-ComboTipoOperacao" placeholder="{i18n>tipoDeOperacao}" width="300px" items="{ path: '/modelDataComboTipoOperacao'}">
+              <core:Item key="{Coddadomestre}" text="{Textodadomestre}"/>
+            </ComboBox>
+            <Label text="{i18n>dadosBasicos}" textAlign="Left" design="Bold"/>
+            <Label text="Cliente"/>
+            <Input id="input-Cliente" type="Text" placeholder="Digite o Cliente ..." width="300px" showSuggestion="true" showValueHelp="true"
+              valueHelpRequest="handleValueHelp" submit="handleValueHelp" suggestionItems="{/ClientesSet}">
+              <suggestionItems>
+                <core:Item text="{Codcliente}"/>
+              </suggestionItems>
+            </Input>
+            <Label text="{i18>codigo}"/>
+            <Text id="input-ClienteCodigo"/>
+            <Text id="input-Clientedescricao"/>
+            <Label id="textEntrega" text="Entrega" textAlign="Left"/>
+            <ComboBox id="id-ComboEntrega" placeholder="Entrega" width="300px" items="{ path: '/modelDataComboEntrega'}">
+              <core:Item key="{Coddadomestre}" text="{Textodadomestre}"/>
+            </ComboBox>
+            <Label id="textCobranca" text="Cobran�a" textAlign="Left"/>
+            <ComboBox id="id-ComboCobranca" placeholder="Cobran�a" width="300px" items="{ path: '/modelDataComboCobranca'}">
+              <core:Item key="{Coddadomestre}" text="{Textodadomestre}"/>
+            </ComboBox>
+            <Label id="textEscritorio" text="Escrit�rio/Vend..." textAlign="Left"/>
+            <ComboBox id="id-ComboEscritorio" placeholder="Escrit�rio" width="300px" items="{ path: '/modelDataComboEscritorio'}">
+              <core:Item key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+            </ComboBox>
+            <Label id="textCondPagto" text="{i18n>condicacaoDePagamento}" textAlign="Left"/>
+            <ComboBox id="id-ComboCondPgto" placeholder="{i18n>condicacaoDePagamento}" width="300px" items="{ path: '/modelDataComboCondPagamento'}">
+              <core:Item key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+            </ComboBox>
+          </VBox>
+          <VBox width="100%">
+            <Label text="CNPJ"/>
+            <Text id="textCnpjCpf"/>
+            <Label text="Dias Adicionais"/>
+            <Input id="input-diasAdd" width="300px"/>
+            <Label text="Dt. Desejada Entrega"/>
+            <DatePicker id="input-DtDEntrega" valueFormat="dd/MM/yyyy" displayFormat="dd/MM/yyyy" width="300px"/>
+            <Label text="{i18n>domicilioFiscal}"/>
+            <Text id="textDomicilioFiscal"/>
+            <Label text="Imposto"/>
+            <Text id="textImposto"/>
+          </VBox>
+          <VBox width="100%">
+            <Label text="Canal" textAlign="Left"/>
+            <ComboBox id="id-ComboCanal" placeholder="Canal" width="300px" items="{ path: '/modelDataComboCanal'}" change="onCanalChange">
+              <core:Item key="{Coddadomestre}" text="{Textodadomestre}"/>
+            </ComboBox>
+            <Label text="Num. Pedido"/>
+            <Input id="input-NumPedido" width="300px"/>
+            <Label text="{i18n>utilizacao}" textAlign="Left"/>
+            <ComboBox id="id-ComboUtilizacao" placeholder="{i18n>utilizacao}" width="300px" items="{ path: '/modelDataComboUtilizacao'}">
+              <core:Item key="{Coddadomestre}" text="{Textodadomestre}"/>
+            </ComboBox>
+            <Label text="{i18n>versao}" textAlign="Left"/>
+            <ComboBox id="id-ComboVersao" placeholder="{i18n>versao}" width="300px" items="{ path: '/modelDataComboVersao'}">
+              <core:Item key="{Coddadomestre}" text="{Textodadomestre}"/>
+            </ComboBox>
+
+            <Label text="Data de Saída Mercadoria"/>
+            <Input id="input-DtSaidaMerc" width="300px"/>
+
+          </VBox>
+        </HBox>
+      </Panel>
+      <ff:SimpleForm id="SimpleFormObs" editable="false" layout="ResponsiveGridLayout" title="Dados da Nota Fiscal" labelSpanL="4" labelSpanM="12"
+        adjustLabelSpan="false" emptySpanL="0" emptySpanM="0" columnsL="3" columnsM="3"/>
+      <Panel>
+        <HBox alignItems="Center" justifyContent="SpaceAround" renderType="Bare">
+          <Label text="Obs. NF-e" textAlign="Left"/>
+          <VBox justifyContent="SpaceBetween">
+            <Input id="input-nfeObs1" width="350px"/>
+            <Input id="input-nfeObs2" width="350px"/>
+          </VBox>
+          <VBox justifyContent="SpaceBetween">
+            <Input id="input-nfeObs3" width="350px"/>
+            <Input id="input-nfeObs4" width="350px"/>
+          </VBox>
+        </HBox>
+      </Panel>
+      <ff:SimpleForm id="SimpleFormObsCarregam" editable="false" layout="ResponsiveGridLayout" title="Dados de Carregamento" labelSpanL="4"
+        labelSpanM="12" adjustLabelSpan="false" emptySpanL="0" emptySpanM="0" columnsL="3" columnsM="3"/>
+      <Panel>
+        <HBox alignItems="Center" justifyContent="SpaceAround" renderType="Bare">
+          <Label text="Obs. Carregam." textAlign="Left"/>
+          <VBox justifyContent="SpaceAround" alignItems="Center" renderType="Bare">
+            <Input id="input-carregamObs1" width="350PX"/>
+          </VBox>
+          <VBox justifyContent="SpaceAround" alignItems="Center" renderType="Bare">
+            <Input id="input-carregamObs2" width="350PX"/>
+          </VBox>
+        </HBox>
+      </Panel>
+      <ff:SimpleForm editable="false" layout="ResponsiveGridLayout">
+        <Panel>
+          <HBox alignItems="Center" justifyContent="SpaceAround">
+            <HBox alignItems="Center" justifyContent="Center">
+              <Label text="Material : "/>
+              <SearchField width="100%" placeholder="Buscar Material" id="__field4" search="onSearchMaterial" maxLength="20"/>
+            </HBox>
+            <HBox alignItems="Center">
+              <Label text="Valor Total da Venda :"/>
+              <!-- VML Backup: level="H1" -->
+              <Text id="textValorTotalVenda" text="{path : 'cartProducts>/cartEntriesPedidos', formatter : '.formatter.totalPrice'}"/>
+            </HBox>
+          </HBox>
+        </Panel>
+      </ff:SimpleForm>
+      <!-- VML Backup: enableScrolling="true" -->
+      <ff:SimpleForm editable="true" layout="ResponsiveGridLayout" 
+       minWidth="1024" maxContainerCols="1" 
+      columnsL="1" columnsM="1">
+        <Table id="List" items="{path : 'cartProducts>/cartEntriesPedidos'}" showNoData="true" fixedLayout="false" width="auto" growing="true">
+          <columns>
+            <Column id="nameColumn1" hAlign="Left" width="6%">
+              <Text id="nameColumnTitle" text="Item"/>
+            </Column>
+            <Column id="nameColumn2" hAlign="Left" width="6%">
+              <Text text="{i18n>codigo}"/>
+            </Column>
+            <Column id="nameColumn3" hAlign="Left" width="12%">
+              <Text text="{i18n>descricao}"/>
+            </Column>
+            <Column id="nameColumn4" hAlign="Left" width="10%">
+              <Text text="Estoque"/>
+            </Column>
+            <Column id="nameColumn5" hAlign="Left" width="5%">
+              <Text text="Qtde"/>
+            </Column>
+            <Column id="nameColumn6" hAlign="Left" width="5%">
+              <Text text="Unid"/>
+            </Column>
+            <Column id="nameColumn7" hAlign="Left" width="5%">
+              <Text text="Pr. tabela sem IPI"/>
+            </Column>
+            <Column id="nameColumn8" hAlign="Left" width="5%">
+              <Text text="Pr. Negoc. com IPI"/>
+            </Column>
+            <Column id="nameColumn9" hAlign="Left" width="5%">
+              <Text text="Pr. Negoc. sem IPI"/>
+            </Column>
+            <Column id="nameColumn10" hAlign="Left" width="5%">
+              <Text text="Desc.%"/>
+            </Column>
+            <Column id="nameColumn11" hAlign="Left" width="5%">
+              <Text text="Valor tot. item"/>
+            </Column>
+            <Column id="nameColumn12" hAlign="Left" width="5%">
+              <Text text="{i18n>precoTraget}"/>
+            </Column>
+            <Column id="nameColumn13" hAlign="Left" width="5%">
+              <Text text="Valor ST"/>
+            </Column>
+            <Column id="nameColumn14" hAlign="Left" width="5%">
+              <Text text="Centro"/>
+            </Column>
+            <Column id="nameColumn15" hAlign="Left" width="5%">
+              <Text text="Frete"/>
+            </Column>
+            <Column id="nameColumn16" hAlign="Left" width="5%">
+              <Text text="Item Pedido Cliente"/>
+            </Column>
+            <Column id="nameColumn17" hAlign="Left" width="4%">
+              <Text text=""/>
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem press="onPress" type="Active">
+              <cells>
+                <ObjectNumber number="{= parseFloat(${path : 'cartProducts>Item'}) }" class="customCell"/>
+                <ObjectNumber number="{= parseFloat(${path : 'cartProducts>Material'}) }" class="customCell"/>
+                <Text text="{cartProducts>Descricao}" class="customMText"/>
+                <Text text="{cartProducts>Estque}" class="customMText"/>
+                <Input value="{cartProducts>Qtd}" editable="true" class="InputStyle customCell" change="onCartEntriesUpdate" liveChange="onLineChange"/>
+                <Text text="{cartProducts>Unidade}" class="customMText"/>
+                <ObjectNumber
+                  number="{ path: 'cartProducts>PrecoTbSemIPI', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2} }"
+                  class="customCell"/>
+                <ObjectNumber
+                  number="{ path: 'cartProducts>PrecoNegComIPI', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2} }"
+                  class="customCell"/>
+                <Input value="{cartProducts>PrecoNegSemIPI}" editable="true" class="InputStyle customCell" liveChange="onLineChange"
+                  valueState="{cartProducts>PrecoNegSemIPIState}" valueStateText="{cartProducts>PrecoNegSemIPIStateText}"/>
+                <Input value="{cartProducts>DescPercentual}" editable="true" class="InputStyle customCell" liveChange="onLineChange"
+                  valueState="{cartProducts>DescPercentualState}" valueStateText="{cartProducts>DescPercentualStateText}"/>
+                <ObjectNumber
+                  number="{ path: 'cartProducts>ValorTotItem', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2} }"
+                  class="customCell"/>
+                <ObjectNumber number="{ path: 'cartProducts>PrecoTarget', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2} }"
+                  class="customCell"/>
+                <ObjectNumber number="{ path: 'cartProducts>ValorST', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2} }"
+                  class="customCell"/>
+                <Select class="customCell" change="onLineChange" selectedKey="{cartProducts>Centro}">
+                  <core:Item key="" text=""/>
+                  <core:Item key="9606" text="9606"/>
+                  <core:Item key="9607" text="9607"/>
+                </Select>
+                <Select class="customCell" change="onLineChange" selectedKey="{cartProducts>Frete}">
+                  <core:Item key="" text=""/>
+                  <core:Item key="0" text="CIF Entrega"/>
+                  <core:Item key="1" text="EXW - Retira"/>
+                </Select>
+                <Input value="{cartProducts>ItemPedCli}" editable="true" class="InputStyle customCell" liveChange="onLineChange"/>
+                <Button icon="sap-icon://delete" press="onCartEntriesDelete"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </ff:SimpleForm>
+    </semantic:content>
+    <semantic:customFooterContent>
+      <Button text="Cancel" press="onCancel"/>
+      <ToolbarSpacer/>
+      <Button text="Calcular" press="onCalcular" icon="sap-icon://lead"/>
+      <Button text="Finalizar" press="onFinalizar" enabled="{SalesModel>/FinalizeEnabled}"/>
+    </semantic:customFooterContent>
+  </semantic:DetailPage>
+</mvc:View>

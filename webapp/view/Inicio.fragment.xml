@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog title="Seleção de loja" contentHeight="24%" contentWidth="30%" escapeHandler="onEscapePress">
+		<content>
+			<VBox class="sapUiSmallMargin">
+				<ComboBox width="100%" id="idComboLojaFragment" showSecondaryValues="true" items="{/atualiza_lojaSet}" selectionChange="onChangeloja">
+					<core:ListItem key="{cod_dist}" text="{cod_dist} - {DESC_LOJA}"/>
+				</ComboBox>
+				<Button id="okinicio" text="Selecionar" visible="true" press="onClose" width="100%"/>
+			</VBox>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

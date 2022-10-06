@@ -1,0 +1,51 @@
+<core:FragmentDefinition 
+	xmlns="sap.m" 
+	xmlns:t="sap.ui.table"
+	xmlns:l="sap.ui.layout" 
+	xmlns:f="sap.ui.layout.form" 
+	xmlns:core="sap.ui.core">
+	<Dialog title="Fluxo de documentos da ov" contentHeight="70%" contentWidth="70%">
+		<content>
+			<t:TreeTable
+			    selectionMode="Single"
+		        enableColumnReordering="true"
+		        expandFirstLevel="true"			
+				rows="{ 
+					path: '/Fluxos',
+					parameters : { arrayNames:['nodes'] }
+				}">
+				<t:columns>
+					<t:Column label="Documento" hAlign="Left">
+						<t:template>
+							<ObjectIdentifier title="{Description} {Docnum}" titleActive="true" titlePress="onSalesOrderFrag"/>
+						</t:template>
+					</t:Column>
+							 
+					<t:Column label="Em" hAlign="Center" width="14%">
+						<t:template>
+							<Text text="{ path: 'Erdat', type:'sap.ui.model.type.Date', formatOptions : { UTC:true, style:'short'} }" />
+						</t:template>
+					</t:Column>
+
+					<t:Column label="Hora" hAlign="Center" width="12%">
+						<t:template>
+							<Text text="{ path: 'Erzet', type:'sap.ui.model.odata.type.Time', formatOptions : { pattern : 'HH:mm:ss'} }" />
+						</t:template>
+					</t:Column>
+					
+					<t:Column label="Status" hAlign="Center" width="24%">
+						<t:template>
+							<ObjectStatus text="{ path: 'Status', formatter:'.statusText'}" state="{ path: 'Status', formatter:'.statusState' }"/>
+						</t:template>
+					</t:Column>										
+				</t:columns>
+			</t:TreeTable>
+			
+			<FlexBox alignItems="Center" justifyContent="Center">
+				<items>
+					<Button text="Fechar" visible="true" press="handleFecharPress"/>
+				</items>
+			</FlexBox>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

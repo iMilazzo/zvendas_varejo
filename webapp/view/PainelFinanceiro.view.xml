@@ -1,0 +1,121 @@
+<mvc:View controllerName="arcelor.controller.PainelFinanceiro" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:core="sap.ui.core"
+  xmlns:mvc="sap.ui.core.mvc" xmlns:c="arcelor.controls" xmlns="sap.m">
+  <App>
+    <pages>
+
+      <Page title="Financeiro">
+        <customHeader>
+          <Bar>
+            <contentLeft>
+              <Button id="back" icon="sap-icon://nav-back" press="onPressNavBack"/>
+            </contentLeft>
+            <contentMiddle>
+              <Title level="H2" text="Painel Financeiro"/>
+            </contentMiddle>
+            <contentRight>
+              <Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+            </contentRight>
+          </Bar>
+        </customHeader>
+        <content>
+          <Panel expandable="true" headerText="Cheque Moradia" width="auto" class="sapUiResponsiveMargin">
+            <HBox class="sapUiTinyMargin">
+
+              <HBox class="sapUiTinyMargin">
+                <customData>
+                  <core:CustomData key="auth" value="divConsultaSaldo" writeToDom="true"/>
+                </customData>
+              <c:Card id="idTileConsSaldoIcms" backgroundColor="#ff5a16E6" image="image/saldo_icms.jpg" title="Saldo ICMS" press="onPressSaldoICMS"
+                class="sapUiTinyMargin"/>
+              </HBox>
+                  <HBox class="sapUiTinyMargin">
+                <customData>
+                  <core:CustomData key="auth" value="divChequeMoradia" writeToDom="true"/>
+                </customData>
+              <c:Card id="idTileLancChequeMoradia" backgroundColor="#ff5a16E6" image="image/cheque_moradia.png" title="Lanç. Cheque Moradia"
+                press="onLancamento" class="sapUiTinyMargin" visible="true"/>
+              </HBox>
+
+                  <HBox class="sapUiTinyMargin">
+                <customData>
+                  <core:CustomData key="auth" value="divGestaoChequeMorad" writeToDom="true"/>
+                </customData>
+              <c:Card id="idTileChequeMoradia" backgroundColor="#ff5a16E6" image="image/gestao_cheque_moradia.png" title="Gestão Ch. Moradia"
+                press="onClickRelChequeMoradia" class="sapUiTinyMargin" visible="true"/>
+              </HBox>
+
+                  <HBox class="sapUiTinyMargin">
+                <customData>
+                  <core:CustomData key="auth" value="divLibercao" writeToDom="true"/>
+                </customData>
+              <c:Card id="idTileLiberacaoBloqueio" backgroundColor="#ff5a16E6" image="image/liberacao_bloqueio.jpg" title="Liber. Bloq. Fatura"
+                press="onPressLiberacaoBloqueio" class="sapUiTinyMargin"/>
+              </HBox>
+
+                  <HBox class="sapUiTinyMargin">
+                <customData>
+                  <core:CustomData key="auth" value="divBaixaCheque" writeToDom="true"/>
+                </customData>
+              <c:Card id="idTileChequeMoradiaBaixa" backgroundColor="#ff5a16E6" image="image/cheque_moradia.png" title="Baixa Cheque Moradia"
+                press="onPressChequeMoradiaBaixa" class="sapUiTinyMargin" visible="true"/>
+            </HBox>
+            </HBox>
+          </Panel>
+          <Panel expandable="true" headerText="Opções de Pagamento" width="auto" class="sapUiResponsiveMargin">
+            <HBox>
+              <HBox class="sapUiTinyMargin">
+                <customData>
+                  <core:CustomData key="auth" value="divSolicitarAdiantam" writeToDom="true"/>
+                </customData>
+                <c:Card id="idTileAntecipacao" backgroundColor="#ff5a16E6" image="image/pagamento_antecipado.jpg" title="Solicitar Adiantamento"
+                  press="onPressSolicitarAdiantamento" class="sapUiTinyMargin"/>
+              </HBox>
+              <HBox class="sapUiTinyMargin">
+                <customData>
+                  <core:CustomData key="auth" value="divGerarBoleto" writeToDom="true"/>
+                </customData>
+                <c:Card id="__image6" backgroundColor="#ff5a16E6" image="image/boleto.jpg" title="Gerar Boleto" press="actionBoleto"/>
+              </HBox>
+              <!-- DMND0021004 - FLS - 09.08.2022 - Begin -->
+              <HBox class="sapUiTinyMargin">
+                <customData>
+                  <core:CustomData key="auth" value="divLiberarBloqCondPgto" writeToDom="true"/>
+                </customData>
+                <c:Card id="__image99" backgroundColor="#ff5a16E6" image="image/boleto.jpg" title="Lib. bloq. cond. pgto." press="actionLiberarBloqueioCondPgto"/>
+              </HBox>
+              <!-- DMND0021004 - FLS - 09.08.2022 - End -->
+            </HBox>
+          </Panel>
+          <Panel expandable="true" headerText="Fiscal" width="auto" class="sapUiResponsiveMargin">
+            <HBox>
+              <HBox class="sapUiTinyMargin">
+                <customData>
+                  <core:CustomData key="auth" value="divMonitorNfe" writeToDom="true"/>
+                </customData>
+                <c:Card id="__image7" backgroundColor="#ff5a16E6" image="image/nota_fiscal.jpg" title="Monitor NF-e" press="actionMonitorNfe"/>
+              </HBox>
+              <!-- DMND0018863 - IM - 20.09.2022 - Begin -->
+                <HBox class="sapUiTinyMargin">
+                  <customData>
+                    <core:CustomData key="auth" value="divDevolucaoNfce" writeToDom="true"/>
+                  </customData>
+                  <c:Card id="__image9" backgroundColor="#ff5a16E6" image="image/nota_fiscal.jpg" title="Devolução NFC-e" press="actionDevolucaoNFCe"/>
+                </HBox>
+              <!-- DMND0018863 - IM - 20.09.2022 - End -->
+            </HBox>
+          </Panel>
+          <Panel expandable="true" headerText="Gerar Arquivo" width="auto" class="sapUiResponsiveMargin">
+            <HBox>
+              <HBox class="sapUiTinyMargin">
+                <customData>
+                  <core:CustomData key="auth" value="divGerarArquivo" writeToDom="true"/>
+                </customData>
+                <c:Card id="__image8" backgroundColor="#ff5a16E6" image="image/tabela_precos.jpg" title="Arquivo" press="actionGerarArquivo"/>
+              </HBox>
+            </HBox>
+          </Panel>
+        </content>
+      </Page>
+    </pages>
+  </App>
+</mvc:View>

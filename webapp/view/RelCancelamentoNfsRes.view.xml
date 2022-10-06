@@ -1,0 +1,141 @@
+<mvc:View controllerName="arcelor.controller.RelCancelamentoNfsRes" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:tab="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="{i18n>relCancelamentoNfsResTitle}" showNavButton="true" navButtonPress="onNavBack">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" text="{i18n>relCancelamentoNfsResTitle}"/>
+						</contentMiddle>
+						<contentRight>
+							<Button icon="sap-icon://print" text="Imprimir" press="onImprimirPress"/>
+							<Button icon="sap-icon://excel-attachment" text="Gerar Excel" press="exportSpreadsheet"/>
+							<Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+						<Panel width="auto" accessibleRole="Region">
+							<HBox justifyContent="SpaceBetween">
+								<HBox>
+									<Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+								</HBox>
+								<HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center">
+									<Text text="" id="dataAtual"/>
+								</HBox>
+							</HBox>
+						</Panel>
+						<Table id="tabela_relatorio" growing="true" growingThreshold="1000" sticky="HeaderToolbar,ColumnHeaders" items="{path: '/result'}"
+							fixedLayout="false">
+							<columns>
+								<Column>
+									<Text text="{i18n>bukrs}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>branch}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>werks}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>nfnum}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>candat}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>chatim}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>chaman}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>motivo}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{Bukrs}" wrapping="false"/>
+										<Text text="{Branch}" wrapping="false"/>
+										<Text text="{Werks}" wrapping="false"/>
+										<Text text="{Nfnum}" wrapping="false"/>
+										<Text text="{ path: 'Candat', formatter: '.formatter.strToDataBrOneDay' }" wrapping="false"/>
+										<Text text="{Chatim}" wrapping="false"/>
+										<Text text="{Chaman}" wrapping="false"/>
+										<Text text="{Motivo}" wrapping="false"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</ScrollContainer>
+					<tab:Table id="tabRelatorio" visible="false" rows="{/RelCancelamentoNfsSet/}" title="" selectionMode="None" visibleRowCount="20">
+						<tab:toolbar>
+							<Toolbar>
+								<content>
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://excel-attachment" press="exportSpreadsheet" tooltip="{i18n>exportExcel}"/>
+								</content>
+							</Toolbar>
+						</tab:toolbar>
+						<tab:columns>
+							<tab:Column width="11rem">
+								<Label text="{i18n>bukrs}"/>
+								<tab:template>
+									<Text text="{Bukrs}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>branch}"/>
+								<tab:template>
+									<Text text="{Branch}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>werks}"/>
+								<tab:template>
+									<Text text="{Werks}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>nfnum}"/>
+								<tab:template>
+									<Text text="{Nfnum}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>candat}"/>
+								<tab:template>
+									<Text text="{ path: 'Candat', type: 'sap.ui.model.type.Date', formatOptions: {UTC:true} }" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>chatim}"/>
+								<tab:template>
+									<Text text="{ path: 'Chatim', formatter: '.formatter._formatarHorario' }" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>chaman}"/>
+								<tab:template>
+									<Text text="{Chaman}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>motivo}"/>
+								<tab:template>
+									<Text text="{Motivo}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+						</tab:columns>
+					</tab:Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <TableSelectDialog 
+    noDataText="Sem dados" 
+    title="Clientes Cadastrados" 
+    cancel="handleTableClose" 
+    confirm="handleTableClose"
+    items="{/ClientesAllSet}">
+    <ColumnListItem>
+      <cells>
+        <ObjectIdentifier title="{Codcliente} / {Nome}" 
+        text="Rua: {Endereco} / {i18n>numero}: {Numero} / Compl: {Complemento} / Bairro: {Bairro} / Cidade: {Cidade} / Estado: {Regiao}"/>
+      </cells>
+    </ColumnListItem>
+    <columns>
+      <Column width="auto">
+        <header>
+          <Text text="Cliente / Endereço"/>
+        </header>
+      </Column>
+    </columns>
+  </TableSelectDialog>
+</core:FragmentDefinition>

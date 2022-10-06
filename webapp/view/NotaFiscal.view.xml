@@ -1,0 +1,499 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m" xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout" xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:arcelor="arcelor.controls"
+	controllerName="arcelor.controller.NotaFiscal">
+	<Page id="page" showNavButton="true"
+		title="Pesquisar Notas Fiscais" navButtonPress="onNavBack"
+		enableScrolling="true">
+		<customHeader>
+			<Bar>
+				<contentLeft>
+					<Button id="back" icon="sap-icon://nav-back"
+						press="onNavBack" />
+				</contentLeft>
+				<contentMiddle>
+					<Title level="H2" tooltip="{i18n>welcomeDescription}"
+						text="Pesquisar Notas Fiscais" />
+				</contentMiddle>
+				<contentRight>
+					<Button id="btnMenu" icon="sap-icon://full-screen"
+						press="onPressMenuButton" />
+				</contentRight>
+			</Bar>
+		</customHeader>
+		<content>
+			<f:SimpleForm id="SimpleFormDisplay1" editable="false"
+				layout="ResponsiveGridLayout" title="Buscar Nota Fiscal"
+				columnsL="2" columnsM="2" />
+			<Panel class="sapUiNoContentPadding">
+				<l:HorizontalLayout class="sapUiContentPadding">
+					<l:VerticalLayout>
+						<Label text="Número do documento:" />
+						<Input id="filterDocnum" width="200px" />
+					</l:VerticalLayout>
+					<l:VerticalLayout>
+						<Label text="Número da OV:" />
+						<Input id="filterVbeln" width="200px" />
+					</l:VerticalLayout>
+					<l:VerticalLayout>
+						<Label text="Número NF-e:" />
+						<Input id="filterNfenum" width="200px" />
+					</l:VerticalLayout>
+					<l:VerticalLayout>
+						<Label text="Série:" />
+						<Input id="filterSerie" width="200px" />
+					</l:VerticalLayout>
+					<l:VerticalLayout>
+						<Label text="Data de Lançamento:" />
+						<DateRangeSelection id="filterPstdat"
+							width="200px" delimiter="-" displayFormat="dd/MM/yy" />
+					</l:VerticalLayout>
+				</l:HorizontalLayout>
+				<l:HorizontalLayout
+					class="sapUiSmallMarginBottom">
+					<Button text="Buscar" press="onSearch"
+						icon="sap-icon://search" class="sapUiSmallMarginBeginEnd" />
+					<Button text="Limpar Pesquisa" press="onClear" />
+				</l:HorizontalLayout>
+			</Panel>
+			<Panel id="pnlNotaFiscal" visible="false">
+				<f:Form editable="false">
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanXL="12"
+							labelSpanL="12" labelSpanM="12" labelSpanS="12"
+							adjustLabelSpan="false" columnsXL="1" columnsL="1" columnsM="1"
+							singleContainerFullSize="false" />
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement>
+									<f:fields>
+										<FlexBox renderType="Bare">
+											<Label text="Número documento:" width="50%" />
+											<Text text="{view>/Docnum}" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="Série:" width="30%" />
+											<Text text="{view>/VcSeries}" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="Data:" width="20%" />
+											<Text
+												text="{path: 'view>/Docdat', type:'sap.ui.model.type.Date', formatOptions : { UTC:true, style:'short'}}" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="Saída:" width="20%" />
+											<Text
+												text="{ path: 'view>/Direct', type: 'sap.ca.ui.model.type.Float', formatter: '.formatSaida' }" />
+										</FlexBox>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<FlexBox renderType="Bare">
+											<Label text="Número NFe:" width="50%" />
+											<Text text="{view>/Nfenum}" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="Número OV:" width="30%" />
+											<Text text="{view>/Vbeln}" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="CFOP:" width="20%" />
+											<Text text="{view>/Cfop}" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="Texto:" width="20%" />
+											<Text text="{view>/CfopText}" />
+										</FlexBox>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<FlexBox renderType="Bare">
+											<Label text="Status:" width="7%" />
+											<ObjectStatus text="{view>/Status}"
+												state="{path:'view>/Cancel', formatter: '.formatState'}" />
+										</FlexBox>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<HBox justifyContent="Start">
+											<Label text="Destinatário:" class="sapUiSmallMarginEnd" />
+											<Text text="{view>/Name1}" />
+										</HBox>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<FlexBox renderType="Bare">
+											<Label text="Endereço:" width="34%" />
+											<Text text="{view>/Stras}" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="Cidade:" width="30%" />
+											<Text text="{view>/Ort01}" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="Estado:" width="20%" />
+											<Text text="{view>/Regio}" />
+										</FlexBox>
+										<FlexBox renderType="Bare" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<FlexBox renderType="Bare">
+											<Label text="Bairro:" width="26%" />
+											<Text text="{view>/Ort02}" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="Telefone:" width="30%" />
+											<Text text="{view>/Telf1}" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="CEP:" width="20%" />
+											<Text text="{view>/Pstlz}" />
+										</FlexBox>
+										<FlexBox renderType="Bare" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<FlexBox renderType="Bare">
+											<Label text="IE:" width="26%" />
+											<Text text="{view>/Munins}" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="CNPJ:" width="30%"
+												visible="{= ${view>/Cpf} === '00000000000000' ? true : false }" />
+											<Text text="{view>/Cgc}"
+												visible="{= ${view>/Cpf} === '00000000000000' ? true : false }" />
+											<Label text="CPF:" width="30%"
+												visible="{= ${view>/Cpf} !== '00000000000000' ? true : false }" />
+											<Text text="{view>/Cpf}"
+												visible="{= ${view>/Cpf} !== '00000000000000' ? true : false }" />
+										</FlexBox>
+										<FlexBox renderType="Bare" />
+										<FlexBox renderType="Bare" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<Toolbar width="100%" height="1px" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<HBox justifyContent="Center">
+											<Label text="VALOR POR EXTENSO" design="Bold"
+												class="sapUiSmallMarginEnd" />
+											<Text text="{view>/Word}" />
+										</HBox>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<Toolbar width="100%" height="1px" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<Table items="{view>/items}" showNoData="true"
+											fixedLayout="false" width="auto" growing="true">
+											<columns>
+												<Column hAlign="Left">
+													<Text text="Item" />
+												</Column>
+												<Column hAlign="Left">
+													<Text text="Material" />
+												</Column>
+												<Column hAlign="Center">
+													<Text text="CFOP" />
+												</Column>
+												<Column hAlign="End">
+													<Text text="Quantidade" />
+												</Column>
+												<Column hAlign="Center">
+													<Text text="Unidade" />
+												</Column>
+												<Column hAlign="End">
+													<Text text="Preço Líq." />
+												</Column>
+												<Column hAlign="End">
+													<Text text="Valor Líq." />
+												</Column>
+											</columns>
+											<items>
+												<ColumnListItem>
+													<cells>
+														<Text text="{view>Itmnum}" />
+														<Text text="{view>Matnr} - {view>Maktx}" />
+														<Text text="{view>Cfop}" />
+														<Text
+															text="{path:'view>Menge',type:'sap.ui.model.type.Float', formatter: '.formatQtdPeso'}" />
+														<Text text="{view>Meins}" />
+														<Text
+															text="{ path: 'view>Netpr', type: 'sap.ca.ui.model.type.Float', formatter: '.formatValor' }" />
+														<Text
+															text="{ path: 'view>Netwr', type: 'sap.ca.ui.model.type.Float', formatter: '.formatValor' }" />
+													</cells>
+												</ColumnListItem>
+											</items>
+										</Table>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<Toolbar width="100%" height="1px" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<HBox justifyContent="Center">
+											<Label design="Bold" text="IMPOSTOS" />
+										</HBox>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<Toolbar width="100%" height="1px" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<FlexBox renderType="Bare">
+											<Label text="Val.Tot.Produto:" width="40%" />
+											<Text textAlign="End"
+												text="{ path: 'view>/Nfnett', type: 'sap.ca.ui.model.type.Float', formatter: '.formatValor' }" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="Val.Frete:" width="40%" />
+											<Text textAlign="End"
+												text="{ path: 'view>/Nffre', type: 'sap.ca.ui.model.type.Float', formatter: '.formatValor' }" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="Val.Seguro:" width="40%" />
+											<Text textAlign="End"
+												text="{ path: 'view>/Nfins', type: 'sap.ca.ui.model.type.Float', formatter: '.formatValor' }" />
+										</FlexBox>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<FlexBox renderType="Bare">
+											<Label text="Val.Total IPI:" width="40%" />
+											<Text textAlign="End"
+												text="{ path: 'view>/Ipival', type: 'sap.ca.ui.model.type.Float', formatter: '.formatValor' }" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="Base Cálc.ICMS:" width="40%" />
+											<Text textAlign="End"
+												text="{ path: 'view>/Icmsbase', type: 'sap.ca.ui.model.type.Float', formatter: '.formatValor' }" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="Val.ICMS:" width="40%" />
+											<Text textAlign="Right"
+												text="{ path: 'view>/Icmsval', type: 'sap.ca.ui.model.type.Float', formatter: '.formatValor' }" />
+										</FlexBox>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<FlexBox renderType="Bare">
+											<Label text="Val.Tot.Nota:" width="40%" />
+											<Text textAlign="Right"
+												text="{ path: 'view>/Nftot', type: 'sap.ca.ui.model.type.Float', formatter: '.formatValor' }" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="Base Cálc.ICST:" width="40%" />
+											<Text textAlign="Right"
+												text="{ path: 'view>/Icstbase', type: 'sap.ca.ui.model.type.Float', formatter: '.formatValor' }" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="Val.ICST:" width="40%" />
+											<Text textAlign="Right"
+												text="{ path: 'view>/Icstval', type: 'sap.ca.ui.model.type.Float', formatter: '.formatValor' }" />
+										</FlexBox>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<Toolbar width="100%" height="1px" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<HBox justifyContent="Center">
+											<Label design="Bold"
+												text="TRANSPORTADOR/VOLUMES TRANSPORTADO" />
+										</HBox>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<Toolbar width="100%" height="1px" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<HBox justifyContent="Start">
+											<Label text="Fornecedor:" class="sapUiSmallMarginEnd" />
+											<Text text="{view>/Name1Forn}" />
+										</HBox>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<FlexBox renderType="Bare">
+											<Label text="Endereço:" width="32%" />
+											<Text text="{view>/StrasForn}" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="Cidade:" width="28%" />
+											<Text text="{view>/Ort01Forn}" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="Estado:" width="32%" />
+											<Text text="{view>/RegioForn}" />
+										</FlexBox>
+										<FlexBox renderType="Bare" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<FlexBox renderType="Bare">
+											<Label text="IE:" width="32%" />
+											<Text text="{view>/Stcd3}" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="CNPJ:" width="28%" />
+											<Text text="{view>/Stcd1}" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="Frete:" width="32%" />
+											<Text
+												text="{ path: 'view>/VcFrete', formatter: '.formatFrete' }" />
+										</FlexBox>
+										<FlexBox renderType="Bare" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<FlexBox renderType="Bare">
+											<Label text="Placa:" width="32%" />
+											<Text text="{view>/VcPlaca}" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="Peso Bruto:" width="28%" />
+											<Text
+												text="{ path: 'view>/Brgew', type: 'sap.ca.ui.model.type.Float', formatter: '.formatValor' }" />
+										</FlexBox>
+										<FlexBox renderType="Bare">
+											<Label text="Peso Líquido:" width="32%" />
+											<Text
+												text="{ path: 'view>/Ntgew', type: 'sap.ca.ui.model.type.Float', formatter: '.formatValor' }" />
+										</FlexBox>
+										<FlexBox renderType="Bare" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<Toolbar width="100%" height="1px" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<HBox justifyContent="Center">
+											<Label text="OBSERVAÇÕES" design="Bold" />
+										</HBox>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<Toolbar width="100%" height="1px" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<l:VerticalLayout>
+											<HBox justifyContent="Start">
+												<Text text="{view>/VcObs}" />
+											</HBox>
+											<HBox justifyContent="Start">
+												<Text text="{view>/VcObs1}" />
+											</HBox>
+											<HBox justifyContent="Start">
+												<Text text="{view>/VcObs2}" />
+											</HBox>
+											<HBox justifyContent="Start">
+												<Text text="{view>/VcObs3}" />
+											</HBox>
+											<HBox justifyContent="Start">
+												<Text text="{view>/VcObs4}" />
+											</HBox>
+											<HBox justifyContent="Start">
+												<Text text="{view>/VcObs5}" />
+											</HBox>
+											<HBox justifyContent="Start">
+												<Text text="{view>/VcObs6}" />
+											</HBox>
+											<HBox justifyContent="Start">
+												<Text text="{view>/VcObs7}" />
+											</HBox>
+											<HBox justifyContent="Start">
+												<Text text="{view>/VcObs8}" />
+											</HBox>
+											<HBox justifyContent="Start">
+												<Text text="{view>/VcObs9}" />
+											</HBox>
+											<HBox justifyContent="Start">
+												<Text text="{view>/VcObs10}" />
+											</HBox>
+										</l:VerticalLayout>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+			</Panel>
+		</content>
+		<footer>
+			<Bar>
+				<contentRight>
+					<HBox justifyContent="End">
+						<HBox justifyContent="End" alignItems="End"
+							alignContent="End" class="sapUiTinyMarginEnd">
+							<customData>
+								<core:CustomData key="auth"
+									value="btnCancelarNF" writeToDom="true" />
+							</customData>
+							<items>
+								<Button xmlns="sap.m" text="Cancelar NF"
+									icon="sap-icon://sys-cancel" press="onShowPopupCancelNF" />
+
+							</items>
+						</HBox>
+
+						<HBox justifyContent="End" alignItems="End"
+							alignContent="End" class="sapUiTinyMarginEnd">
+							<customData>
+								<core:CustomData key="auth"
+									value="btnCancelarNF" writeToDom="true" />
+							</customData>
+							<items>
+								<Button xmlns="sap.m" text="Devolver NFC-e" visible="{= ${view>/Model} === '65' }"
+									icon="sap-icon://sys-cancel" press="onShowDevolver" />
+							</items>
+						</HBox>
+					</HBox>
+				</contentRight>
+
+			</Bar>
+		</footer>
+	</Page>
+</mvc:View>

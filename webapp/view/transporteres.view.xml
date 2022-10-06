@@ -1,0 +1,352 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns="sap.m" xmlns:f="sap.f"
+  xmlns:e="sap.ui.core.Element" xmlns:u="sap.ui.unified" xmlns:ff="sap.ui.layout.form" controllerName="arcelor.controller.transporteres"
+  xmlns:arcelor="arcelor.controls">
+  <Page id="page" showNavButton="true" title="FATURAMENTO AUTOMÁTICO" navButtonPress="onNavBack" enableScrolling="true">
+    <customHeader>
+      <Bar>
+
+        <contentLeft>
+          <Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+        </contentLeft>
+        <contentMiddle>
+          <Title level="H2" tooltip="{i18n>welcomeDescription}" text="Dados do documento"/>
+        </contentMiddle>
+        <contentRight>
+          <HBox>
+            <Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton" class="sapUiTinyMarginBegin"/>
+          </HBox>
+        </contentRight>
+      </Bar>
+    </customHeader>
+    <content>
+      <ff:SimpleForm id="SimpleFormDisplay1" editable="false" layout="ResponsiveGridLayout" columnsL="2" columnsM="2"/>
+      <Panel id="__panel9">
+        <content>
+            <VBox width="35%">
+              <HBox alignContent="Start" width="100%">
+                <Label text="Remessa:" design="Bold"/>
+                <Text id="multiinput-remessa"/>
+              </HBox>
+              <HBox width="100%" alignContent="Start">
+                <Label text="Data de Criação:" design="Bold" labelFor="input-dateEmitidas"/>
+                <Text id="input-dateEmitidas_remessa"/>
+              </HBox>
+                            <HBox width="100%" alignContent="Start">
+                <Label text="Ov:" design="Bold" labelFor="input-dateEmitidas"/>
+                <Text id="input-dateEmitidas_ov"/>
+              </HBox>
+            </VBox>
+        </content>
+      </Panel>
+      <Panel id="__panel1">
+        <content>
+          <Table id="input-dadosMestres" items="{/DM_FaturarOVSet}" visible="false">
+            <columns>
+              <Column hAlign="Left">
+                <Text text="Codconsulta"/>
+              </Column>
+              <Column hAlign="Left">
+                <Text text="Coddadomestre"/>
+              </Column>
+              <Column hAlign="Left">
+                <Text text="Textodadomestre"/>
+              </Column>
+            </columns>
+            <items>
+              <ColumnListItem press="onPress" type="Active">
+                <cells>
+                  <Input value="{Codconsulta}"/>
+                  <Input value="{Coddadomestre}"/>
+                  <Input value="{Textodadomestre}"/>
+                </cells>
+              </ColumnListItem>
+            </items>
+          </Table>
+          <HBox justifyContent="SpaceBetween" width="100%">
+            <VBox width="35%">
+              <HBox alignContent="Start" width="100%">
+                <Label text="Documento de transporte:" design="Bold"/>
+                <Text id="multiinput-ordem"/>
+              </HBox>
+              <HBox width="100%" alignContent="Start">
+                <Label text="Data de Criação:" design="Bold" labelFor="input-dateEmitidas"/>
+                <Text id="input-dateEmitidas"/>
+              </HBox>
+              <HBox width="100%" alignContent="Start">
+                <Label text="Local de org. de transp:" design="Bold" labelFor="input-TPLST"/>
+                <Text id="input-TPLST"/>
+              </HBox>
+              <HBox width="100%" alignContent="Start">
+                <Label text="Status doc. transporte:" design="Bold" labelFor="input-STTRG"/>
+                <Text id="input-STTRG"/>
+              </HBox>
+              <HBox width="100%" alignContent="Start">
+                <Label text="Descrição do status:" design="Bold" labelFor="input-STATUS_DESC"/>
+                <Text id="input-STATUS_DESC"/>
+              </HBox>
+            </VBox>
+            <VBox width="45%">
+              <HBox width="100%" alignContent="Start">
+                <Label text="Código transportadora:" design="Bold" labelFor="input-Tdnlr"/>
+                <Input id="input-Tdnlr" submit="acharTransporta" class="boldBorder" visible="false"/>
+                <Text id="input-Tdnlr1" class="boldBorder"/>
+              </HBox>
+              <HBox width="100%" alignContent="Start">
+                <Label text="Nome transportadora:" design="Bold" labelFor="input-NAME1"/>
+                <Text id="input-NAME1"/>
+              </HBox>
+              <HBox width="100%" alignContent="Start">
+                <Label text="Placa:" labelFor="input-SIGNI" design="Bold"/>
+                <Input id="input-SIGNI" class="boldBorder" visible="false"/>
+                <Text id="input-SIGNI1" class="boldBorder"/>
+              </HBox>
+              <HBox width="100%" alignContent="Start">
+                <Label text="Antt:" design="Bold" labelFor="input-ANTT"/>
+                <Text id="input-ANTT"/>
+              </HBox>
+              <HBox width="100%" alignContent="Start">
+                <Label text="Antt Uf:" design="Bold" labelFor="input-UF_ANTT"/>
+                <Text id="input-UF_ANTT"/>
+              </HBox>
+            </VBox>
+            <VBox width="30%">
+              <HBox width="100%" alignContent="Start">
+                <Label text="Código doc. custo transp:" design="Bold" labelFor="input-CodDocCusto"/>
+                <Text id="input-CodDocCusto"/>
+              </HBox>
+              <HBox width="100%" alignContent="Start">
+                <Label text="Custo total transp:" design="Bold" labelFor="input-CustoTotal"/>
+                <Text id="input-CustoTotal"/>
+              </HBox>
+              <HBox width="100%" alignContent="Start" visible="false">
+                <Label text="Custo frete:" design="Bold" labelFor="input-Custofrete"/>
+                <Text id="input-Custofrete"/>
+              </HBox>
+              <HBox width="100%" alignContent="Start">
+                <Label text="Peso total transp:" design="Bold" labelFor="input-Custofrete"/>
+                <Text id="input-pesofrete"/>
+              </HBox>
+
+              <HBox width="100%" alignContent="Start">
+              <Label text="Data de Saída Mercadoria" design="Bold"/>
+              <DatePicker id="input-DtMerc" valueFormat="dd/MM/yyyy" displayFormat="dd/MM/yyyy"
+               visible="false"/>
+               <DatePicker id="input-DtMerc1" valueFormat="dd/MM/yyyy" displayFormat="dd/MM/yyyy"
+               visible="false"/>
+              </HBox>
+
+            </VBox>
+          </HBox>
+        </content>
+      </Panel>
+      <ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+        <Panel id="__panel2" visible="true">
+          <content>
+            <HBox justifyContent="SpaceBetween" width="100%"></HBox>
+          </content>
+        </Panel>
+        <Table id="List" sticky="HeaderToolbar,ColumnHeaders" items="{OVModel>/OVData}" width="100%" growing="true" contextualWidth="Auto"
+          fixedLayout="false" mode="MultiSelect">
+          <columns>
+            <Column>
+              <Text text="Empresa" visible="false"/>
+            </Column>
+            <Column width="10%">
+              <Text id="nameColumnTitle" text="{i18n>numOV}"/>
+            </Column>
+            <Column width="4%">
+              <Text text="Item"/>
+            </Column>
+            <Column width="6%">
+              <Text text="Material"/>
+            </Column>
+            <Column >
+              <Text text="Descrição"/>
+            </Column>
+            <Column >
+              <Text text="Cliente"/>
+            </Column>
+            <Column width="7%">
+              <Text text="Fornec."/>
+            </Column>
+            <Column width="4%">
+              <Text text="Item"/>
+            </Column>
+            <Column width="7%">
+              <Text text="Qtd fornec"/>
+            </Column>
+            <Column width="4%">
+              <Text text="UM"/>
+            </Column>
+            <Column width="7%">
+              <Text text="Nota fiscal"/>
+            </Column>
+            <Column width="8%">
+              <Text text="Custo frete"/>
+            </Column>
+            <Column >
+              <Text text="Bloq.Créd"/>
+            </Column>
+            <Column >
+              <Text text="Bloq.Preço"/>
+            </Column>
+            <Column >
+              <Text text="Bloq.Pgto Antecip"/>
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem press="onPress" class="statusUIIcon">
+              <cells>
+                <Text text="{OVModel>cabecalho}" visible="false"/>
+                <Input type="Text" value="{OVModel>Vgbel}" enabled="{OVModel>enabled}" class="boldTextSize"/>
+                <Text text="{OVModel>Vgpos}" class="boldTextSize"/>
+                <Text text="{OVModel>Matnr}" class="boldTextSize"/>
+                <Text text="{OVModel>Arktx}" class="boldTextSize"/>
+                <Text text="{OVModel>Name2}" class="boldTextSize"/>
+                <Text text="{OVModel>Fornecimento}" class="boldTextSize"/>
+                <Text text="{OVModel>ItemFornecimento}" class="boldTextSize"/>
+                <Input value="{ path: 'OVModel>Lfimg', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 15, scale: 2} }"
+                  enabled="{OVModel>visible}" class="boldTextSize"/>
+                <Text text="{OVModel>Meins}" class="boldTextSize"/>
+                <Text text="{OVModel>NotaFiscal}" class="boldTextSize"/>
+                <Text text="{ path: 'OVModel>Custofrete', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 15, scale: 2} }"
+                  class="boldTextSize"/>
+                <core:Icon id="icon3" src="{path: 'OVModel>StatusGlobal', formatter: '.status'}">
+                  <core:customData>
+                    <core:CustomData key="status" value="{OVModel>StatusGlobal}" writeToDom="true"/>
+                  </core:customData>
+                </core:Icon>
+                <core:Icon id="icon4" src="{path: 'OVModel>StatusReme', formatter: '.status'}">
+                  <core:customData>
+                    <core:CustomData key="status" value="{OVModel>StatusReme}" writeToDom="true"/>
+                  </core:customData>
+                </core:Icon>
+                <core:Icon id="icon5" src="{path: 'OVModel>StatusFatura', formatter: '.status'}">
+                  <core:customData>
+                    <core:CustomData key="status" value="{OVModel>StatusFatura}" writeToDom="true"/>
+                  </core:customData>
+                </core:Icon>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+ <Table id="List2" sticky="HeaderToolbar,ColumnHeaders" items="{OVModel>/OVData}" width="100%" growing="true" contextualWidth="Auto"
+          fixedLayout="false" mode="MultiSelect">
+          <columns>
+            <Column width="10%" visible="false">
+              <Text id="nameColumnTitle52" text="{i18n>numOV}" visible="false"/>
+            </Column>
+            <Column width="10%">
+              <Text id="nameColumnTitle1" text="{i18n>numOV}"/>
+            </Column>
+            <Column visible="false">
+              <Text text="Descrição" visible="false"/>
+            </Column>
+            <Column width="10%">
+              <Text text="Fornec."/>
+            </Column>
+            <Column width="10%">
+              <Text text="Item."/>
+            </Column>
+<!-- DMND0020093 - 14.06.2022 - FLS - Begin -->
+            <Column width="15%">
+              <Text text="Material"/>
+            </Column>
+            <Column width="25%">
+              <Text text="Descrição"/>
+            </Column>
+<!-- DMND0020093 - 14.06.2022 - FLS - End -->
+            <Column width="15%">
+              <Text text="Qtd fornec"/>
+            </Column>
+            <Column width="5%">
+              <Text text="UM"/>
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem press="onPress" class="statusUIIcon">
+              <cells>
+              <Input type="Text" value="{OVModel>Vgbel}" visible="false" enabled="false" class="boldTextSize"/>
+                <Input type="Text" value="{OVModel>Vgbel}" enabled="false" class="boldTextSize"/>
+                <Text text="{OVModel>Arktx}" class="boldTextSize" visible="false"/>
+                <Text text="{OVModel>Fornecimento}" class="boldTextSize"/>
+                <Text text="{OVModel>ItemFornecimento}" class="boldTextSize"/>
+                <!-- DMND0020093 - 14.06.2022 - FLS - Begin -->
+                <Text text="{OVModel>Material}"/>
+                <Text text="{OVModel>Maktx}"/>
+                <!-- DMND0020093 - 14.06.2022 - FLS - End -->
+                <Input value="{ path: 'OVModel>Lfimg', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 15, scale: 2} }" enabled="{OVModel>visible}" class="boldTextSize"/>
+                <Text text="{OVModel>Meins}" class="boldTextSize"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </ScrollContainer>
+    </content>
+    <footer>
+      <OverflowToolbar>
+        <Button id="button-popover" icon="sap-icon://message-popup" visible="false" text="{/messagesLength}" press="handleMessagePopoverPress"/>
+        <HBox>
+          <customData>
+            <core:CustomData key="auth" value="btnFaturarTrans" writeToDom="true"/>
+          </customData>
+          <Button text="Faturar Transporte" id="button-liberarlimbo" press="handleLiberarLimboPress"/>
+        </HBox>
+        <HBox>
+          <customData>
+            <core:CustomData key="auth" value="btnAlterarQuantidade" writeToDom="true"/>
+          </customData>
+          <Button text="Alterar Quantidade" id="button-atualizar" press="handleAtualizarPress"/>
+          <Button text="Salvar Transporte" id="button-salvarALt" press="handleSalvarTransporte" visible="false"/>
+        </HBox>
+        <HBox>
+          <customData>
+            <core:CustomData key="auth" value="btnExcluirOv" writeToDom="true"/>
+          </customData>
+          <Button text="Excluir Ovs" id="button-MenosOvs" press="handleMenosOvs" visible="false"/>
+        </HBox>
+        <HBox>
+          <customData>
+            <core:CustomData key="auth" value="btnLiberarLimbo" writeToDom="true"/>
+          </customData>
+          <Button text="Mais Ovs" id="button-maisOvs" press="handleMaisOvs" visible="false"/>
+        </HBox>
+        <HBox>
+          <customData>
+            <core:CustomData key="auth" value="btnLiberarLimbo" writeToDom="true"/>
+          </customData>
+          <Button text="Cancelar" id="button-CancelALt" press="handleCancelar" visible="false"/>
+        </HBox>
+        <HBox>
+          <customData>
+            <core:CustomData key="auth" value="btnAlterarTransporte" writeToDom="true"/>
+          </customData>
+          <Button text="Alterar Transporte" id="button-alterar" press="handleAlterarPress"/>
+        </HBox>
+        <HBox>
+          <customData>
+            <core:CustomData key="auth" value="btnAtualizarCusto" writeToDom="true"/>
+          </customData>
+          <Button text="Atualizar Custo" id="button-custo" press="handleCustoPress"/>
+          <Button text="Excluir Custo" id="button-custoExcluir" press="handleCustoPress"/>
+        </HBox>
+        <!-- DMND0020540 - 08.02.2022 - FLS - Begin -->
+        <HBox>
+          <customData>
+            <core:CustomData key="auth" value="btnExcluirTransporte" writeToDom="true"/>
+          </customData>
+          <Button text="Excluir Transporte" id="button-excluirTransporte" press="handleTransporteExcluir"/>
+        </HBox>
+        <!-- DMND0020540 - 08.02.2022 - FLS - End -->
+        <ToolbarSpacer/>
+        <HBox class="sapUiTinyMarginEnd">
+          <customData>
+            <core:CustomData key="auth" value="btnEliminarOV" writeToDom="true"/>
+          </customData>
+          <Button id="button-pagarov" text="Pagamento" press="onEfetuarPagamento" visible="false" tooltip="Pagamento cartão"
+            icon="sap-icon://credit-card"/>
+        </HBox>
+      </OverflowToolbar>
+    </footer>
+  </Page>
+</mvc:View>

@@ -1,0 +1,109 @@
+<mvc:View 
+  xmlns:uxap="sap.uxap" 
+  xmlns="sap.m" 
+  xmlns:f="sap.ui.layout.form" 
+  xmlns:core="sap.ui.core" 
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:html="http://www.w3.org/1999/xhtml" 
+  controllerName="arcelor.controller.EncerraPedido">
+
+  <semantic:DetailPage 
+    id="page" showNavButton="true" navButtonPress="onNavBack" 
+    title="Exibir Ordem de Venda com Fornecimento e Saldo Pendente" enableScrolling="true"
+    xmlns:semantic="sap.m.semantic" xmlns:layout="sap.ui.layout" xmlns:l="sap.ui.layout">
+    
+    <semantic:customHeaderContent>
+    
+    </semantic:customHeaderContent>
+    
+    <semantic:content>
+
+      <Panel width="auto" accessibleRole="Region">
+        <f:SimpleForm 
+        	title="Dados Básicos" 
+        	ecolumnsL="3" 
+        	columnsM="3" 
+        	editable="true" 
+        	layout="ResponsiveGridLayout">
+          <f:content>
+            <core:Title text="" class="customFormTitle"/>
+            <Label text="Ordem de Venda" textAlign="Left"/>
+            <input enabled="false" value="{view>/Vbeln}" width="200px"/>
+            <Label text="Cliente" textAlign="Left"/>
+			<input enabled="false" value="{view>/Kunnr}" width="200px"/>            
+            <Label text="Emissor" textAlign="Left"/>
+            <input enabled="false" value="{view>/Name1}"/>            
+            <Label text="Centro" textAlign="Left"/>
+            <input enabled="false" value="{view>/Werks}" width="200px"/>
+		  </f:content>
+		</f:SimpleForm>  	      
+      </Panel>
+
+      <Panel width="auto" headerText="Itens">
+        <ScrollContainer width="100%" horizontal="true" vertical="false">
+			<Table id="List" 
+				items="{view>/Itens}" 
+				showNoData="true" 
+				fixedLayout="false" 
+				width="auto" 
+				growing="true" 
+				mode="MultiSelect">
+				<columns>
+					<Column id="nameColumn1" hAlign="Left">
+						<Text text="Item"/>
+					</Column>
+					<Column id="nameColumn2" hAlign="Left">
+						<Text text="Material"/>
+					</Column>
+					<Column id="nameColumn3" hAlign="Right">
+						<Text text="Qtd. Solicitada"/>
+					</Column>
+					<Column id="nameColumn4" hAlign="Center">
+						<Text text="Unidade Medida"/>
+					</Column>
+					<Column id="nameColumn5" hAlign="Right">
+						<Text text="Qtd. Confirmada"/>
+					</Column>
+					<Column id="nameColumn6" hAlign="Center">
+						<Text text="Data Confirmada"/>
+					</Column>
+					<Column id="nameColumn7" hAlign="Right">
+						<Text text="Qtd. Fornecida"/>
+					</Column>
+					<Column id="nameColumn8" hAlign="Right">
+						<Text text="Saldo Pendente"/>
+					</Column>										
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{view>RefItem}"/>
+							<Text text="{view>Matnr}"/>
+							<Text text="{ path: 'view>Kwmeng', formatter: '.quantityValue' }"/>
+							<Text text="{view>Vrkme}"/>
+							<Text text="{ path: 'view>Bmeng', formatter: '.quantityValue'}" />
+							<Text text="{path: 'view>Edatu', type:'sap.ui.model.type.Date', formatOptions : { UTC:true, style:'short'}}"/>
+							<Text text="{ path: 'view>Lfimg', formatter: '.quantityValue'}" />
+							<Text text="{ path: 'view>Saldo', formatter: '.quantityValue'}" />
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>        
+        </ScrollContainer>
+      </Panel>        
+    </semantic:content>
+    
+    <semantic:customFooterContent>
+		<OverflowToolbar>			
+			<ToolbarSpacer/>
+			<HBox>
+				<customData>
+					<core:CustomData key="auth" value="btnRecusar" writeToDom="true"/>
+				</customData>
+				<Button text="Recusar" press="onRecusar" icon="sap-icon://sys-cancel"/>
+			</HBox>
+		</OverflowToolbar>
+    </semantic:customFooterContent>
+  </semantic:DetailPage>
+
+</mvc:View>

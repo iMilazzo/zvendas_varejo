@@ -1,0 +1,179 @@
+<mvc:View 
+  xmlns:uxap="sap.uxap" 
+  xmlns="sap.m" 
+  xmlns:f="sap.ui.layout.form" 
+  xmlns:core="sap.ui.core" 
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:html="http://www.w3.org/1999/xhtml" 
+  controllerName="arcelor.controller.Fornecimento">
+
+  <semantic:DetailPage 
+    id="page" showNavButton="true" navButtonPress="onNavBack" 
+    title="Exibir Fornecimento" enableScrolling="true"
+    xmlns:semantic="sap.m.semantic" xmlns:layout="sap.ui.layout" xmlns:l="sap.ui.layout">
+    
+    <semantic:customHeaderContent>
+    
+    </semantic:customHeaderContent>
+    
+    <semantic:content>
+      <ScrollContainer height="95px" vertical="true" focusable="true">
+        <content>
+          <Panel width="auto" accessibleRole="Region">
+            <layout:HorizontalLayout>
+              <Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginTop sapUiSmallMarginEnd"/>
+              <layout:VerticalLayout>
+                <Label text="Status" class="sapUiTinyMarginTop"/>
+                <ObjectStatus text="{view>/Status}" state="Error"/>
+              </layout:VerticalLayout>
+              
+              <layout:VerticalLayout class="sapUiLargeMarginBegin">
+                <Label text="Fornecimento" class="sapUiTinyMarginTop"/>
+                <ObjectStatus text="{view>/Vbeln}" state="None"/>
+              </layout:VerticalLayout>
+              
+              <layout:VerticalLayout class="sapUiLargeMarginBegin">
+                <layout:HorizontalLayout>
+                  <layout:VerticalLayout>
+                    <VBox>
+                      <Label text="Saída de Mercadoria" class="sapUiTinyMarginTop sapUiTinyMarginBegin"/>
+					  <core:Icon id="icon1" src="{view>/WbstkIcon}" tooltip="{view>/WbstkText}" class="sapUiTinyMarginBegin">
+					 	 <core:customData>
+						 	<core:CustomData key="status" value="{view>/WbstkIcon}" writeToDom="true"/>
+						 </core:customData>
+					  </core:Icon>
+                    </VBox>
+                  </layout:VerticalLayout>
+                  <layout:VerticalLayout>
+                    <VBox>
+                      <Label text="Picking" class="sapUiTinyMarginTop sapUiTinyMarginBegin"/>
+			   		  <core:Icon id="icon2" src="{view>/KostkIcon}" tooltip="{view>/KostkText}" class="sapUiTinyMarginBegin">
+						 <core:customData>
+						 	<core:CustomData key="status" value="{view>/KostkIcon}" writeToDom="true"/>
+						 </core:customData>
+					  </core:Icon>
+                    </VBox>
+                  </layout:VerticalLayout>
+                  <layout:VerticalLayout>
+                    <VBox>
+                      <Label text="Fatura" class="sapUiTinyMarginTop sapUiTinyMarginBegin"/>
+					  <core:Icon id="icon3" src="{view>/FkstkIcon}" tooltip="{view>/FkstkText}" class="sapUiTinyMarginBegin">
+						 <core:customData>
+							<core:CustomData key="status" value="{view>/FkstkIcon}" writeToDom="true"/>
+						 </core:customData>									
+					  </core:Icon>
+                    </VBox>
+                  </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+              </layout:VerticalLayout>
+            </layout:HorizontalLayout>
+          </Panel>
+        </content>
+      </ScrollContainer>
+      <Panel width="auto" accessibleRole="Region">
+        <f:SimpleForm 
+        	title="Dados Básicos" 
+        	editable="false" 
+        	labelSpanXL="2"
+			labelSpanL="2"
+			labelSpanM="2"
+			labelSpanS="12"
+			adjustLabelSpan="false"
+			emptySpanXL="4"
+			emptySpanL="4"
+			emptySpanM="4"
+			emptySpanS="0"
+			columnsXL="2"
+			columnsL="2"
+			columnsM="2"
+			singleContainerFullSize="false">
+          <f:content>
+            <core:Title text="" class="customFormTitle"/>
+            <Label text="Recebedor Mercadoria" textAlign="Left"/>
+			<input enabled="false" value="{view>/Kunnr}" width="200px"/>            
+            <Label text="Nome Recebedor Mercadoria" textAlign="Left"/>
+            <input enabled="false" value="{view>/Name1}"/>
+            <Label text="Data Remessa"/>
+            <input enabled="false" width="200px" value="{path: 'view>/Lfdat', type:'sap.ui.model.type.Date', formatOptions : { UTC:true, style:'short'}}"/>
+            
+            <core:Title text="" class="customFormTitle"/>
+            <Label text="Peso Total"/>
+            <input enabled="false" value="{view>/Btgew}" width="200px"/>             
+            <Label text="Unidade de Peso"/>
+            <input enabled="false" value="{view>/Gewei}" width="200px"/>
+		  </f:content>
+		</f:SimpleForm>  	      
+      </Panel>
+
+      <Panel width="auto" headerText="Itens">
+        <ScrollContainer width="100%" horizontal="true" vertical="false">
+			<Table id="List" items="{view>/Itens}" showNoData="true" fixedLayout="false" width="auto" growing="true" mode="None">
+				<columns>
+					<Column id="nameColumn1" hAlign="Left">
+						<Text text="Item"/>
+					</Column>
+					<Column id="nameColumn2" hAlign="Left">
+						<Text text="Material"/>
+					</Column>
+					<Column id="nameColumn3" hAlign="Left">
+						<Text text="Centro"/>
+					</Column>
+					<Column id="nameColumn4" hAlign="Center">
+						<Text text="Depósito"/>
+					</Column>
+					<Column id="nameColumn5" hAlign="Right">
+						<Text text="Qtd. Fornecida"/>
+					</Column>
+					<Column id="nameColumn6" hAlign="Center">
+						<Text text="Unidade Medida"/>
+					</Column>
+					<Column id="nameColumn7" hAlign="Right">
+						<Text text="Qtd. Picking"/>
+					</Column>
+					<Column id="nameColumn8" hAlign="Center">
+						<Text text="Unidade Medida"/>
+					</Column>
+					<Column id="nameColumn9" hAlign="Left">
+						<Text text="Lote"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{view>DelivItem}"/>
+							<Text text="{view>Material}"/>
+							<Text text="{view>Werks}"/>
+							<Text text="{view>Lgort}"/>
+							<Text text="{ path: 'view>DlvQty', formatter: '.quantityValue'}" />
+							<Text text="{view>Vrkme}"/>
+							<Text text="{ path: 'view>Pikmg', formatter: '.quantityValue'}" />						
+							<Text text="{view>VrkmePik}"/>
+							<Text text="{view>Batch}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>        
+        </ScrollContainer>
+      </Panel>        
+    </semantic:content>
+    
+    <semantic:customFooterContent>
+		<OverflowToolbar>			
+			<ToolbarSpacer/>
+			<HBox>
+				<customData>
+					<core:CustomData key="auth" value="btnDesfazer" writeToDom="true"/>
+				</customData>
+				<Button id="button-desfazer" enabled="{view>/ShowDesfazer}" text="Desfazer Picking" press="onDesfazer" icon="sap-icon://edit"/>
+			</HBox>
+			<HBox>
+				<customData>
+					<core:CustomData key="auth" value="btnEliminar" writeToDom="true"/>
+				</customData>
+				<Button id="button-eliminar" text="Eliminar" press="onEliminar" icon="sap-icon://delete"/>
+			</HBox>
+		</OverflowToolbar>
+    </semantic:customFooterContent>
+  </semantic:DetailPage>
+
+</mvc:View>

@@ -1,0 +1,74 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns="sap.m" xmlns:core="sap.ui.core"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" controllerName="arcelor.controller.ProdutosEstoque">
+	<Page id="page" title="{i18n>consultaEstoqueLojas}" enableScrolling="true" navButtonPress="onNavBack" showNavButton="true">
+		<customHeader>
+			<Bar>
+				<contentLeft>
+					<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+				</contentLeft>
+				<contentMiddle>
+					<Title level="H2" tooltip="{i18n>welcomeDescription}" text="{i18n>consultaEstoqueLojas}"/>
+				</contentMiddle>
+				<contentRight>
+					<Button id="TotalCarrinho" icon="sap-icon://cart" tooltip="{i18n>avatarButtonTooltip}" press="onVisualizarCarrinho"
+						text="{ path: 'cartProducts>/cartEntries', formatter: '.setCartLength' }"/>
+				</contentRight>
+			</Bar>
+		</customHeader>
+		<Table id="List" items="{path : 'ProductsModelEstoq>/itens'}" showNoData="true" fixedLayout="false" width="auto" growing="true">
+			<columns>
+				<Column id="nameColumn1" hAlign="Left" width="8%">
+					<Text id="nameColumnTitle" text="{i18n>codProduto}"/>
+				</Column>
+				<Column id="nameColumn2" hAlign="Left">
+					<Text text="{i18n>descricaoProduto}"/>
+				</Column>
+				<Column id="nameColumn4" hAlign="Left" width="10%">
+					<Text text="{i18n>precoProduto}"/>
+				</Column>
+				<Column id="nameColumn5" hAlign="Left" width="10%">
+					<Text text="{i18n>estoqueProduto}"/>
+				</Column>
+				<Column id="nameColumn15" hAlign="Left" width="14%">
+					<Text text="Estoque fisico"/>
+				</Column>
+				<Column id="nameColumn8" hAlign="Left" width="8%">
+					<Text text="{i18n>lojaProduto}"/>
+				</Column>
+				<Column id="nameColumn6" hAlign="Left">
+					<Text text="{i18n>unidadeMedidaProduto}"/>
+				</Column>
+				<Column id="nameColumn7" hAlign="Left">
+					<Text text="{i18n>grupoMercadoriaProduto}"/>
+				</Column>
+				<Column id="nameColumnCarrinho" hAlign="Left">
+					<Text text=""/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<ObjectNumber number="{= parseFloat(${ProductsModelEstoq>Codproduto}) }"/>
+						<Text text="{ProductsModelEstoq>Descrprod}"/>
+						<ObjectNumber
+							number="{ path: 'ProductsModelEstoq>Precodezx', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2} }"/>
+						<ObjectNumber
+							number="{ path: 'ProductsModelEstoq>Estoque', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 10, scale: 3} }"/>
+						<ObjectNumber
+							number="{ path : 'ProductsModelEstoq>Fisico', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 10, scale: 3} }"/>
+						<Text text="{ProductsModelEstoq>Loja}"/>
+						<ComboBox class="customCell" change="onChangeQtd" selectedKey="{ProductsModelEstoq>Undmedida}" enabled="true" editable="true"
+							items="{ path: 'ProductsModelEstoq>UnitHelper'}" showSecondaryValues="true">
+							<core:ListItem key="{ProductsModelEstoq>Coddadomestre}" text="{ProductsModelEstoq>Coddadomestre}"
+								additionalText="{ProductsModelEstoq>Textodadomestre}"/>
+						</ComboBox>
+						<Text text="{ProductsModelEstoq>Grupomerc}"/>
+						<Button id="input-carrinho" icon="sap-icon://cart-4"
+							visible="{= ${path: 'ProductsModelEstoq>Estoque'} > 0 &amp;&amp; ${path: 'ProductsModelEstoq>Precodezx'} > 0 ? true : false }"
+							app:mydata="{ProductsModelEstoq>oProduto}" press="onAddCarrinho" enabled="true"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</Page>
+</mvc:View>

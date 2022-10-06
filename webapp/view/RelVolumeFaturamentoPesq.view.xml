@@ -1,0 +1,101 @@
+<mvc:View controllerName="arcelor.controller.RelVolumeFaturamentoPesq" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:form="sap.ui.layout.form">
+	<App>
+		<pages>
+			<Page title="Volume de Vendas e Faturamento" showNavButton="true" navButtonPress="onNavBack">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" text="Volume de Vendas e Faturamento"/>
+						</contentMiddle>
+						<contentRight>
+							<Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<Panel headerText="Parâmetros do Relatório">
+						<VBox width="700px" alignContent="Center" alignItems="Center">
+							<VBox alignItems="Start" class="sapUiTinyMargin">
+								<Text text="Período (Data Criação da Ordem): "/>
+								<HBox justifyContent="SpaceBetween" alignItems="Center">
+									<DatePicker id="idPeriodoMesAno" placeholder="{i18n>dataDe}" displayFormat="short" />
+									<Text text="Até" class="sapUiTinyMarginBeginEnd"/>
+									<DatePicker id="idPeriodoMesAnofim" placeholder="{i18n>dataDe}" displayFormat="short" />
+								</HBox>
+							</VBox>
+							<VBox alignItems="Start" class="sapUiTinyMargin">
+								<Text text="Canal de Distribuição:"/>
+								<HBox justifyContent="SpaceBetween">
+									<ComboBox class="sapUiSmallMarginEnd" width="240px" id="idComboBoxCanalDistr" showSecondaryValues="true" items="{/modelCanalDistr}"
+										placeholder="{i18n>de}" loadItems="onLoadItemsCbCanalDistr">
+										<core:ListItem key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+									</ComboBox>
+									<ComboBox width="240px" id="idComboBoxCanalDistrAte" showSecondaryValues="true" items="{/modelCanalDistr}" placeholder="{i18n>ate}"
+										loadItems="onLoadItemsCbCanalDistr">
+										<core:ListItem key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+									</ComboBox>
+								</HBox>
+							</VBox>
+							<VBox alignItems="Start" class="sapUiTinyMargin">
+								<Text text="Equipe de Vendas: "/>
+								<HBox>
+									<ComboBox class="sapUiSmallMarginEnd" width="240px" id="idComboBoxEscritVendasVen" showSecondaryValues="true"
+										items="{/modelEscritVendasVen}" placeholder="{i18n>de}" loadItems="onLoadItemsCbEscritVendasVen">
+										<core:ListItem key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+									</ComboBox>
+									<ComboBox width="240px" id="idComboBoxEscritVendasVenAte" showSecondaryValues="true" items="{/modelEscritVendasVen}"
+										placeholder="{i18n>ate}" loadItems="onLoadItemsCbEscritVendasVen">
+										<core:ListItem key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+									</ComboBox>
+								</HBox>
+							</VBox>
+							<VBox alignItems="Start" class="sapUiTinyMargin">
+								<Text text="Setor de Atividade: "/>
+								<HBox justifyContent="SpaceBetween">
+									<ComboBox width="240px" class="sapUiSmallMarginEnd" id="idComboBoxSetorAtivDe" placeholder="{i18n>de}" showSecondaryValues="true"
+										items="{/modelSetorAtiv}" loadItems="onLoadItemsCbSetorAtiv">
+										<core:ListItem key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+									</ComboBox>
+									<ComboBox width="240px" id="idComboBoxSetorAtivAte" placeholder="{i18n>ate}" showSecondaryValues="true" items="{/modelSetorAtiv}"
+										loadItems="onLoadItemsCbSetorAtiv">
+										<core:ListItem key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+									</ComboBox>
+								</HBox>
+							</VBox>
+							<HBox alignItems="End" class="sapUiTinyMargin">
+								<Button icon="sap-icon://search" text="Pesquisar" press="onPesquisar" class="sapUiTinyMarginEnd"/>
+								<Button icon="sap-icon://clear-filter" text="Limpar" press="onLimpar"/>
+							</HBox>
+						</VBox>
+					</Panel>
+					<Table id="inputDadoMestre" items="{/DadoMestreSet}" visible="false" updateStarted="inicioUpdateTabela" updateFinished="fimUpdateTabela">
+						<columns>
+							<Column hAlign="Left">
+								<Text text="Codconsulta"/>
+							</Column>
+							<Column hAlign="Left">
+								<Text text="Coddadomestre"/>
+							</Column>
+							<Column hAlign="Left">
+								<Text text="Textodadomestre"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem type="Active">
+								<cells>
+									<Input value="{Codconsulta}"/>
+									<Input value="{Coddadomestre}"/>
+									<Input value="{Textodadomestre}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

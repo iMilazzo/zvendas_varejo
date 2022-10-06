@@ -1,0 +1,207 @@
+<mvc:View controllerName="arcelor.controller.RelVendasDiariasRes" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:tab="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="{i18n>relVendasDiariasResTitle}" showNavButton="true" navButtonPress="onNavBack">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" text="{i18n>relVendasDiariasResTitle}"/>
+						</contentMiddle>
+						<contentRight>
+							<Button icon="sap-icon://print" text="Imprimir" press="onImprimirPress"/>
+							<Button icon="sap-icon://excel-attachment" text="Gerar Excel" press="exportSpreadsheet"/>
+							<Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+						<Panel width="auto" accessibleRole="Region">
+							<HBox justifyContent="SpaceBetween">
+								<HBox>
+									<Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+								</HBox>
+								<HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center">
+									<Text text="" id="dataAtual"/>
+								</HBox>
+							</HBox>
+						</Panel>
+						<Table id="tabela_relatorio" growing="true" growingThreshold="500" sticky="HeaderToolbar,ColumnHeaders"
+							items="{path: '/results', sorter: [ {path: 'ZtermText', group: true}, {path: 'Aubel', group: true} ], groupHeaderFactory: '.getGroupHeader'}"
+							width="120rem" contextualWidth="Auto" fixedLayout="false">
+							<columns>
+								<Column mergeDuplicates="true" width="9%">
+									<Text text="Documento"/>
+								</Column>
+								<Column mergeDuplicates="true" width="7%">
+									<Text text="{i18n>aubel}"/>
+								</Column>
+								<Column width="7%">
+									<Text text="{i18n>fkdat}"/>
+								</Column>
+								<Column width="7%">
+									<Text text="{i18n>kunag}"/>
+								</Column>
+								<Column width="15%">
+									<Text text="{i18n>name}"/>
+								</Column>
+								<Column width="14%">
+									<Text text="{i18n>zterm}"/>
+								</Column>
+								<Column width="7%">
+									<Text text="{i18n>posnr}"/>
+								</Column>
+								<Column width="7%">
+									<Text text="{i18n>matnr}"/>
+								</Column>
+								<Column width="12%">
+									<Text text="{i18n>arktx}"/>
+								</Column>
+								<Column width="12%">
+									<Text text="{i18n>quant}"/>
+								</Column>
+								<Column width="9%">
+									<Text text="{i18n>total}"/>
+								</Column>
+								<Column width="9%">
+									<Text text="{i18n>escritoriovendas}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{path: 'Xblnr', formatter: '.formatter.setIntFormat'}" wrapping="false"/>
+										<Text text="{Aubel}" wrapping="false"/>
+										<Text text="{ path: 'Fkdat', formatter: '.formatter.strToDataBrOneDay' }" wrapping="false"/>
+										<Text text="{Kunag}" wrapping="false"/>
+										<Text text="{Name}" wrapping="false"/>
+										<Text text="{ZtermText}" wrapping="false"/>
+										<Text text="{Posnr}" wrapping="false"/>
+										<Text text="{path: 'Matnr', formatter: '.formatter.setIntFormat'}" wrapping="false"/>
+										<Text text="{Arktx}" wrapping="false"/>
+										<Text text="{path: 'Quant', formatter: '.formatter.price3'}" wrapping="false"/>
+										<Text text="{path: 'Total', formatter: '.formatter.price'}" wrapping="false"/>
+										<Text text="{Vkbur}/{Vkgrp} - {VkburText} - {VkgrpText}" wrapping="false"
+											visible="{ path: 'VkburText', formatter: '.formatter.stringVazia' }"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</ScrollContainer>
+					<tab:Table visible="false" id="tabRelatorio" rows="{/RelVendasDiariasSet/}" title="" selectionMode="None" visibleRowCount="20">
+						<tab:toolbar>
+							<Toolbar>
+								<content>
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://excel-attachment" press="exportSpreadsheet" tooltip="{i18n>exportExcel}"/>
+								</content>
+							</Toolbar>
+						</tab:toolbar>
+						<tab:columns>
+							<tab:Column width="11rem">
+								<Label text="{i18n>xblnr}"/>
+								<tab:template>
+									<Text text="{Xblnr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>aubel}"/>
+								<tab:template>
+									<Text text="{Aubel}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>fkdat}"/>
+								<tab:template>
+									<Text text="{ path: 'Fkdat', type: 'sap.ui.model.type.Date', formatOptions: {UTC:true} }" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>kunag}"/>
+								<tab:template>
+									<Text text="{Kunag}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>name}"/>
+								<tab:template>
+									<Text text="{Name}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>zterm}"/>
+								<tab:template>
+									<Text text="{Zterm}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>zterm}"/>
+								<tab:template>
+									<Text text="{ZtermText}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>posnr}"/>
+								<tab:template>
+									<Text text="{Posnr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>matnr}"/>
+								<tab:template>
+									<Text text="{Matnr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>arktx}"/>
+								<tab:template>
+									<Text text="{Arktx}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>quant}"/>
+								<tab:template>
+									<Text text="{Quant}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>total}"/>
+								<tab:template>
+									<Text text="{Total}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>escritoriovendas}"/>
+								<tab:template>
+									<Text text="{Vkbur}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>escritoriovendas}"/>
+								<tab:template>
+									<Text text="{VkburText}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>Vkgrp}"/>
+								<tab:template>
+									<Text text="{Vkgrp}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>Vkgrp}"/>
+								<tab:template>
+									<Text text="{VkgrpText}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+						</tab:columns>
+					</tab:Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

@@ -1,0 +1,107 @@
+<mvc:View xmlns="sap.uxap" xmlns:f="sap.ui.layout.form" xmlns:m="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+  controllerName="arcelor.controller.LancamentoCheque" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout">
+  <semantic:DetailPage id="page" showNavButton="true" navButtonPress="onNavBase" title="Lançamento de Cheque Moradia" enableScrolling="true"
+    xmlns:semantic="sap.m.semantic" xmlns:layout="sap.ui.layout">
+    <semantic:content>
+      <m:VBox class="sapUiSmallMargin">
+        <f:Form editable="true">
+          <f:layout>
+            <f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4"
+              emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+          </f:layout>
+          <f:formContainers>
+            <f:FormContainer>
+              <f:formElements>
+                <!-- VML Backup: mandatory="true" -->
+                <f:FormElement label="Número da Ordem de Venda">
+                  <f:fields>
+                    <m:Input id="idSalesOrder" change="onSalesOrderChange" value="{lctoChequeModel>/salesOrder}"></m:Input>
+                  </f:fields>
+                </f:FormElement>
+                <f:FormElement label="Cheque Número">
+                  <f:fields>
+                    <m:Input id="idCheckNumber" maxLength="10" value="{lctoChequeModel>/checkNumber}" enabled="{lctoChequeModel>/checkEnabled}"></m:Input>
+                  </f:fields>
+                </f:FormElement>
+                <f:FormElement label="Valor Cheque">
+                  <f:fields>
+                    <m:Input id="idCheckValue"
+                      value="{ path:'lctoChequeModel>/checkValue', type:'sap.ui.model.type.Currency', formatOptions: {showMeasure: false }}"
+                      enabled="{lctoChequeModel>/checkEnabled}"></m:Input>
+                  </f:fields>
+                </f:FormElement>
+                <f:FormElement label="Validade Cheque">
+                  <f:fields>
+                    <m:DatePicker displayFormat="dd/MM/yyyy" dateValue="{path:'lctoChequeModel>/checkDate'}" id="idCheckDate"
+                      enabled="{lctoChequeModel>/checkEnabled}"></m:DatePicker>
+                  </f:fields>
+                </f:FormElement>
+                <f:FormElement label="CPF/CNPJ">
+                  <f:fields>
+                    <m:Input id="idCPFCNPJ" value="{lctoChequeModel>/identNumber}" enabled="{lctoChequeModel>/checkEnabled}"></m:Input>
+                    <m:Button text="Confirmar Dados" type="Default" iconFirst="true" width="auto" enabled="{lctoChequeModel>/checkEnabled}" visible="true"
+                      press="onAddCheckData" iconDensityAware="false"/>
+                  </f:fields>
+                </f:FormElement>
+              </f:formElements>
+            </f:FormContainer>
+          </f:formContainers>
+        </f:Form>
+      </m:VBox>
+      <m:Table id="idCheckTable" items="{ path: 'lctoChequeModel>/checkItems', filters:[{path:'Deleted', operator:'EQ', value1:false}]}"
+        mode="None" growingScrollToLoad="true" growing="true">
+        <m:columns>
+          <m:Column width="150px">
+            <m:Label text="Ordem de Venda"/>
+            <m:footer>
+              <m:Text text="Saldo Ordem: { path: 'lctoChequeModel>/orderBalance', formatter: '.formatOrderBalance' }"
+                visible="{lctoChequeModel>/totalVisible}"/>
+            </m:footer>
+          </m:Column>
+          <m:Column>
+            <m:Label text="Cheque"/>
+          </m:Column>
+          <m:Column width="150px" minScreenWidth="Tablet" demandPopin="true">
+            <m:Label text="Valor"/>
+            <m:footer>
+              <m:Text text="Total Ordem: { path: 'lctoChequeModel>/orderTotal', formatter: '.formatOrderTotal' }"
+                visible="{lctoChequeModel>/totalVisible}"/>
+            </m:footer>
+          </m:Column>
+          <m:Column minScreenWidth="Tablet" demandPopin="true">
+            <m:Label text="Dt. Validade"/>
+          </m:Column>
+          <m:Column minScreenWidth="Tablet" demandPopin="true">
+            <m:Label text="CPF/CNPJ"/>
+          </m:Column>
+          <m:Column minScreenWidth="Tablet" demandPopin="true">
+            <m:Label text="Dt.Lançamento"/>
+          </m:Column>
+          <m:Column minScreenWidth="Tablet" demandPopin="true">
+            <m:Label text="Status"/>
+          </m:Column>
+          <m:Column minScreenWidth="Tablet" demandPopin="true" width="50px">
+            <m:Label text=""/>
+          </m:Column>
+        </m:columns>
+        <m:items>
+          <m:ColumnListItem>
+            <m:cells>
+              <m:Text text="{ path: 'lctoChequeModel>OrdemVenda' }"/>
+              <m:Text text="{lctoChequeModel>NumCheque}"/>
+              <m:Text text="{ path: 'lctoChequeModel>ValorCheque', formatter: '.formatPrice'}"/>
+              <m:Text text="{ path: 'lctoChequeModel>ValidadeChque', formatter: '.formatDate' }"/>
+              <m:Text text="{ path: 'lctoChequeModel>CnpjCpf', formatter: '.formatCPFCNPJ' }"/>
+              <m:Text text="{ path: 'lctoChequeModel>DtLctoCheque', formatter: '.formatDate' }"/>
+              <m:Text text="{ path: 'lctoChequeModel>Status', formatter: '.formatStatus' }"/>
+              <m:Button icon="sap-icon://delete" press="onDeleteCheckItem" enabled="{lctoChequeModel>Excluir}"/>
+            </m:cells>
+          </m:ColumnListItem>
+        </m:items>
+      </m:Table>
+    </semantic:content>
+    <semantic:customFooterContent>
+      <m:Button text="Salvar" press="onSaveCheckData" enabled="{lctoChequeModel>/checkEnabled}"/>
+    </semantic:customFooterContent>
+  </semantic:DetailPage>
+</mvc:View>

@@ -1,0 +1,112 @@
+<mvc:View controllerName="arcelor.controller.RelelimiRes" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:tab="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="Log Modificação OV" showNavButton="true" navButtonPress="onNavBack">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" text="Log Modificação OV"/>
+						</contentMiddle>
+						<contentRight>
+							<Button icon="sap-icon://print" text="Imprimir" press="onImprimirPress"/>
+							<Button icon="sap-icon://excel-attachment" text="Gerar Excel" press="exportSpreadsheet"/>
+							<Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+						<Panel width="auto" accessibleRole="Region">
+							<HBox justifyContent="SpaceBetween">
+								<HBox>
+									<Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+								</HBox>
+								<HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center">
+									<Text text="" id="dataAtual"/>
+								</HBox>
+							</HBox>
+						</Panel>
+						<Table id="tabela_relatorio" growing="true" growingThreshold="500" sticky="HeaderToolbar,ColumnHeaders"
+							items="{path: '/results'}"
+							width="80rem" contextualWidth="Auto" fixedLayout="false">
+							<columns>
+								<Column>
+									<Text text="Ordem"/>
+								</Column>
+								<Column>
+									<Text text="Motivo"/>
+								</Column>
+								<Column>
+									<Text text="Data"/>
+								</Column>
+								<Column>
+									<Text text="Hora"/>
+								</Column>
+								<Column>
+									<Text text="Usuário"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{VBELN}" />
+										<Text text="{FNAME}"/>
+										<Text text="{path: 'UDATE', formatter: '.formatter.strToDataBrOneDay'}"/>
+										<Text text="{UTIME}"/>
+										<Text text="{USERNAME}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</ScrollContainer>
+					<tab:Table id="tabRelatorio" rows="{/RelelimiSet/}" title="" visible="false" selectionMode="None" visibleRowCount="20">
+						<tab:toolbar>
+							<Toolbar>
+								<content>
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://excel-attachment" press="exportSpreadsheet" tooltip="{i18n>exportExcel}"/>
+								</content>
+							</Toolbar>
+						</tab:toolbar>
+						<tab:columns>
+							<tab:Column >
+								<Label text="Ordem"/>
+								<tab:template>
+									<Text text="{VBELN}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="Motivo"/>
+								<tab:template>
+									<Text text="{FNAME}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="Data"/>
+								<tab:template>
+									<Text text="{path: 'UDATE', formatter: '.formatter.strToDataBrOneDay'}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="Hora"/>
+								<tab:template>
+									<Text text="{UTIME}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="Usuário"/>
+								<tab:template>
+									<Text text="{USERNAME}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+						</tab:columns>
+					</tab:Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

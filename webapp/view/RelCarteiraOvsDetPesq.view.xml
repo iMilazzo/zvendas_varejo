@@ -1,0 +1,141 @@
+<mvc:View controllerName="arcelor.controller.RelCarteiraOvsDetPesq" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:form="sap.ui.layout.form">
+	<App>
+		<pages>
+			<Page>
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" text="{i18n>relCarteiraOvsDetPesqTitle}"/>
+						</contentMiddle>
+						<contentRight>
+							<Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<VBox class="sapUiSmallMargin">
+						<form:Form id="idForm1" editable="true">
+							<form:title>
+								<core:Title text="{i18n>paramSelecao}"/>
+							</form:title>
+							<form:layout>
+								<form:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="3" adjustLabelSpan="true" emptySpanXL="1"
+									emptySpanL="1" emptySpanM="1" emptySpanS="1" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+							</form:layout>
+							<form:formContainers>
+								<form:FormContainer>
+									<form:formElements>
+										<!-- Data criação da ordem -->
+										<form:FormElement label="{i18n>dataCriacaoOrdem}">
+											<form:fields>
+												<DatePicker id="idDataCriacaoOrdemDe" placeholder="{i18n>dataDe}" displayFormat="short" class="sapUiSmallMarginBottom"/>
+												<DatePicker id="idDataCriacaoOrdemAte" placeholder="{i18n>dataAte}" displayFormat="short" class="sapUiSmallMarginBottom"/>
+											</form:fields>
+										</form:FormElement>
+										<!-- Data criação da ordem -->
+										<form:FormElement label="Remessa">
+											<form:fields>
+												<DatePicker id="idDataRemessaOrdemDe" placeholder="{i18n>dataDe}" displayFormat="short" class="sapUiSmallMarginBottom"/>
+												<DatePicker id="idDataRemessaOrdemAte" placeholder="{i18n>dataAte}" displayFormat="short" class="sapUiSmallMarginBottom"/>
+											</form:fields>
+										</form:FormElement>
+										<!-- Emissor da ordem -->
+										<form:FormElement label="Cliente">
+											<form:fields>
+												<Input id="idEmissorOrdemDe" type="Text" placeholder="{i18n>pesqCodCliNomeCnpjCpf}" showSuggestion="true" startSuggestion="3"
+													showTableSuggestionValueHelp="false" suggest="handleSuggest" suggestionRows="{/ClientesSet}">
+													<suggestionColumns>
+														<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+															<Label text="{i18n>codClienteDesc}"/>
+														</Column>
+														<Column hAlign="Center" popinDisplay="Inline" demandPopin="true">
+															<Label text="{i18n>nomeDesc}"/>
+														</Column>
+														<Column hAlign="Center" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+															<Label text="{i18n>cnpjDesc}"/>
+														</Column>
+														<Column hAlign="End" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+															<Label text="{i18n>cpfDesc}"/>
+														</Column>
+													</suggestionColumns>
+													<suggestionRows>
+														<ColumnListItem>
+															<cells>
+																<Label text="{Codcliente}"/>
+																<Label text="{Nome}"/>
+																<Label text="{Cnpj}"/>
+																<Label text="{Cpf}"/>
+															</cells>
+														</ColumnListItem>
+													</suggestionRows>
+												</Input>
+												<Input id="idEmissorOrdemAte" type="Text" placeholder="{i18n>pesqCodCliNomeCnpjCpf}" showSuggestion="true" startSuggestion="3"
+													showTableSuggestionValueHelp="false" suggest="handleSuggest" suggestionRows="{/ClientesSet}">
+													<suggestionColumns>
+														<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+															<Label text="{i18n>codClienteDesc}"/>
+														</Column>
+														<Column hAlign="Center" popinDisplay="Inline" demandPopin="true">
+															<Label text="{i18n>nomeDesc}"/>
+														</Column>
+														<Column hAlign="Center" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+															<Label text="{i18n>cnpjDesc}"/>
+														</Column>
+														<Column hAlign="End" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+															<Label text="{i18n>cpfDesc}"/>
+														</Column>
+													</suggestionColumns>
+													<suggestionRows>
+														<ColumnListItem>
+															<cells>
+																<Label text="{Codcliente}"/>
+																<Label text="{Nome}"/>
+																<Label text="{Cnpj}"/>
+																<Label text="{Cpf}"/>
+															</cells>
+														</ColumnListItem>
+													</suggestionRows>
+												</Input>
+											</form:fields>
+										</form:FormElement>
+										<!-- Documento de venda -->
+										<form:FormElement label="{i18n>docVendas}">
+											<form:fields>
+												<Input id="idDocVendasDe" placeholder="{i18n>de}" type="Text"/>
+												<Input id="idDocVendasAte" placeholder="{i18n>ate}" type="Text"/>
+											</form:fields>
+										</form:FormElement>
+										<!-- Status de crédito -->
+										<form:FormElement label="{i18n>statusCredito}" visible="False">
+											<form:fields>
+												<Input id="idStatusCreditoDe" placeholder="{i18n>de}" type="Text"/>
+												<Input id="idStatusCreditoAte" placeholder="{i18n>ate}" type="Text"/>
+											</form:fields>
+										</form:FormElement>
+										<!-- Status de faturamento -->
+										<form:FormElement label="{i18n>statusFaturamento}" visible="False">
+											<form:fields>
+												<Input id="idStatusFaturamentoDe" placeholder="{i18n>de}" type="Text"/>
+												<Input id="idStatusFaturamentoAte" placeholder="{i18n>ate}" type="Text"/>
+											</form:fields>
+										</form:FormElement>
+										<!-- Botão "Pesquisar" -->
+										<form:FormElement label="">
+											<form:fields>
+												<Button width="20%" text="{i18n>pesquisarDesc}" press="onSearch"/>
+											</form:fields>
+										</form:FormElement>
+									</form:formElements>
+								</form:FormContainer>
+							</form:formContainers>
+						</form:Form>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

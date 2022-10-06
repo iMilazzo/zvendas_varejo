@@ -1,0 +1,110 @@
+<mvc:View xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified"
+	xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form" height="100%"
+	controllerName="arcelor.controller.ClientesCreditoAlterar">
+	<NavContainer id="wizardNavContainer">
+		<pages>
+			<Page id="wizardContentPage" showHeader="true" navButtonPress="onNavBack" title="{i18n>tileAlterarCredito}" showNavButton="true">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" tooltip="{i18n>welcomeDescription}" text="Alterar Crédito"/>
+						</contentMiddle>
+						<contentRight>
+							<Button icon="sap-icon://full-screen" press="onPressMenuButton"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<!-- VML Backup
+					<f:Form id="FormDisplay354" minWidth="1024" maxContainerCols="2" editable="true"> 
+				-->
+				<f:Form id="FormDisplay354" editable="true">
+					<f:title>
+						<core:Title text=""/>
+					</f:title>
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1"/>
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="Pesquisar Cliente">
+									<f:fields>
+										<Input id="show-GrupoAtual" type="Text" placeholder="Digite o Cliente ..." width="100%" showSuggestion="true" showValueHelp="true"
+											valueHelpRequest="handleValueHelp" submit="handleValueHelp" suggestionItems="{/DM_GrupoResponsavelSet}" change="onFocus" fieldWidth="100%">
+											<suggestionItems>
+												<core:Item key="{Grupocredito}" text="{Grupocredito} - {Texto}"/>
+											</suggestionItems>
+										</Input>
+										<CheckBox id="Bloqueio" text="Bloquear" select="false"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Cliente">
+									<f:fields>
+										<Text id="show-Cliente"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Nome">
+									<f:fields>
+										<Text id="show-Nome"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Limite Total">
+									<f:fields>
+										<Text id="show-LimiteTotal"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Limite Individual">
+									<f:fields>
+										<Text id="show-LimiteIndividual"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="{i18n>limiteDeCredito}">
+									<f:fields>
+										<Input id="input-LimiteCredito" width="50%" enabled="false" liveChange="onMaskNumberValue" maxLength="10"></Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="{i18n>grupoDeResponsaveis}">
+									<f:fields>
+										<Text id="show-Gruporesponsavel"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="{i18n>dataVerificacaoSeguinte}">
+									<f:fields>
+										<DatePicker id="input-DtVerificacao" enabled="false" valueFormat="dd/MM/yyyy" displayFormat="dd/MM/yyyy" width="50%"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Classe Risco">
+									<f:fields>
+										<ComboBox width="500px" id="idComboBoxClasseRisco" showSecondaryValues="true" items="{/ClasseRiscoSet}" selectedKey="{CTLPC}"
+											change="onChangeClasse">
+											<core:ListItem key="{CTLPC}" text="{CTLPC} - {RTEXT}"/>
+										</ComboBox>
+										<Input id="input-ClasseRisco" visible="false"></Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Observações">
+									<f:fields>
+										<layout:VerticalLayout>
+											<TextArea id="showText1" rows="4" cols="60" enabled="false"/>
+											<TextArea id="showText2" rows="8" cols="60" enabled="false"/>
+										</layout:VerticalLayout>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+				<footer>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Button id="button-save" text="Salvar" press="handleWizardSubmit" visible="false"/>
+						<Button id="button-cancel" text="Cancelar" press="handleWizardCancel" visible="false"/>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</NavContainer>
+</mvc:View>

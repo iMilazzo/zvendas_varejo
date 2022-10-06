@@ -1,0 +1,136 @@
+<mvc:View 
+	xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m" 
+	xmlns:u="sap.ui.unified" 
+	xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout" 
+	xmlns:fb="sap.ui.comp.filterbar" 
+	controllerName="arcelor.controller.DevolucaoNFPesq">
+	
+	<Page id="page" showNavButton="true" 
+		busyIndicatorDelay="10000" 
+		title="Devolução NFC-e" 
+		navButtonPress="onNavBack" 
+		enableScrolling="true">
+			
+		<customHeader>
+			<Bar>
+				<contentLeft>
+					<Button id="back" icon="sap-icon://nav-back"
+						press="onNavBack" />
+				</contentLeft>
+				<contentMiddle>
+					<Title level="H2"
+						text="Devolução NFC-e" />
+				</contentMiddle>
+				<contentRight>
+					<Button id="btnMenu" icon="sap-icon://full-screen"
+						press="onPressMenuButton" />
+				</contentRight>
+			</Bar>
+		</customHeader>
+		<content>
+			<f:SimpleForm id="SimpleFormDisplay1" editable="false"
+				layout="ResponsiveGridLayout" title="Devolver NFC-e"
+				columnsL="2" columnsM="2" />		
+			<Panel class="sapUiNoContentPadding">
+				<l:HorizontalLayout class="sapUiContentPadding">
+					<l:VerticalLayout>
+						<Label text="Número nota fiscal:"/>
+						<Input id="idNotaFiscal" width="200px"/>
+					</l:VerticalLayout>
+					<l:VerticalLayout>
+						<Label text="Motivo devolução:"/>
+						<ComboBox width="200px" 
+							id="idMotivo" 
+							class="sapUiSmallMarginEnd" 
+							items="{/MotivoOrdemSet}">
+							<core:ListItem key="{Augru}" text="{Augru} - {Bezei}"/>
+						</ComboBox>
+					</l:VerticalLayout>
+					<l:VerticalLayout>
+						<Label text="Tipo devolução:"/>
+						<ComboBox width="200px"
+							id="idTipo"
+							class="sapUiSmallMarginEnd">
+							<core:Item key="ROB" text="ROB - Devolução nota da Belgo" />
+						</ComboBox>
+					</l:VerticalLayout>
+					<l:VerticalLayout>
+						<Label text="Cliente"/>	                
+			            <FlexBox alignItems="Start">
+			              <items>
+			                <Input id="idCliente" type="Text" placeholder="Digite o Cliente ..." showValueHelp="true" value="{view>/Kunnr}"
+			                  valueHelpRequest="onCustomerValueHelp" submit="onCustomerValueHelp" valueHelpOnly="true">
+			                  <layoutData>
+			                    <FlexItemData growFactor="6"/>
+			                  </layoutData>
+			                </Input>
+			                <Button id="id-CriaCliente" type="Transparent" icon="sap-icon://add" press="actionCadastro" tooltip="Cadastrar Novo Cliente">
+			                  <layoutData>
+			                    <FlexItemData growFactor="2"/>
+			                  </layoutData>
+			                </Button>
+			              </items>
+			            </FlexBox>		               		                											
+					</l:VerticalLayout>
+				</l:HorizontalLayout>
+				<l:HorizontalLayout class="sapUiSmallMarginBottom">
+					<Button text="Buscar" press="onSearchNf" icon="sap-icon://search" class="sapUiSmallMarginBeginEnd"/>
+					<Button text="Limpar Pesquisa" press="onClear"/>
+				</l:HorizontalLayout>				
+			</Panel>
+			
+			<Panel id="pnlNota" visible="false">
+				<Table items="{view>/Items}" showNoData="true"
+					fixedLayout="false" width="auto" growing="true">
+					<columns>
+						<Column hAlign="Left">
+							<Text text="Material" />
+						</Column>
+						<Column hAlign="Left">
+							<Text text="Descrição" />
+						</Column>
+						<Column hAlign="Center">
+							<Text text="Quantidade" />
+						</Column>
+						<Column hAlign="Center">
+							<Text text="UM" />
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Text text="{view>Matnr}" />
+								<Text text="{view>Arktx}" />
+								<Text text="{path:'view>Fkimg',type:'sap.ui.model.type.Float', formatter: '.formatQtdPeso'}" />
+								<Text text="{view>Vrkme}" />
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>			
+			</Panel>
+		</content>
+		
+		<footer>
+			<Bar>
+				<contentRight>
+					<HBox justifyContent="End">
+						<HBox justifyContent="End" alignItems="End"
+							alignContent="End" class="sapUiTinyMarginEnd">
+							<customData>
+								<core:CustomData key="auth"
+									value="btnDevolverNF" writeToDom="true" />
+							</customData>
+							<items>
+								<Button id="btnDevolver" text="Devolver NFC-e"
+									icon="sap-icon://sys-cancel" press="onDevolver" visible="false" />
+							</items>
+						</HBox>
+					</HBox>
+				</contentRight>
+			</Bar>
+		</footer>		
+	</Page>
+</mvc:View>

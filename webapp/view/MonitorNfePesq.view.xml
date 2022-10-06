@@ -1,0 +1,117 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+	controllerName="arcelor.controller.MonitorNfePesq">
+	<Page id="page" showNavButton="true" busyIndicatorDelay="10000" title="Monitor Nfe" navButtonPress="onNavBack" enableScrolling="true">
+		<content>
+			<Panel headerText="Parâmetros">
+				<VBox class="sapUiSmallMargin" width="80%">
+					<form:Form xmlns:sap.ui.layout.form="sap.ui.layout.form" editable="true" id="__form0">
+						<form:layout>
+							<form:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="3" adjustLabelSpan="true" emptySpanXL="1"
+								emptySpanL="1" emptySpanM="1" emptySpanS="1" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+						</form:layout>
+						<form:formContainers>
+							<form:FormContainer title="" id="__container0">
+								<form:formElements>
+									<form:FormElement id="__element1" label="Documento fiscal">
+										<form:fields>
+											<Input id="idDoc" type="Text"/>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement id="__element2" label="Número NF-e">
+										<form:fields>
+											<Input id="idNotaFiscal" type="Text"/>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement id="__element3" label="Número OV ">
+										<form:fields>
+											<Input id="idOrdem" type="Text"/>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement id="__element4" label="Cliente">
+										<form:fields>
+											<Input id="idCodCliente" type="Text" placeholder="{i18n>pesqCodCliNomeCnpjCpf}" showSuggestion="true" startSuggestion="3"
+												showTableSuggestionValueHelp="false" suggest="handleSuggest" suggestionRows="{/ClientesSet}" fieldWidth="">
+												<suggestionColumns>
+													<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+														<Label text="{i18n>codClienteDesc}"/>
+													</Column>
+													<Column hAlign="Center" popinDisplay="Inline" demandPopin="true">
+														<Label text="{i18n>nomeDesc}"/>
+													</Column>
+													<Column hAlign="Center" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+														<Label text="{i18n>cnpjDesc}"/>
+													</Column>
+													<Column hAlign="End" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+														<Label text="{i18n>cpfDesc}"/>
+													</Column>
+												</suggestionColumns>
+												<suggestionRows>
+													<ColumnListItem>
+														<cells>
+															<Label text="{Codcliente}"/>
+															<Label text="{Nome}"/>
+															<Label text="{Cnpj}"/>
+															<Label text="{Cpf}"/>
+														</cells>
+													</ColumnListItem>
+												</suggestionRows>
+											</Input>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement id="__element5" label="Data">
+										<form:fields>
+											<DatePicker id="idDataDe" placeholder="{i18n>dataDe}" displayFormat="short"/>
+											<DatePicker id="idDataAte" placeholder="{i18n>dataAte}" displayFormat="short"/>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement id="__element6" label="Escritório/Vendedor">
+										<form:fields>
+											<ComboBox class="sapUiSmallMarginEnd" id="idComboBoxEscritVendasVen" showSecondaryValues="true" items="{/modelEscritVendasVen}"
+												loadItems="onLoadItemsCbEscritVendasVen">
+												<core:ListItem key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+											</ComboBox>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement id="__element7" label="Material">
+										<form:fields>
+											<Input id="idMaterial" type="Text"/>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement id="__element8" label="">
+										<form:fields>
+											<HBox alignItems="End" justifyContent="SpaceAround" class="sapUiMediumMarginTopBottom">
+												<Button icon="sap-icon://search" text="{i18n>pesquisarDesc}" press="onSearch" class="sapUiTinyMarginEnd"/>
+											</HBox>
+										</form:fields>
+									</form:FormElement>
+								</form:formElements>
+							</form:FormContainer>
+						</form:formContainers>
+					</form:Form>
+				</VBox>
+			</Panel>
+			<Table id="inputDadoMestre" items="{/DadoMestreSet}" visible="false" updateStarted="inicioUpdateTabela" updateFinished="fimUpdateTabela">
+				<columns>
+					<Column hAlign="Left">
+						<Text text="Codconsulta"/>
+					</Column>
+					<Column hAlign="Left">
+						<Text text="Coddadomestre"/>
+					</Column>
+					<Column hAlign="Left">
+						<Text text="Textodadomestre"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Active">
+						<cells>
+							<Input value="{Codconsulta}"/>
+							<Input value="{Coddadomestre}"/>
+							<Input value="{Textodadomestre}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+	</Page>
+</mvc:View>

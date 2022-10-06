@@ -1,0 +1,73 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+  controllerName="arcelor.controller.Logistica" xmlns:c="arcelor.controls">
+  <App>
+    <pages>
+      <Page title="Logística" showNavButton="false">
+        <customHeader>
+          <Bar>
+
+            <contentLeft>
+              <Button icon="sap-icon://nav-back" press="onBack"/>
+            </contentLeft>
+            <contentMiddle>
+              <Title level="H2" text="Logística"/>
+            </contentMiddle>
+            <contentRight>
+              <Button icon="sap-icon://full-screen" press="onPressMenuButton"/>
+            </contentRight>
+          </Bar>
+        </customHeader>
+        <content>
+          <Panel id="__panel0">
+            <content>
+              <HBox>
+                <HBox>
+                  <customData>
+                    <core:CustomData key="auth" value="divCriarFornecimento" writeToDom="true"/>
+                  </customData>
+                  <c:Card id="__image2" backgroundColor="#ff5a16E6" image="image/tabela_precos.jpg" title="Fornecimento Automático" press="actionCriarFornecimento"/>
+                </HBox>     
+                <HBox>
+                  <customData>
+                    <core:CustomData key="auth" value="divGestaoForne" writeToDom="true"/>
+                  </customData>
+                  <c:Card id="__image3" backgroundColor="#ff5a16E6" image="image/verificacao_credito.jpg" title="Gestão de Fornecimento" press="actionCancelarFornecimento"/>
+                </HBox>
+                <HBox>
+                  <customData>
+                    <core:CustomData key="auth" value="divNotaFiscal" writeToDom="true"/>
+                  </customData>
+                  <c:Card id="__image4" backgroundColor="#ff5a16E6" image="image/nota_fiscal.jpg" title="Nota Fiscal" press="actionNotaFiscal"/>
+                </HBox>
+                <HBox>
+                  <customData>
+                    <core:CustomData key="auth" value="divDocTransporteIMG" writeToDom="true"/>
+                  </customData>
+                  <c:Card id="__image6" backgroundColor="#ff5a16E6" image="image/caminhao2.jpg" title="Documento de Transporte" press="actionTransporte"/>
+                </HBox>
+                <HBox>
+                  <customData>
+                    <core:CustomData key="auth" value="divLogProcessamento" writeToDom="true"/>
+                  </customData>
+                  <c:Card id="__image7" backgroundColor="#ff5a16E6" image="image/tabela_precos.jpg" title="Log Forn. Automático" press="actionLogProcessamento"/>
+                </HBox>                
+              </HBox>
+            </content>
+          </Panel>
+        </content>
+        <footer>
+          <OverflowToolbar class="sapUiMediumMarginTop">
+            <ToolbarSpacer/>
+            <core:Icon src="sap-icon://customer" class="size5 sapUiSmallMarginBegin"/>
+            <Text id="idUsuario" text="" class="sapUiTinyMarginBegin"/>
+            <Text text=":"/>
+            <Text id="nomeUsuario" text="" class="sapUiTinyMargin"/>
+            <Text text="Loja:"/>
+            <Text id="nomeLoja" text="" class="sapUiTinyMargin"/>
+            <ToolbarSpacer/>
+          </OverflowToolbar>
+        </footer>
+      </Page>
+    </pages>
+  </App>
+</mvc:View>

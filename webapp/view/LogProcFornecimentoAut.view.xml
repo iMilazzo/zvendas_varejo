@@ -1,0 +1,262 @@
+<mvc:View 
+  xmlns:core="sap.ui.core" 
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m" 
+  xmlns:u="sap.ui.unified" 
+  xmlns:f="sap.ui.layout.form"
+  xmlns:l="sap.ui.layout" 
+  xmlns:t="sap.ui.table"
+  xmlns:fb="sap.ui.comp.filterbar"
+  xmlns:arcelor="arcelor.controls"
+  controllerName="arcelor.controller.LogProcFornecimentoAut">
+  <Page id="page" showNavButton="true"
+    title="Log Processamento Fornecimento Automático" navButtonPress="onNavBack"
+    enableScrolling="true">
+    <customHeader>
+      <Bar>
+        <contentLeft>
+          <Button id="back" icon="sap-icon://nav-back"
+            press="onNavBack" />
+        </contentLeft>
+        <contentMiddle>
+          <Title level="H2" tooltip="{i18n>welcomeDescription}"
+            text="Log Processamento Fornecimento Automático" />
+        </contentMiddle>
+        <contentRight>
+          <Button icon="sap-icon://print" text="Imprimir" press="onImprimirPress"/>
+          <Button icon="sap-icon://excel-attachment" text="Gerar Excel" press="exportSpreadsheet"/>
+          <Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+        </contentRight>
+      </Bar>
+    </customHeader>
+    <content>
+       <ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+	       <!-- Carregamento dos dados mestre: Centro, Grupo de Material, Canal de Distribuição, Setor de Atividade SD -->
+	       <Table id="inputDadoMestre" items="{/DadoMestreSet}" visible="false" updateStarted="inicioUpdateTabela" updateFinished="fimUpdateTabela">
+	         <columns>
+	           <Column hAlign="Left">
+	             <Text text="Codconsulta"/>
+	           </Column>
+	           <Column hAlign="Left">
+	             <Text text="Coddadomestre"/>
+	           </Column>
+	           <Column hAlign="Left">
+	             <Text text="Textodadomestre"/>
+	           </Column>
+	         </columns>
+	         <items>
+	           <ColumnListItem type="Active">
+	             <cells>
+	               <Input value="{Codconsulta}"/>
+	               <Input value="{Coddadomestre}"/>
+	               <Input value="{Textodadomestre}"/>
+	             </cells>
+	           </ColumnListItem>
+	         </items>
+	       </Table>
+	       <!-- Carregamento dos dados mestre: Versão -->
+	       <Table id="inputDadoMestreVersao" items="{/DadoMestreSetPr}" visible="false">
+	         <columns>
+	           <Column hAlign="Left">
+	             <Text text="Codconsulta"/>
+	           </Column>
+	           <Column hAlign="Left">
+	             <Text text="Coddadomestre"/>
+	           </Column>
+	           <Column hAlign="Left">
+	             <Text text="Textodadomestre"/>
+	           </Column>
+	         </columns>
+	         <items>
+	           <ColumnListItem type="Active">
+	             <cells>
+	               <Input value="{Codconsulta}"/>
+	               <Input value="{Coddadomestre}"/>
+	               <Input value="{Textodadomestre}"/>
+	             </cells>
+	           </ColumnListItem>
+	         </items>
+	      </Table>    
+	      <f:SimpleForm id="SimpleFormDisplay1" editable="false"
+	        layout="ResponsiveGridLayout" title="Parâmetros de seleção"
+	        columnsL="2" columnsM="2" />
+	      <Panel class="sapUiNoContentPadding">
+	        <l:HorizontalLayout class="sapUiContentPadding" allowWrapping="true">
+	          <l:VerticalLayout class="sapUiSmallMarginEnd sapUiSmallMarginTop">
+	             <Label text="Centro:" required="true"/>
+	             <ComboBox 
+	             	id="idComboBoxCentro" 
+	             	showSecondaryValues="true" 
+	             	items="{/modelCentro}" 
+	                width="200px">
+	               <core:ListItem key="{Coddadomestre}" text="{Textodadomestre}"/>
+	             </ComboBox>
+	          </l:VerticalLayout>
+	          
+	          <l:VerticalLayout class="sapUiSmallMarginEnd sapUiSmallMarginTop">
+	              <Label text="Escritório Vendas:" />
+	              <l:HorizontalLayout>
+		              <ComboBox id="idCboEscritorioDe" placeholder="Dê" items="{/modelEV}" width="200px" class="sapUiSmallMarginEnd">
+		                 <core:ListItem key="{Coddadomestre}" text="{Textodadomestre}"/>
+		              </ComboBox>
+		              <ComboBox id="idCboEscritorioAte" placeholder="Até" items="{/modelEV}" width="200px">
+		                 <core:ListItem key="{Coddadomestre}" text="{Textodadomestre}"/>
+		              </ComboBox>
+	              </l:HorizontalLayout>
+	          </l:VerticalLayout>
+	          
+	          <l:VerticalLayout class="sapUiSmallMarginEnd sapUiSmallMarginTop">
+	             <Label text="N° Ordem Venda (teclar Enter):" />
+	             <MultiInput id="idOrdem" width="200px" submit="onAddTokenOrdem" showValueHelp="false"/>
+	          </l:VerticalLayout>   
+	          
+	          <l:VerticalLayout class="sapUiSmallMarginEnd sapUiSmallMarginTop">
+	             <Label text="Fornecimento (teclar Enter):"  />
+	             <MultiInput id="idFornecimento" width="200px" submit="onAddTokenFornecimento" showValueHelp="false"/>
+	          </l:VerticalLayout>   
+	                   
+	          <l:VerticalLayout class="sapUiSmallMarginEnd sapUiSmallMarginTop">
+	             <Label text="Usuário Processamento"/>
+				 <Input id="idUsuario" type="Text" width="200px"/>	
+			  </l:VerticalLayout>
+			  	          
+	          <l:VerticalLayout class="sapUiSmallMarginEnd sapUiSmallMarginTop">
+	             <Label text="Status Processamento"/>
+	             <MultiComboBox 
+	             	id="idComboBoxStatus" 
+	                width="200px">
+	               <core:Item key="BLOQ_CREDITO" text="Bloqueio Crédito" />
+	               <core:Item key="BLOQ_REMESSA" text="Bloqueio Remessa" />
+	               <core:Item key="BLOQ_LIMBO" text="Bloqueio Limbo" />
+	               <core:Item key="BLOQ_OUTROS" text="Outros Bloqueios" />
+	               <core:Item key="FALTA_ESTOQUE" text="Falta Estoque" />
+	               <core:Item key="SUCESSO" text="Sucesso" />               
+	             </MultiComboBox>
+	          </l:VerticalLayout>
+	          
+	          <l:VerticalLayout class="sapUiSmallMarginEnd sapUiSmallMarginTop">
+	            <Label text="Data de Criação OV:" />
+	            <DateRangeSelection id="idDataCriacao" width="200px" change="handleChange" placeholder="dd/MM/yyyy - dd/MM/yyyy"/>
+	          </l:VerticalLayout>
+	
+	          <l:VerticalLayout class="sapUiSmallMarginEnd sapUiSmallMarginTop">
+	            <Label text="Data de Processamento:" required="true"/>
+	            <DateRangeSelection id="idDataProc" width="200px" change="handleChange" placeholder="dd/MM/yyyy - dd/MM/yyyy"/>
+	          </l:VerticalLayout>                    
+	          
+	          <l:VerticalLayout class="sapUiSmallMarginEnd sapUiSmallMarginTop">
+	             <Label text="Tipo Seleção"/>
+	             <ComboBox 
+	             	id="idComboBoxTipo" 
+	                width="200px">
+	               <core:Item key="1" text="Relatório Resumido" />
+	               <core:Item key="2" text="Relatório Detalhado" />
+	             </ComboBox>
+	          </l:VerticalLayout>
+	          
+	          <l:VerticalLayout class="sapUiSmallMarginEnd sapUiSmallMarginTop">
+	            <Label text="Data Confirmação Remessa:" />
+	            <DateRangeSelection id="idDataRem" width="200px" change="handleChange" placeholder="dd/MM/yyyy - dd/MM/yyyy"/>
+	          </l:VerticalLayout>  	          
+	          
+	          <l:VerticalLayout class="sapUiSmallMarginEnd sapUiSmallMarginTop">
+	            <Label text="" />
+	            <l:HorizontalLayout>
+	            	<Button text="Pesquisar" press="onSearch" class="sapUiSmallMarginBeginEnd"/>
+	            	<Button text="Limpar Filtros" press="onClear" />
+	            </l:HorizontalLayout>
+	          </l:VerticalLayout>                             
+	        </l:HorizontalLayout>
+	      </Panel>
+	      
+		  <Table
+		  	id="tbLog"
+		  	items="{log>/}"
+		  	selectionMode="None"
+		  	growing="true" 
+		  	growingThreshold="500" 
+		  	alternateRowColors="true" 
+		  	width="140rem" 
+		  	contextualWidth="Auto" 
+		  	fixedLayout="false">
+			<columns>
+				<Column hAlign="Center">
+					<Text text="Ordem de Vendas"/>
+				</Column>
+				<Column hAlign="Center">
+					<Text text="Item OV"/>
+				</Column>
+				<Column hAlign="Left">
+					<Text text="Material"/>	
+				</Column>
+				<Column hAlign="Left">
+					<Text text="Descrição"/>				
+				</Column>
+				<Column hAlign="Center">
+					<Text text="Centro"/>
+				</Column>
+				<Column hAlign="Center">
+					<Text text="Esc. Vendas"/>
+				</Column>			
+				<Column hAlign="Center">
+					<Text text="Data Confirmação Remessa" />
+				</Column>
+				<Column hAlign="Center">
+					<Text text="Data Criação OV" />
+				</Column>
+				<Column hAlign="Center">
+					<Text text="Hora Criação OV" />
+				</Column>
+				<Column hAlign="Center">
+					<Text text="Usuário Criação OV"/>
+				</Column>						
+				<Column hAlign="Left">
+					<Text text="Fornecimento"/>
+				</Column>
+				<Column hAlign="Left">
+					<Text text="Bloqueio Remessa"/>
+				</Column>
+				<Column hAlign="Center">
+					<Text text="Status"/>
+				</Column>
+				<Column hAlign="Left">
+					<Text text="Mensagem"/>
+				</Column>									
+				<Column hAlign="Center" sortProperty="ErdatProc">
+					<Text text="Data Processamento" />
+				</Column>
+				<Column hAlign="Center"  sortProperty="ErzetProc">
+					<Text text="Hora Processamento" />
+				</Column>
+				<Column hAlign="Center">
+					<Text text="Usuário Processamento"/>
+				</Column>																																																																
+			</columns>
+	        <items>
+	        	<ColumnListItem>
+	            	<cells>			
+						<Text text="{log>Vbeln}"/>
+						<Text text="{= parseFloat(${log>Posnr}) }"/>
+						<Text text="{= parseFloat(${log>Matnr}) }"/>
+						<Text text="{log>Arktx}"/>
+						<Text text="{log>Werks}"/>
+						<Text text="{log>Vkbur}"/>
+						<Text text="{ path: 'log>Edatu', type:'sap.ui.model.type.Date', formatOptions : { UTC:true, style:'short'} }" />
+						<Text text="{ path: 'log>Erdat', type:'sap.ui.model.type.Date', formatOptions : { UTC:true, style:'short'} }" />
+						<Text text="{ path: 'log>Erzet', type:'sap.ui.model.odata.type.Time', formatOptions : { pattern : 'HH:mm:ss'} }" />
+						<Text text="{log>Ernam}"/>
+						<Text text="{log>VbelnVl}"/>
+						<Text text="{log>Lifsk}"/>
+						<Text text="{log>Status}"/>
+						<Text text="{log>Mensagem}"/>
+						<Text text="{ path: 'log>ErdatProc', type:'sap.ui.model.type.Date', formatOptions : { UTC:true, style:'short'} }" />
+						<Text text="{ path: 'log>ErzetProc', type:'sap.ui.model.odata.type.Time', formatOptions : { pattern : 'HH:mm:ss'} }" />
+						<Text text="{log>ErnamProc}"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		  </Table>   
+	  </ScrollContainer>   
+    </content>
+  </Page>
+</mvc:View>

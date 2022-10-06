@@ -1,0 +1,162 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns="sap.m" xmlns:f="sap.f"
+  xmlns:u="sap.ui.unified" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:m="sap.m"
+  xmlns:l="sap.ui.layout" controllerName="arcelor.controller.Produtos">
+  <Page id="page" title="Produtos" enableScrolling="true" navButtonPress="onNavBack" showNavButton="true" xmlns:c="arcelor.controls">
+    <customHeader>
+      <Bar>
+
+        <contentLeft>
+          <Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+        </contentLeft>
+        <contentMiddle>
+          <Title level="H2" tooltip="{i18n>welcomeDescription}" text="Produtos"/>
+        </contentMiddle>
+        <contentRight>
+          <HBox width="100%">
+
+            <HBox width="65%">
+
+              <customData>
+                <core:CustomData key="auth" value="btnRecebimento" writeToDom="true"/>
+              </customData>
+              <Button id="btnRecebimento" icon="sap-icon://product" press="onPressRecebimento" text="Recebimento" class="sapUiSmallMarginEnd"/>
+            </HBox>
+          <HBox width="35%">
+
+          <Button id="TotalCarrinho" icon="sap-icon://cart"  press="onVisualizarCarrinho" tooltip="{i18n>avatarButtonTooltip}"
+            text="{ path: 'cartProducts>/cartEntries', formatter: '.setCartLength' }"/>
+          <Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+             </HBox>
+             </HBox>
+
+        </contentRight>
+      </Bar>
+    </customHeader>
+    <Panel id="__panel0">
+      <content>
+        <HBox width="100%" id="__hbox3">
+          <items></items>
+        </HBox>
+      </content>
+    </Panel>
+    <Table id="Lista_table" items="{path : 'ProductsModel>/itens'}" onAfterRendering="updateFin" updateFinished=".updateFin" showNoData="true" width="auto" sticky="ColumnHeaders">
+      <headerToolbar>
+        <Toolbar>
+          <Text id="labelGrupoMercadoria" text="" visible="false" width="auto"/>
+          <Label text="" id="label1" visible="true" width="auto"/>
+          <core:Icon src="sap-icon://decline" alt="Limpar" press="onCancelGroup" visible="{ProductsSettings>/GroupVisible}"></core:Icon>
+          <ToolbarSpacer/>
+          <MultiComboBox selectionFinish="onCategoriaFilter" id="combo1" placeholder="Filtro Categoria" width="32%"
+            items="{ path: '/CategoriaSet', sorter: { path: 'Grupomat' } }">
+            <core:Item key="{Grupomat}" text="{Grupomat} - {Descrmat}"/>
+          </MultiComboBox>
+          <ToolbarSpacer/>
+          <ComboBox id="combo2" placeholder="Filtro Centro" items="{ path: '/LojasSet', sorter: { path: 'Loja' } }" selectionChange="onLojaFilter"
+            fieldGroupIds="" width="10%">
+            <core:Item key="{Loja}" text="{Loja}"/>
+          </ComboBox>
+          <ToolbarSpacer/>
+          <SearchField id="searchField" search="onSearch" placeholder="{i18n>searchProduto}" tooltip="{i18n>worklistSearchTooltip}" width="25%"/>
+          <ToolbarSpacer/>
+          <ComboBox id="comboEstoque" placeholder="Filtrar Preço/Estoque" items="{ path: '/items' }" width="15%" selectionChange="radiobuttonselect"
+            fieldGroupIds="">
+            <core:Item key="{key}" text="{title}"/>
+          </ComboBox>
+        </Toolbar>
+      </headerToolbar>
+      <columns>
+        <Column id="nameColumn1" hAlign="Left" width="8%">
+          <Text id="nameColumnTitle" text="{i18n>codProduto}"/>
+        </Column>
+        <Column id="nameColumn2" hAlign="Left">
+          <Text text="{i18n>descricaoProduto}"/>
+        </Column>
+        <Column id="nameColumn4" hAlign="Left" width="10%">
+          <Text text="{i18n>precoProduto}"/>
+        </Column>
+        <Column id="nameColumn5" hAlign="Left" width="10%">
+          <Text text="{i18n>estoqueProduto}"/>
+        </Column>
+        <Column id="nameColumn15" hAlign="Left" width="14%">
+          <Text text="Estoque fisico"/>
+        </Column>
+        <Column id="nameColumn8" hAlign="Left" width="8%">
+          <Text text="{i18n>lojaProduto}"/>
+        </Column>
+        <Column id="nameColumn6" hAlign="Left">
+          <Text text="{i18n>unidadeMedidaProduto}"/>
+        </Column>
+        <Column id="nameColumn7" hAlign="Left">
+          <Text text="{grupoMercadoriaProduto}"/>
+        </Column>
+        <Column id="nameColumnCarrinho" hAlign="Left">
+
+          <Text text=""/>
+        </Column>
+        <Column id="nameColumnLote" hAlign="Left">
+          <Text text=""/>
+        </Column>
+        <Column id="nameColumnNecessidadeEstoq" hAlign="Left">
+          <Text text=""/>
+        </Column>
+      </columns>
+      <items>
+        <ColumnListItem press="onPress" type="Active">
+          <cells>
+            <ObjectNumber number="{= parseFloat(${ProductsModel>Codproduto})}"/>
+            <Text text="{ProductsModel>Descrprod}"/>
+            <ObjectNumber number="{ path : 'ProductsModel>Precodezx', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2} }"/>
+            <ObjectNumber number="{ path : 'ProductsModel>Estoque', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 10, scale: 3} }"/>
+            <ObjectNumber number="{ path : 'ProductsModel>Fisico', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 10, scale: 3} }"/>
+            <Text text="{ProductsModel>Loja}"/>
+            <ComboBox class="customCell" change="onChangeQtd" selectedKey="{ProductsModel>Undmedida}" enabled="true" editable="true"
+              items="{ path: 'ProductsModel>UnitHelper'}" showSecondaryValues="true">
+              <core:ListItem key="{ProductsModel>Coddadomestre}" text="{ProductsModel>Coddadomestre}" additionalText="{ProductsModel>Textodadomestre}"/>
+            </ComboBox>
+            <Text text="{ProductsModel>Grupomerc}"/>
+            <HBox>
+              <customData>
+                <core:CustomData key="auth" value="btnNecessidadeEstoque" writeToDom="true"/>
+              </customData>
+              <Button id="input-necessidade" icon="sap-icon://product" press="onSelectionChange" enabled="true" tooltip="Necessidade de Estoque"/>
+            </HBox>
+            <HBox>
+              <customData>
+                <core:CustomData key="auth" value="btnLote" writeToDom="true"/>
+              </customData>
+              <Button id="input-lote" icon="sap-icon://activity-items" visible="{ProductsModel>Lote}" press="onShowLote" enabled="true" type="Accept"
+                tooltip="Exibir estoque por lote"></Button>
+            </HBox>
+            <HBox>
+              <customData>
+                <core:CustomData key="auth" value="btnAdicionarCarrinho" writeToDom="true"/>
+              </customData>
+              <Button id="input-carrinho" icon="sap-icon://cart-4"
+                visible="{= ${path: 'ProductsModel>Estoque'} > 0 &amp;&amp; ${path: 'ProductsModel>Precodezx'} > 0 ? true : false }"
+                app:mydata="{ProductsModel>oProduto}" press="onAddCarrinho" enabled="true" type="Accept" tooltip="Adicionar ao Carrinho"></Button>
+            </HBox>
+          </cells>
+        </ColumnListItem>
+      </items>
+    </Table>
+    <HBox width="100%" alignContent="Center" justifyContent="Center" alignItems="Center">
+      <items>
+        <Button id="input-button" type="Transparent" text="Carregar mais" press="onMaisItens" enabled="true" visible="false"/>
+      </items>
+    </HBox>
+    <List id="ListImagem" items="{/ProdutosSet}" visible="false">
+      <headerToolbar>
+        <Toolbar>
+          <Label text="teste" width="100%" id="label30" visible="true"/>
+          <ToolbarSpacer/>
+          <SearchField id="searchField1" search="onSearch" placeholder="Filtro" tooltip="{i18n>worklistSearchTooltip}" width="auto"/>
+          <content/>
+        </Toolbar>
+      </headerToolbar>
+      <items>
+        <StandardListItem title="Cód. {= parseFloat(${Codproduto}) } - {Descrprod} - Centro: {Loja}" description="{Precodezx}" icon="{Urlprod}"
+          iconDensityAware="false" iconInset="false" press="onPress" type="Navigation"/>
+      </items>
+    </List>
+  </Page>
+</mvc:View>

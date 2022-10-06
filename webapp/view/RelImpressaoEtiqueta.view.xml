@@ -1,0 +1,146 @@
+<mvc:View controllerName="arcelor.controller.RelImpressaoEtiqueta" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:tab="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="Impressão de Etiquetas" showNavButton="true" navButtonPress="onNavBack">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" text="Impressão de Etiquetas"/>
+						</contentMiddle>
+						<contentRight>
+							<Button icon="sap-icon://excel-attachment" text="Gerar Excel" press="exportSpreadsheet"/>
+							<Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+						<f:SimpleForm id="SimpleFormDisplay1" editable="false" layout="ResponsiveGridLayout" title="{i18n>paramSelecao}" columnsL="2" columnsM="2"/>
+						<Panel class="sapUiNoContentPadding">
+							<l:HorizontalLayout class="sapUiContentPadding">
+								<l:VerticalLayout>
+									<Label text="Centro"/>
+									<Input id="FilterCentro" blocked="true" editable="false" enabled="false" width="50px"/>
+								</l:VerticalLayout>
+								<l:VerticalLayout>
+									<Label text="Material"/>
+									<SearchField width="150px" placeholder="Buscar" id="search1" search="onSearchMaterial" maxLength="20"/>
+								</l:VerticalLayout>
+								<l:VerticalLayout>
+									<Label text=""/>
+									<Button tooltip="Importar lista de materiais" icon="sap-icon://attachment" press="onShowPopupUpload"/>
+								</l:VerticalLayout>
+								<l:VerticalLayout>
+									<Label text="Segmento"/>
+									<ComboBox id="filterSegmento" width="150px" showSecondaryValues="true" items="{/modelSegmento}">
+										<core:ListItem key="{Codgrpmacromerc}" text="{Descrgrpmerc}"/>
+									</ComboBox>
+								</l:VerticalLayout>
+								<l:VerticalLayout>
+									<Label text="Lista pré-cadastrada"/>
+									<ComboBox id="filterLista" width="150px" showSecondaryValues="true" items="{/modelLista}">
+										<core:ListItem key="{Lista}" text="{Lista}"/>
+									</ComboBox>
+								</l:VerticalLayout>
+								<l:VerticalLayout>
+									<Label text=""/>
+									<Button icon="sap-icon://delete" press="onDelete"/>
+								</l:VerticalLayout>
+								<l:VerticalLayout visible="false">
+									<Label text="Prod.c/estoque"/>
+									<CheckBox id="filterProduto" text=""/>
+								</l:VerticalLayout>
+								<l:VerticalLayout>
+									<Button text="Buscar" press="onSearch" icon="sap-icon://search"/>
+									<Button text="Limpar Pesquisa" press="onClear"/>
+								</l:VerticalLayout>
+								<l:VerticalLayout visible="false">
+									<Label text=""/>
+									<SearchField width="150px" placeholder="Buscar" id="search2" search="onSearchMaterial" maxLength="20"/>
+								</l:VerticalLayout>
+							</l:HorizontalLayout>
+						</Panel>
+						<Table id="tabela_relatorio" mode="MultiSelect" visible="false" growing="true" growingThreshold="500" sticky="HeaderToolbar,ColumnHeaders"
+							items="{path: '/results'}" contextualWidth="Auto" fixedLayout="false">
+							<headerToolbar>
+								<OverflowToolbar>
+									<Button text="Salvar Lista" icon="sap-icon://save" press="onShowPopup"/>
+									<Button text="Gerar Etiqueta" press="gerarEtiqueta"/>
+									<Title id="tlTitleBar" text="" level="H4"/>
+									<ToolbarSpacer/>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column>
+									<Text text="{i18n>material}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>arktx}"/>
+								</Column>
+								<Column>
+									<Text text="Preço"/>
+								</Column>
+								<Column>
+									<Text text="Unidade"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem vAlign="Middle">
+									<cells>
+										<Text text="{Matnr}"/>
+										<Text text="{Maktx}"/>
+										<Text text="{path: 'Preco', formatter: '.formatter.price'}"/>
+										<ComboBox class="customCell" change="onChangeQtd" enabled="true" selectedKey="{Meins}" editable="true" items="{ path: 'UnitHelper'}"
+											showSecondaryValues="true">
+											<core:ListItem key="{Coddadomestre}" text="{Coddadomestre}" additionalText="{Textodadomestre}"/>
+										</ComboBox>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</ScrollContainer>
+					<tab:Table id="tabRelatorio" rows="{/RelImpressaoEtiquetaSet/}" title="" visible="false" selectionMode="None" visibleRowCount="20">
+						<tab:toolbar>
+							<Toolbar>
+								<content>
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://excel-attachment" press="exportSpreadsheet" tooltip="{i18n>exportExcel}"/>
+								</content>
+							</Toolbar>
+						</tab:toolbar>
+						<tab:columns>
+							<tab:Column>
+								<Label text="{i18n>material}"/>
+								<tab:template>
+									<Text text="{Matnr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column>
+								<Label text="{i18n>arktx}"/>
+								<tab:template>
+									<Text text="{Maktx}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column>
+								<Label text="UM"/>
+								<tab:template>
+									<Text text="{Meins}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column>
+								<Label text="Preco"/>
+								<tab:template>
+									<Text text="{Preco}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+						</tab:columns>
+					</tab:Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

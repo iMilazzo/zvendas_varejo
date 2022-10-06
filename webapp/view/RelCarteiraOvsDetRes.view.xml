@@ -1,0 +1,635 @@
+<mvc:View controllerName="arcelor.controller.RelCarteiraOvsDetRes" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:tab="sap.ui.table">
+  <App>
+    <pages>
+      <Page title="{i18n>relCarteiraOvsDetResTitle}" showNavButton="true" navButtonPress="onNavBack">
+        <customHeader>
+          <Bar>
+            <contentLeft>
+              <Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+            </contentLeft>
+            <contentMiddle>
+              <Title level="H2" text="{i18n>relCarteiraOvsDetResTitle}"/>
+            </contentMiddle>
+            <contentRight>
+              <Button icon="sap-icon://print" text="Imprimir" press="onImprimirPress"/>
+              <Button icon="sap-icon://excel-attachment" text="Gerar Excel" press="exportSpreadsheet"/>
+              <Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+            </contentRight>
+          </Bar>
+        </customHeader>
+        <content>
+          <ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+            <Panel width="auto" accessibleRole="Region">
+              <HBox justifyContent="SpaceBetween">
+                <HBox>
+                  <Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+                </HBox>
+                <HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center">
+                  <Text text="" id="dataAtual"/>
+                </HBox>
+              </HBox>
+            </Panel>
+            <Table id="tabela_relatorio" growing="true" growingThreshold="1000" sticky="HeaderToolbar,ColumnHeaders" items="{path: '/result' }"
+              width="120rem" fixedLayout="false">
+              <columns>
+                <Column mergeDuplicates="true">
+                  <Text text="{i18n>vbeln_va}"/>
+                </Column>
+                <Column >
+                  <Text text="{i18n>posnr1}"/>
+                </Column>
+                <Column >
+                  <Text text="{i18n>matnr1}"/>
+                </Column>
+                <Column >
+                  <Text text="{i18n>arktx}"/>
+                </Column>
+                <Column >
+                  <Text text="{i18n>matkl}"/>
+                </Column>
+                <Column >
+                  <Text text="{i18n>kwmeng}"/>
+                </Column>
+                <Column >
+                  <Text text="{i18n>meins}"/>
+                </Column>
+                <Column >
+                  <Text text="{i18n>klmeng}"/>
+                </Column>
+                <Column >
+                  <Text text="{i18n>kunnr}"/>
+                </Column>
+                <Column >
+                  <Text text="{i18n>name1}"/>
+                </Column>
+                <Column >
+                  <Text text="{i18n>ort01}"/>
+                </Column>
+                <Column >
+                  <Text text="{i18n>ort02}"/>
+                </Column>
+                <Column width="3rem">
+                  <Text text="{i18n>cmgst}"/>
+                </Column>
+                <Column >
+                  <Text text="{i18n>erdat}"/>
+                </Column>
+                <Column >
+                  <Text text="{i18n>zterm1}"/>
+                </Column>
+                <Column>
+                  <Text text="{i18n>edatu}"/>
+                </Column>
+              </columns>
+              <items>
+                <ColumnListItem>
+                  <cells>
+                    <Text text="{Vbeln}" wrapping="false"/>
+                    <Text text="{Posnr}" wrapping="false"/>
+                    <Text text="{path: 'Matnr', formatter: '.formatter.setIntFormat'}" wrapping="false"/>
+                    <Text text="{Arktx}" wrapping="false"/>
+                    <Text text="{Matkl} - {MatklText} " wrapping="false"/>
+                    <Text text="{path: 'Kwmeng', formatter: '.formatter.price3'}" wrapping="false"/>
+                    <Text text="{Vrkme}" wrapping="false"/>
+                    <Text text="{path: 'Klmeng', formatter: '.formatter.price3'}" wrapping="false"/>
+                    <Text text="{Kunnr}" wrapping="false"/>
+                    <Text text="{path: 'Name1', formatter: '.formatter.removerEspacos'}" wrapping="true"/>
+                    <Text text="{Ort01}" wrapping="true"/>
+                    <Text text="{Ort02}" wrapping="true"/>
+                    <Text text="{CmgstText}" wrapping="true"/>
+                    <Text text="{ path: 'Erdat', formatter: '.formatter.strToDataBrOneDay' }" wrapping="false"/>
+                    <Text text="{Zterm} - {ZtermText}" wrapping="false"/>
+                    <Text text="{ path: 'Edatu', formatter: '.formatter.strToDataBrOneDay' }" wrapping="false"/>
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>
+          </ScrollContainer>
+          <tab:Table id="tabRelatorio" visible="false" rows="{/RelCarteiraOvsDetSet/}" title="" selectionMode="None" visibleRowCount="20">
+            <tab:toolbar>
+              <Toolbar>
+                <content>
+                  <ToolbarSpacer/>
+                  <Button icon="sap-icon://excel-attachment" press="exportSpreadsheet" tooltip="{i18n>exportExcel}"/>
+                </content>
+              </Toolbar>
+            </tab:toolbar>
+            <tab:columns>
+              <tab:Column width="11rem">
+                <Label text="{i18n>xcpdk}"/>
+                <tab:template>
+                  <Text text="{Xcpdk}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>kunnr}"/>
+                <tab:template>
+                  <Text text="{Kunnr}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>name1}"/>
+                <tab:template>
+                  <Text text="{Name1}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>stras}"/>
+                <tab:template>
+                  <Text text="{Stras}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>ort02}"/>
+                <tab:template>
+                  <Text text="{Ort02}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>regio}"/>
+                <tab:template>
+                  <Text text="{Regio}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>txjcd}"/>
+                <tab:template>
+                  <Text text="{Txjcd}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>ort01}"/>
+                <tab:template>
+                  <Text text="{}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>pstlz}"/>
+                <tab:template>
+                  <Text text="{Pstlz}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>telf1}"/>
+                <tab:template>
+                  <Text text="{Telf1}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>stcd1}"/>
+                <tab:template>
+                  <Text text="{Stcd1}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>stcd2}"/>
+                <tab:template>
+                  <Text text="{Stcd2}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>stcd3}"/>
+                <tab:template>
+                  <Text text="{Stcd3}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>vbeln_va}"/>
+                <tab:template>
+                  <Text text="{Vbeln}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>erdat}"/>
+                <tab:template>
+                  <Text text="{ path: 'Erdat', type: 'sap.ui.model.type.Date', formatOptions: {UTC:true} }" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>aedat}"/>
+                <tab:template>
+                  <Text text="{ path: 'Aedat', type: 'sap.ui.model.type.Date', formatOptions: {UTC:true} }" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>erzet}"/>
+                <tab:template>
+                  <Text text="{Erzet}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>matnr}"/>
+                <tab:template>
+                  <Text text="{Matnr}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>arktx}"/>
+                <tab:template>
+                  <Text text="{Arktx}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>posnr}"/>
+                <tab:template>
+                  <Text text="{Posnr}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>kwmeng}"/>
+                <tab:template>
+                  <Text text="{Kwmeng}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>kbmeng}"/>
+                <tab:template>
+                  <Text text="{Kbmeng}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>vrkme}"/>
+                <tab:template>
+                  <Text text="{Vrkme}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>klmeng}"/>
+                <tab:template>
+                  <Text text="{Klmeng}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>meins}"/>
+                <tab:template>
+                  <Text text="{Vrkme}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>kwmeng}"/>
+                <tab:template>
+                  <Text text="{Wmeng}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>vkorg}"/>
+                <tab:template>
+                  <Text text="{Vkorg}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>vtweg}"/>
+                <tab:template>
+                  <Text text="{Vtweg}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>spart}"/>
+                <tab:template>
+                  <Text text="{Spart}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>vkbur}"/>
+                <tab:template>
+                  <Text text="{Vkbur}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>vkgrp}"/>
+                <tab:template>
+                  <Text text="{Vkgrp}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>matkl}"/>
+                <tab:template>
+                  <Text text="{Matkl}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>matkltext}"/>
+                <tab:template>
+                  <Text text="{MatklText}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>inco1}"/>
+                <tab:template>
+                  <Text text="{Inco1}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>inco2}"/>
+                <tab:template>
+                  <Text text="{Inco2}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>lifsk}"/>
+                <tab:template>
+                  <Text text="{Lifsk}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>cmpre}"/>
+                <tab:template>
+                  <Text text="{Cmpre}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>wadat}"/>
+                <tab:template>
+                  <Text text="{ path: 'Wadat', type: 'sap.ui.model.type.Date', formatOptions: {UTC:true} }" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>edatu}"/>
+                <tab:template>
+                  <Text text="{ path: 'Edatu_conf', type: 'sap.ui.model.type.Date', formatOptions: {UTC:true} }" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>edatu}"/>
+                <tab:template>
+                  <Text text="{ path: 'Edatu', type: 'sap.ui.model.type.Date', formatOptions: {UTC:true} }" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>bstdk}"/>
+                <tab:template>
+                  <Text text="{ path: 'Bstdk', type: 'sap.ui.model.type.Date', formatOptions: {UTC:true} }" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>cepok}"/>
+                <tab:template>
+                  <Text text="{Cepok}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>kursk}"/>
+                <tab:template>
+                  <Text text="{Kursk}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>zterm}"/>
+                <tab:template>
+                  <Text text="{Zterm}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>ztermText}"/>
+                <tab:template>
+                  <Text text="{ZtermText}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>cmgst}"/>
+                <tab:template>
+                  <Text text="{Cmgst}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>cmgsttext}"/>
+                <tab:template>
+                  <Text text="{CmgstText}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>fksak}"/>
+                <tab:template>
+                  <Text text="{Fksak}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>lfgsk}"/>
+                <tab:template>
+                  <Text text="{Lfgsk}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>lfstk}"/>
+                <tab:template>
+                  <Text text="{Lfstk}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>pkstk}"/>
+                <tab:template>
+                  <Text text="{Pkstk}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>rfgsk}"/>
+                <tab:template>
+                  <Text text="{Rfgsk}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>rfstk}"/>
+                <tab:template>
+                  <Text text="{Rfstk}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>wbstk}"/>
+                <tab:template>
+                  <Text text="{Wbstk}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>status}"/>
+                <tab:template>
+                  <Text text="{Status}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>ernam}"/>
+                <tab:template>
+                  <Text text="{Ernam}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>sbgrp}"/>
+                <tab:template>
+                  <Text text="{Sbgrp}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>werks}"/>
+                <tab:template>
+                  <Text text="{Werks}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>valtg}"/>
+                <tab:template>
+                  <Text text="{Valtg}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>brgew}"/>
+                <tab:template>
+                  <Text text="{Brgew}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>netwr}"/>
+                <tab:template>
+                  <Text text="{Netwr}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>bstkd}"/>
+                <tab:template>
+                  <Text text="{Bstkd}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>txt_suframa}"/>
+                <tab:template>
+                  <Text text="{Txt_suframa}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>gbstk}"/>
+                <tab:template>
+                  <Text text="{Gbstk}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>kunnr_we}"/>
+                <tab:template>
+                  <Text text="{Kunnr_we}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>name1_we}"/>
+                <tab:template>
+                  <Text text="{Name1_we}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>stras_we}"/>
+                <tab:template>
+                  <Text text="{Stras_we}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>ort02_we}"/>
+                <tab:template>
+                  <Text text="{Ort02_we}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>pstlz_we}"/>
+                <tab:template>
+                  <Text text="{Pstlz_we}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>ort01_we}"/>
+                <tab:template>
+                  <Text text="{Ort01_we}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>regio_we}"/>
+                <tab:template>
+                  <Text text="{Regio_we}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>route}"/>
+                <tab:template>
+                  <Text text="{Route}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>bezei}"/>
+                <tab:template>
+                  <Text text="{Bezei}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>txt_nota}"/>
+                <tab:template>
+                  <Text text="{Txt_nota}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>udate}"/>
+                <tab:template>
+                  <Text text="{ path: 'Udate', type: 'sap.ui.model.type.Date', formatOptions: {UTC:true} }" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>utime}"/>
+                <tab:template>
+                  <Text text="{Utime}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>ctlpc}"/>
+                <tab:template>
+                  <Text text="{Ctlpc}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>stats}"/>
+                <tab:template>
+                  <Text text="{Stats}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>stdes}"/>
+                <tab:template>
+                  <Text text="{Stdes}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>pescv}"/>
+                <tab:template>
+                  <Text text="{Pescv}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>xchpf}"/>
+                <tab:template>
+                  <Text text="{Xchpf}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>convr}"/>
+                <tab:template>
+                  <Text text="{Convr}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>uncov}"/>
+                <tab:template>
+                  <Text text="{Uncov}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>brsch_we}"/>
+                <tab:template>
+                  <Text text="{Brsch_we}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="11rem">
+                <Label text="{i18n>brtxt_we}"/>
+                <tab:template>
+                  <Text text="{Brtxt_we}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+            </tab:columns>
+          </tab:Table>
+        </content>
+      </Page>
+    </pages>
+  </App>
+</mvc:View>

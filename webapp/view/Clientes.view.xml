@@ -1,0 +1,78 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+  controllerName="arcelor.controller.Clientes" xmlns:c="arcelor.controls">
+  <App>
+    <pages>
+      <Page title="Clientes" showNavButton="{device>/isPhone}">
+        <customHeader>
+          <Bar>
+            <contentLeft>
+              <Button icon="sap-icon://nav-back" press="onBack"/>
+            </contentLeft>
+            <contentMiddle>
+              <Title level="H2" text="Clientes"/>
+            </contentMiddle>
+            <contentRight>
+              <Button icon="sap-icon://full-screen" press="onPressMenuButton"/>
+            </contentRight>
+          </Bar>
+        </customHeader>
+        <content>
+          <Panel id="__panel0">
+            <content>
+              <HBox>
+                <HBox>
+                  <customData>
+                    <core:CustomData key="auth" value="divConsultarClientes" writeToDom="true"/>
+                  </customData>
+                  <c:Card id="__image2" backgroundColor="#ff5a16E6" image="image/consultar_clientes.png" title="Consultar Clientes" press="actionConsulta"/>
+                </HBox>
+                <HBox>
+                  <customData>
+                    <core:CustomData key="auth" value="divCadastrarCliente" writeToDom="true"/>
+                  </customData>
+                  <c:Card id="__image1" backgroundColor="#ff5a16E6" image="image/cadastrar_clientes.png" title="Cadastrar Cliente" press="actionCadastro"/>
+                </HBox>
+                <HBox>
+                  <customData>
+                    <core:CustomData key="auth" value="divAlterarCredito" writeToDom="true"/>
+                  </customData>
+                  <c:Card id="__image9" backgroundColor="#ff5a16E6" image="image/alterar_credito.png" title="{i18n>tileAlterarCredito}"
+                    press="actionCreditoAlterar"/>
+                </HBox>
+                <HBox>
+                  <customData>
+                    <core:CustomData key="auth" value="divAmdCredito" writeToDom="true"/>
+                  </customData>
+                  <c:Card id="__image10" backgroundColor="#ff5a16E6" image="image/amd.jpg" title="ADM Crédito" press="actionADC"/>
+                </HBox>
+                <HBox>
+                  <customData>
+                    <core:CustomData key="auth" value="divTransfGrupoResp" writeToDom="true"/>
+                  </customData>
+                  <c:Card id="__image7" backgroundColor="#ff5a16E6" image="image/transferir_grupo_responsavel.png" title="{i18n>tileTransferirGrupo}"
+                    press="actionCreditoTransfResp"/>
+                </HBox>
+              </HBox>
+            </content>
+          </Panel>
+          <Panel id="__panel1" backgroundDesign="Transparent"/>
+          <Panel id="__panel2" backgroundDesign="Transparent"/>
+          <VBox width="100%" direction="Column" id="__vbox0"/>
+          <HBox width="100%" id="__hbox6"/>
+        </content>
+        <footer>
+          <OverflowToolbar class="sapUiMediumMarginTop">
+            <ToolbarSpacer/>
+            <core:Icon src="sap-icon://customer" class="size5 sapUiSmallMarginBegin"/>
+            <Text id="idUsuario" text="" class="sapUiTinyMarginBegin"/>
+            <Text text=":"/>
+            <Text id="nomeUsuario" text="" class="sapUiTinyMargin"/>
+            <Text text="Loja:"/>
+            <Text id="nomeLoja" text="" class="sapUiTinyMargin"/>
+            <ToolbarSpacer/>
+          </OverflowToolbar>
+        </footer>
+      </Page>
+    </pages>
+  </App>
+</mvc:View>

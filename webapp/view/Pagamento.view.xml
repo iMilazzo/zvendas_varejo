@@ -1,0 +1,92 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="arcelor.controller.Pagamento"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Forma de Pagamento" showNavButton="true" navButtonPress="onNavBack">
+				<content>
+					<HBox id="__hbox0" justifyContent="Center" width="100%">
+						<items>
+							<HBox width="100%" id="__hbox3"/>
+							<VBox id="__hbox1" justifyContent="Center" width="100%">
+								<items>
+									<Image xmlns="sap.m" tooltip="Ordem de Venda"/>
+									<Label text="Ordem de Venda" width="100%" id="__labe22" textAlign="Left"/>
+								</items>
+							</VBox>
+							<HBox id="__hbox4" justifyContent="Center" width="100%">
+								<items>
+									<HBox width="100%" id="__hbox5"/>
+								</items>
+							</HBox>
+						</items>
+						<items></items>
+					</HBox>
+					<HBox>
+						<items>
+							<Label text="Pagamento:"/>
+						</items>
+					</HBox>
+					<HBox>
+						<items>
+							<Label text="Selecione a forma de pagamento e o valor:"/>
+						</items>
+					</HBox>
+					<HBox>
+						<items>
+							<Label text="Dinheiro:"/>
+						</items>
+						<ToolbarSpacer/>
+						<Input width="200px" value=""/>
+						<ToolbarSpacer/>
+					</HBox>
+					<HBox>
+						<items>
+							<Label text="Crédito:"/>
+						</items>
+						<ToolbarSpacer/>
+						<Input width="200px" value=""/>
+						<ToolbarSpacer/>
+					</HBox>
+					<HBox>
+						<items>
+							<Label text="Débito:"/>
+						</items>
+						<ToolbarSpacer/>
+						<Input width="200px" value=""/>
+						<ToolbarSpacer/>
+					</HBox>
+					<HBox>
+						<items>
+							<Label text="Total Pago:"/>
+						</items>
+					</HBox>
+					<HBox>
+						<items>
+							<Label text="Troco:"/>
+						</items>
+					</HBox>
+					<HBox>
+						<items>
+							<Button text="Emitir Boleto"/>
+						</items>
+					</HBox>
+					<HBox>
+						<items>
+							<Button text="Faturar"/>
+						</items>
+					</HBox>
+				</content>
+				<footer>
+					<Bar>
+						<contentLeft>
+							<ToggleButton text="Emitir Boleto" />
+						</contentLeft>
+						<contentRight>
+							<ToggleButton text="Faturar" />
+						</contentRight>
+					</Bar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

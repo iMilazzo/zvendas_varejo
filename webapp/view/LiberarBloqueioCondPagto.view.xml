@@ -1,0 +1,38 @@
+<mvc:View xmlns="sap.uxap"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:m="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc" controllerName="arcelor.controller.LiberarBloqueioCondPagto"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:l="sap.ui.layout">
+	<semantic:DetailPage id="page" showNavButton="true" navButtonPress="onNavBase" title="Liberar bloqueio cond. pgto." enableScrolling="true"
+		xmlns:semantic="sap.m.semantic"
+		xmlns:layout="sap.ui.layout">
+		<semantic:content>
+			<m:VBox class="sapUiSmallMargin">
+				<f:Form editable="true">
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="Ordem de Venda">
+									<f:fields>
+										<m:Input id="fldOv" value="{liberarBloqueioCondPagto>/ordemVenda}"></m:Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Data de saida mercadoria">
+									<f:fields>
+										<m:DatePicker id="fldDataSaidaMercadoria" displayFormat="dd/MM/yyyy" dateValue="{path:'liberarBloqueioCondPagto>/dataSaida'}" enabled="{baixaChequeModel>/checkEnabled}"></m:DatePicker>
+										<m:Button text="Confirmar Dados" type="Default" iconFirst="true" width="auto" press="onLiberarBloqueio" iconDensityAware="false"/>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+			</m:VBox>
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>

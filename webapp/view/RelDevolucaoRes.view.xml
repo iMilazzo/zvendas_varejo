@@ -1,0 +1,160 @@
+<mvc:View controllerName="arcelor.controller.RelDevolucaoRes" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:tab="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="Devolução" showNavButton="true" navButtonPress="onNavBack">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" text="Devoluções"/>
+						</contentMiddle>
+						<contentRight>
+							<Button icon="sap-icon://print" text="Imprimir" press="onImprimirPress"/>
+							<Button icon="sap-icon://excel-attachment" text="Gerar Excel" press="exportSpreadsheet"/>
+							<Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+						<Panel width="auto" accessibleRole="Region">
+							<HBox justifyContent="SpaceBetween">
+								<HBox>
+									<Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+								</HBox>
+								<HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center">
+									<Text text="" id="dataAtual"/>
+								</HBox>
+							</HBox>
+						</Panel>
+						<Table id="tabela_relatorio" growing="true" growingThreshold="500" sticky="HeaderToolbar,ColumnHeaders"
+							items="{path: '/results', sorter: [ {path: 'Fdatu', group: true}, {path: 'Name1', group: true}, {path: 'Belnr', group: false, ascending: true} ], groupHeaderFactory: '.getGroupHeader'}"
+							width="80rem" contextualWidth="Auto" fixedLayout="false">
+							<columns>
+								<Column>
+									<Text text="Empresa" visible="false"/>
+								</Column>
+								<Column>
+									<Text text="Item da Devolução"/>
+								</Column>
+								<Column>
+									<Text text="Material"/>
+								</Column>
+								<Column>
+									<Text text="Descrição do Material"/>
+								</Column>
+								<Column>
+									<Text text="Grupo de Mercadorias"/>
+								</Column>
+								<Column>
+									<Text text="Quantidade"/>
+								</Column>
+								<Column>
+									<Text text="Unidade de Medida"/>
+								</Column>
+								<Column>
+									<Text text="Documento de Referencia"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{Fdatu}" visible="false"/>
+										<Text text="{Posnr}"/>
+										<Text text="{Matnr}"/>
+										<Text text="{Maktg}"/>
+										<Text text="{Matkl}"/>
+										<Text text="{path: 'VTotconf', formatter: '.formatter.price3'}"/>
+										<Text text="{Vrkme}"/>
+										<Text text="{Zuonr}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</ScrollContainer>
+					<tab:Table id="tabRelatorio" rows="{/RelDadosCobrancaSet/}" title="" visible="false" selectionMode="None" visibleRowCount="20">
+						<tab:toolbar>
+							<Toolbar>
+								<content>
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://excel-attachment" press="exportSpreadsheet" tooltip="{i18n>exportExcel}"/>
+								</content>
+							</Toolbar>
+						</tab:toolbar>
+						<tab:columns>
+							<tab:Column >
+								<Label text="Empresa"/>
+								<tab:template>
+									<Text text="{Bukrs}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="Cliente"/>
+								<tab:template>
+									<Text text="{Kunnr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="Razão Social"/>
+								<tab:template>
+									<Text text="{Name1}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="Divisão"/>
+								<tab:template>
+									<Text text="{Gsber}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="Tipo Documento"/>
+								<tab:template>
+									<Text text="{Blart}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="Num. Documento"/>
+								<tab:template>
+									<Text text="{Belnr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="Referência"/>
+								<tab:template>
+									<Text text="{Xblnr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="Item"/>
+								<tab:template>
+									<Text text="{Buzei}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="Registro Emissão"/>
+								<tab:template>
+									<Text text="{Bldat}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="Vencimento Atual"/>
+								<tab:template>
+									<Text text="{Data}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column >
+								<Label text="Valor"/>
+								<tab:template>
+									<Text text="{Dmbtr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+						</tab:columns>
+					</tab:Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

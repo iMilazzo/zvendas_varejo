@@ -1,0 +1,308 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns="sap.m" xmlns:f="sap.f"
+  xmlns:e="sap.ui.core.Element" xmlns:u="sap.ui.unified" xmlns:ff="sap.ui.layout.form" controllerName="arcelor.controller.OrdemVendaFatura"
+  xmlns:arcelor="arcelor.controls">
+  <Page id="page" showNavButton="true" title="Pesquisar Ordens de Venda" navButtonPress="onNavBack" enableScrolling="true">
+    <customHeader>
+      <Bar>
+        
+        <contentLeft>
+          <Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+        </contentLeft>
+        <contentMiddle>
+          <Title level="H2" tooltip="{i18n>welcomeDescription}" text="Pesquisar Ordens de Venda"/>
+        </contentMiddle>
+        <contentRight>
+          <HBox>
+            <HBox alignItems="End" alignContent="End" justifyContent="End">
+              <customData>
+                <core:CustomData key="auth" value="btnFluxoOV" writeToDom="true"/>
+              </customData>
+              <Button id="button-fluxoov" text="{i18n>fluxoOV}" press="handleExibirFluxoPress" icon="sap-icon://process"/>
+            </HBox>
+            <HBox class="sapUiTinyMarginBegin">
+              <customData>
+                <core:CustomData key="auth" value="divGerarBoleto" writeToDom="true"/>
+              </customData>
+              <Button id="button-boleto" type="Accept" text="Boleto" press="handleBoletoOVPress" icon="sap-icon://bar-code"/>
+            </HBox>
+            <HBox class="sapUiTinyMarginBegin">
+              <customData>
+                <core:CustomData key="auth"  value="btnImprimirEtiqueta" writeToDom="true"/>
+              </customData>
+              <Button text="Etiqueta" id="button-Etiqueta" press="gerarEtiqueta" icon="sap-icon://print"/>
+            </HBox>
+            <Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton" class="sapUiTinyMarginBegin"/>
+          </HBox>
+        </contentRight>
+      </Bar>
+    </customHeader>
+    <content>
+      <ff:SimpleForm id="SimpleFormDisplay1" editable="false" layout="ResponsiveGridLayout" title="Buscar Ordem de Venda" columnsL="2"
+        columnsM="2"/>
+      <Panel id="__panel1">
+        <content>
+          <Table id="input-dadosMestres" items="{/DM_FaturarOVSet}" visible="false">
+            <columns>
+              <Column hAlign="Left">
+                <Text text="Codconsulta"/>
+              </Column>
+              <Column hAlign="Left">
+                <Text text="Coddadomestre"/>
+              </Column>
+              <Column hAlign="Left">
+                <Text text="Textodadomestre"/>
+              </Column>
+            </columns>
+            <items>
+              <ColumnListItem press="onPress" type="Active">
+                <cells>
+                  <Input value="{Codconsulta}"/>
+                  <Input value="{Coddadomestre}"/>
+                  <Input value="{Textodadomestre}"/>
+                </cells>
+              </ColumnListItem>
+            </items>
+          </Table>
+          <HBox justifyContent="SpaceBetween" width="100%">
+            <VBox width="50%" justifyContent="SpaceBetween">
+              <Label text="{i18n>numOrdem}:"/>
+              <MultiInput id="multiinput-ordem" width="90%" submit="onAddToken" showValueHelp="false"/>
+              <Label text="Data de Remessa:" labelFor="input-DtRemessa"/>
+              <DateRangeSelection id="input-DtRemessa" width="60%" change="handleChange" placeholder="dd/MM/yyyy - dd/MM/yyyy"/>
+              <HBox justifyContent="SpaceBetween" width="100%">
+                <VBox width="100%" justifyContent="SpaceBetween" alignItems="Center">
+                  <Button id="id-buscar" text="Buscar" visible="true" press="onSearch" icon="sap-icon://search"/>
+                </VBox>
+                <VBox width="100%" justifyContent="SpaceBetween" alignItems="Center">
+                  <Button id="id-limpar" text="Limpar Filtros" visible="true" press="handleClearFields"/>
+                </VBox>
+              </HBox>
+            </VBox>
+            <VBox width="40%">
+              <Label text="Emitidas no {i18n>periodo}:" labelFor="input-dateEmitidas" required="true"/>
+              <DateRangeSelection id="input-dateEmitidas" width="60%" change="handleChange" placeholder="dd/MM/yyyy - dd/MM/yyyy"/>
+              <Label text="Cliente:"/>
+              <Input id="input-Cliente" type="Text" placeholder="Digite o Cliente ..." width="50%" showSuggestion="true" showValueHelp="true"
+                valueHelpRequest="handleValueHelp" submit="handleValueHelp" suggestionItems="{/ClientesSet}" enabled="true">
+                <suggestionItems>
+                  <core:Item text="{Codcliente}"/>
+                </suggestionItems>
+              </Input>
+            </VBox>
+          </HBox>
+        </content>
+      </Panel>
+      <Panel id="__panel2" visible="true">
+        <content>
+          <HBox justifyContent="SpaceBetween" width="100%">
+            <VBox width="25%">
+              <Label text="Status Geral:"/>
+              <ComboBox id="combo-geral" placeholder="" width="85%"
+                items="{ path: '/DM_FaturarOVSet', filters : [{ path:'Codconsulta', operator:'EQ', value1:'GL'}] }" selectionChange="onSearchCombo"
+                enabled="true" fieldGroupIds="" selectedKey="{OVModel>/GeralFilter}">
+                <core:Item key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+              </ComboBox>
+            </VBox>
+            <VBox width="25%">
+              <Label text="Limbo:"/>
+              <ComboBox id="combo-limbo" placeholder="" width="85%"
+                items="{ path: '/DM_FaturarOVSet', filters : [{ path:'Codconsulta', operator:'EQ', value1:'LI'}] }" selectionChange="onSearchCombo"
+                enabled="true" fieldGroupIds="" selectedKey="{OVModel>/LimboFilter}">
+                <core:Item key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+              </ComboBox>
+            </VBox>
+            <VBox width="25%">
+              <Label text="{i18n>credito}:"/>
+              <ComboBox id="combo-credito" placeholder="" width="85%"
+                items="{ path: '/DM_FaturarOVSet', filters : [{ path:'Codconsulta', operator:'EQ', value1:'CR'}] }" selectionChange="onSearchCombo"
+                enabled="true" fieldGroupIds="" selectedKey="{OVModel>/CreditoFilter}">
+                <core:Item key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+              </ComboBox>
+            </VBox>
+            <VBox width="25%">
+              <Label text="Remessa:"/>
+              <ComboBox id="combo-remessa" placeholder="" width="85%"
+                items="{ path: '/DM_FaturarOVSet', filters : [{ path:'Codconsulta', operator:'EQ', value1:'RE'}] }" selectionChange="onSearchCombo"
+                enabled="true" fieldGroupIds="" selectedKey="{OVModel>/RemessaFilter}">
+                <core:Item key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+              </ComboBox>
+            </VBox>
+            <VBox width="25%">
+              <Label text="Fatura:"/>
+              <ComboBox id="combo-fatura" placeholder="" width="85%"
+                items="{ path: '/DM_FaturarOVSet', filters : [{ path:'Codconsulta', operator:'EQ', value1:'FA'}] }" selectionChange="onSearchCombo"
+                enabled="true" fieldGroupIds="" selectedKey="{OVModel>/FaturaFilter}">
+                <core:Item key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+              </ComboBox>
+            </VBox>
+          </HBox>
+        </content>
+      </Panel>
+      <Table id="List" items="{OVModel>/OVData}" showNoData="true" fixedLayout="false" width="auto" growing="true" mode="MultiSelect">
+        <columns>
+          <Column id="nameColumn1" hAlign="Left" width="10%">
+            <Text id="nameColumnTitle" text="{i18n>numOV}"/>
+          </Column>
+          <Column id="nameColumn2" hAlign="Left">
+            <Text text="Emissor"/>
+          </Column>
+          <Column id="nameColumn4" hAlign="Left" width="10%">
+            <Text text="Valor Total"/>
+          </Column>
+          <Column id="nameColumn5" hAlign="Left" width="3%">
+            <Text text=""/>
+          </Column>
+          <Column id="nameColumn6" hAlign="Left" width="10%">
+            <Text text="Status Geral"/>
+          </Column>
+          <Column id="nameColumn7" hAlign="Left" width="8%">
+            <Text text="Limbo"/>
+          </Column>
+          <Column id="nameColumn8" hAlign="Left" width="8%">
+            <Text text="{i18n>credito}"/>
+          </Column>
+          <Column id="nameColumn9" hAlign="Left" width="8%">
+            <Text text="Remessa"/>
+          </Column>
+          <Column id="nameColumn10" hAlign="Left" width="8%">
+            <Text text="Fatura"/>
+          </Column>
+        </columns>
+        <items>
+          <ColumnListItem press="onPress" class="statusUIIcon">
+            <cells>
+              <ObjectIdentifier title="{= parseFloat(${OVModel>Ordem}) }" titleActive="true" titlePress="onSalesOrder">
+                <customData>
+                  <core:CustomData key="auth" value="btnAlterarOV" writeToDom="true"/>
+                </customData>
+              </ObjectIdentifier>
+              <Text text="{OVModel>DescCliente}"/>
+              <Text text="{ path: 'OVModel>ValorOrdem', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 15, scale: 2} }"/>
+              <!-- FLS - 20.06.2022 - Begin 
+              <core:Icon id="icon1" tooltip="{path: 'OVModel>StatusGlobal', formatter: '.statusText'}"
+                src="{path: 'OVModel>StatusGlobal', formatter: '.status'}">
+              End -->
+              <!-- FLS - 20.06.2022 - Begin -->
+              <core:Icon id="icon1" tooltip="{path: 'OVModel>GlobalTxt'}"
+                  src="{path: 'OVModel>StatusGlobal', formatter: '.status'}">
+              <!-- FLS - 20.06.2022 - End -->
+                <core:customData>
+                  <core:CustomData key="status" value="{OVModel>StatusGlobal}" writeToDom="true"/>
+                </core:customData>
+              </core:Icon>
+              <Text text="{path: 'OVModel>GlobalTxt'}"/>
+              <!-- FLS - 20.06.2022 - Begin 
+              <core:Icon id="icon2" src="{path: 'OVModel>StatusLimbo', formatter: '.status'}"
+                tooltip="{path: 'OVModel>StatusLimbo', formatter: '.statusText'}">
+              End -->
+              <!-- FLS - 20.06.2022 - Begin -->
+              <core:Icon id="icon2" src="{path: 'OVModel>StatusLimbo', formatter: '.status'}"
+                tooltip="{path: 'OVModel>LimboTxt'}">
+              <!-- FLS - 20.06.2022 - End -->
+                <core:customData>
+                  <core:CustomData key="status" value="{OVModel>StatusLimbo}" writeToDom="true"/>
+                </core:customData>
+              </core:Icon>
+              <!-- FLS - 20.06.2022 - Begin
+              <core:Icon id="icon3" src="{path: 'OVModel>StatusCred', formatter: '.status'}"
+                tooltip="{path: 'OVModel>StatusCred', formatter: '.statusText'}">
+              End -->
+              <!-- FLS - 20.06.2022 - Begin -->
+              <core:Icon id="icon3" src="{path: 'OVModel>StatusCred', formatter: '.status'}"
+                tooltip="{path: 'OVModel>CredTxt'}">
+              <!-- FLS - 20.06.2022 - End -->
+              <core:customData>
+                  <core:CustomData key="status" value="{OVModel>StatusCred}" writeToDom="true"/>
+                </core:customData>
+              </core:Icon>
+              <!-- FLS - 20.06.2022 - Begin
+              <core:Icon id="icon4" src="{path: 'OVModel>StatusReme', formatter: '.status'}"
+                tooltip="{path: 'OVModel>StatusReme', formatter: '.statusText'}">
+              End -->
+              <!-- FLS - 20.06.2022 - Begin -->
+              <core:Icon id="icon4" src="{path: 'OVModel>StatusReme', formatter: '.status'}"
+                tooltip="{path: 'OVModel>RemeTxt'}">
+              <!-- FLS - 20.06.2022 - End -->
+                <core:customData>
+                  <core:CustomData key="status" value="{OVModel>StatusReme}" writeToDom="true"/>
+                </core:customData>
+              </core:Icon>
+              <!-- FLS - 20.06.2022 - Begin
+              <core:Icon id="icon5" src="{path: 'OVModel>StatusFatura', formatter: '.status'}"
+                tooltip="{path: 'OVModel>StatusFatura', formatter: '.statusText'}">
+              End -->
+              <!-- FLS - 20.06.2022 - Begin -->
+              <core:Icon id="icon5" src="{path: 'OVModel>StatusFatura', formatter: '.status'}"
+                tooltip="{path: 'OVModel>FatTxt'}">
+              <!-- FLS - 20.06.2022 - End -->
+                <core:customData>
+                  <core:CustomData key="status" value="{OVModel>StatusFatura}" writeToDom="true"/>
+                </core:customData>
+              </core:Icon>
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+    </content>
+    <footer>
+      <OverflowToolbar>
+        <Button id="button-popover" icon="sap-icon://message-popup" visible="false" text="{/messagesLength}" press="handleMessagePopoverPress"/>
+        <HBox alignItems="Start" alignContent="Start" justifyContent="Start">
+          <customData>
+            <core:CustomData key="auth" value="btnLiberarRemessa" writeToDom="true"/>
+          </customData>
+          <Button text="{i18n>liberarOvParaRemessa}" id="button-liberarovremessa" press="handleLiberarParaRemessaPress" class="sapUiTinyMarginBegin"/>
+        </HBox>
+        <HBox>
+          <customData>
+            <core:CustomData key="auth" value="btnLiberarCreditoRemessa" writeToDom="true"/>
+          </customData>
+          <Button text="{i18n>liberarCreditoRemessa}" id="button-liberarremessa" press="handleLiberarRemessaPress"/>
+        </HBox>
+        <HBox>
+          <customData>
+            <core:CustomData key="auth" value="btnLiberarLimbo" writeToDom="true"/>
+          </customData>
+          <Button text="Lib. Limbo" id="button-liberarlimbo" press="handleLiberarLimboPress"/>
+        </HBox>
+        <HBox>
+          <customData>
+            <core:CustomData key="auth" value="btnLiberarCredito" writeToDom="true"/>
+          </customData>
+          <Button text="{i18n>liberarCreditoOV}" id="button-liberarcredito" press="handleLiberarCreditoPress"/>
+        </HBox>
+        <HBox>
+          <customData>
+            <core:CustomData key="auth" value="btnLiberarAntecipacao" writeToDom="true"/>
+          </customData>
+          <Button text="{i18n>liberarPagamentoAntecipado}" id="button-liberarantecipacao" press="handleLiberarParaPagamentoPress"/>
+        </HBox>
+        <ToolbarSpacer/>
+        <HBox class="sapUiTinyMarginEnd">
+          <customData>
+            <core:CustomData key="auth" value="btnFornecerOV" writeToDom="true"/>
+          </customData>
+          <Button id="button-fornecerov" text="Fornecer" press="handleFornecerOVPress" tooltip="Fornecimento" icon="sap-icon://supplier"/>
+        </HBox>
+        <HBox class="sapUiTinyMarginEnd">
+          <customData>
+            <core:CustomData key="auth" value="btnPagamento" writeToDom="true"/>
+          </customData>
+          <Button id="button-pagarov" text="Pagamento" press="onEfetuarPagamento" tooltip="Pagamento cartão" icon="sap-icon://credit-card"/>
+        </HBox>
+        <HBox>
+          <customData>
+            <core:CustomData key="auth" value="btnEliminarOV" writeToDom="true"/>
+          </customData>
+          <Button id="button-eliminarov" text="{i18n>eliminarOV}" press="handleEliminarOVPress" icon="sap-icon://delete"/>
+        </HBox>
+        <HBox>
+          <customData>
+            <core:CustomData key="auth" value="btnFaturarOV" writeToDom="true"/>
+          </customData>
+          <Button id="button-faturar" type="Accept" text="Faturar" press="handleFaturarOVPress" icon="sap-icon://expense-report"/>
+        </HBox>
+      </OverflowToolbar>
+    </footer>
+  </Page>
+</mvc:View>

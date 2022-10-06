@@ -1,0 +1,57 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:u="sap.ui.unified" xmlns:f="sap.f"
+	xmlns:html="http://www.w3.org/1999/xhtml" controllerName="arcelor.controller.Inicio">
+	<App>
+		<pages>
+			<Page navButtonPress="_navBack" showNavButton="{device>/isPhone}">
+				<customHeader>
+					<Bar>
+						<contentRight>
+							<Button icon="sap-icon://full-screen" press="onPressMenuButton" visible="{!device>/isTablet} "/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<Panel id="__panel2" backgroundDesign="Transparent"/>
+					<Panel id="__panel3" backgroundDesign="Transparent"/>
+					<Panel id="__panel4" backgroundDesign="Transparent"/>
+					<Panel id="__panel1" backgroundDesign="Transparent"/>
+					<VBox width="100%" direction="Column" id="__vbox0"/>
+					<HBox width="100%" id="__hbox0">
+						<items></items>
+						<HBox width="100%" id="__hbox1"/>
+						<VBox width="100%" direction="Column" id="__vbox2">
+							<Image width="400px" id="__image15" src="image/arcelormittal-logo.png" press="on"/>
+						</VBox>
+						<HBox width="100%" id="__hbox3"/>
+					</HBox>
+					<Panel id="__panel0" visible="false">
+						<content>
+							<HBox width="100%" id="__hbox5">
+								<items>
+									<HBox width="8%" id="__hbox6">
+										<core:Icon src="sap-icon://opportunities" size="2em" id="__icon0"/>
+									</HBox>
+									<HBox width="100%" id="__hbox7">
+										<Label text="{i18n>oportunidadeEOcorrencias}" width="100%" id="__label0"/>
+									</HBox>
+								</items>
+							</HBox>
+						</content>
+					</Panel>
+				</content>
+				<footer>
+					<OverflowToolbar class="sapUiMediumMarginTop">
+						<ToolbarSpacer/>
+						<core:Icon src="sap-icon://customer" class="size5 sapUiSmallMarginBegin"/>
+						<Text id="idUsuario" text="" class="sapUiTinyMarginBegin"/>
+						<Text text=":"/>
+						<Text id="nomeUsuario" text="" class="sapUiTinyMargin"/>
+						<Text text="Loja:"/>
+						<Text id="nomeLoja" text="" class="sapUiTinyMargin"/>
+						<ToolbarSpacer/>
+					</OverflowToolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

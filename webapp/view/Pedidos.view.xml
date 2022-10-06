@@ -1,0 +1,72 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+  controllerName="arcelor.controller.Pedidos" xmlns:c="arcelor.controls">
+  <App>
+    <pages>
+      <Page title="Pedidos" showNavButton="false">
+        <customHeader>
+          <Bar>
+            <contentLeft>
+              <Button icon="sap-icon://nav-back" press="onBack"/>
+            </contentLeft>
+            <contentMiddle>
+              <Title level="H2" text="Pedidos"/>
+            </contentMiddle>
+            <contentRight>
+              <Button icon="sap-icon://full-screen" press="onPressMenuButton"/>
+            </contentRight>
+          </Bar>
+        </customHeader>
+        <content>
+          <Panel id="__panel0">
+            <content>
+              <HBox>
+                <HBox>
+                  <customData>
+                    <core:CustomData key="auth" value="divCriarPedido" writeToDom="true"/>
+                  </customData>
+                  <c:Card id="__image2" backgroundColor="#ff5a16E6" image="image/criar_pedido.png" title="Criar Pedido" press="actionVendas"/>
+                </HBox>
+                <HBox>
+                  <customData>
+                    <core:CustomData key="auth" value="divBuscarPedido" writeToDom="true"/>
+                  </customData>
+                  <c:Card id="__image3" backgroundColor="#ff5a16E6" image="image/consultar_pedido.png" title="Buscar Pedido" press="actionOrdemVendaFatura"/>
+                </HBox>
+                <HBox>
+                  <customData>
+                    <core:CustomData key="auth" value="divNotaFiscal" writeToDom="true"/>
+                  </customData>
+                  <c:Card id="__image4" backgroundColor="#ff5a16E6" image="image/nota_fiscal.jpg" title="Nota Fiscal" press="actionNotaFiscal"/>
+                </HBox>
+                <HBox>
+                  <customData>
+                    <core:CustomData key="auth" value="divDocTransporte" writeToDom="true"/>
+                  </customData>
+                  <c:Card id="__image6" backgroundColor="#ff5a16E6" image="image/caminhao2.jpg" title="Documento de Transporte" press="actionTransporte"/>
+                </HBox>
+                <HBox>
+                  <customData>
+                    <core:CustomData key="auth" value="divEncerrarPedido" writeToDom="true"/>
+                  </customData>
+                  <c:Card id="__image7" backgroundColor="#ff5a16E6" image="image/dados_cobranca.jpg" title="Encerrar Pedido" press="actionEncerraPedido"/>
+                </HBox>                
+              </HBox>
+            </content>
+          </Panel>
+        </content>
+        <footer>
+          <OverflowToolbar class="sapUiMediumMarginTop">
+            <ToolbarSpacer/>
+            <core:Icon src="sap-icon://customer" class="size5 sapUiSmallMarginBegin"/>
+            <Text id="idUsuario" text="" class="sapUiTinyMarginBegin"/>
+            <Text text=":"/>
+            <Text id="nomeUsuario" text="" class="sapUiTinyMargin"/>
+            <Text text="Loja:"/>
+            <Text id="nomeLoja" text="" class="sapUiTinyMargin"/>
+            <ToolbarSpacer/>
+          </OverflowToolbar>
+        </footer>
+      </Page>
+    </pages>
+  </App>
+</mvc:View>

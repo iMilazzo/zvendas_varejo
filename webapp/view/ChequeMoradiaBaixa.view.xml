@@ -1,0 +1,114 @@
+<mvc:View 
+	xmlns="sap.uxap" 
+	xmlns:f="sap.ui.layout.form" 
+	xmlns:m="sap.m" 
+	xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:fb="sap.ui.comp.filterbar" 
+	xmlns:l="sap.ui.layout"
+	controllerName="arcelor.controller.ChequeMoradiaBaixa" >
+	<semantic:DetailPage id="page" showNavButton="true" navButtonPress="onNavBase" title="Baixa de Cheque Moradia" enableScrolling="true"
+		xmlns:semantic="sap.m.semantic" xmlns:layout="sap.ui.layout">
+		<semantic:content>
+			<m:VBox class="sapUiSmallMargin">
+				<f:Form editable="true">
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4"
+							emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="Número do Documento">
+									<f:fields>
+										<m:Input id="idSalesOrder" change="onSalesOrderChange" value="{baixaChequeModel>/salesOrder}"></m:Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Cód.Trans.SEFAZ">
+									<f:fields>
+										<m:Input id="idTransCode" value="{baixaChequeModel>/CodTransacao}" enabled="{baixaChequeModel>/checkEnabled}"></m:Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Número Baixa">
+									<f:fields>
+										<m:Input id="idTransNumber" value="{ path:'baixaChequeModel>/CodBaixa' }" enabled="{baixaChequeModel>/checkEnabled}"></m:Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Data Baixa">
+									<f:fields>
+										<m:DatePicker displayFormat="dd/MM/yyyy" dateValue="{path:'baixaChequeModel>/DataBaixa'}" id="idTransDate"
+											enabled="{baixaChequeModel>/checkEnabled}"></m:DatePicker>
+										<m:Button text="Confirmar Dados" type="Default" iconFirst="true" width="auto" enabled="{baixaChequeModel>/checkEnabled}" visible="true"
+											press="onAddCheckData" iconDensityAware="false"/>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+			</m:VBox>
+			<m:Table id="idCheckTable" items="{ path: 'baixaChequeModel>/checkItems', filters:[{path:'Deleted', operator:'EQ', value1:false}]}"
+				mode="None" growingScrollToLoad="true" growing="true">
+				<m:columns>
+					<m:Column width="150px">
+						<m:Label text="Ordem de Venda"/>
+						<m:footer>
+							<m:Text text="Saldo Ordem: { path: 'baixaChequeModel>/orderBalance', formatter: '.formatOrderBalance' }"
+								visible="{baixaChequeModel>/totalVisible}"/>
+						</m:footer>
+					</m:Column>
+					<m:Column>
+						<m:Label text="Cheque"/>
+					</m:Column>
+					<m:Column width="150px" minScreenWidth="Tablet" demandPopin="true">
+						<m:Label text="Valor"/>
+						<m:footer>
+							<m:Text text="Total Ordem: { path: 'baixaChequeModel>/orderTotal', formatter: '.formatOrderTotal' }"
+								visible="{baixaChequeModel>/totalVisible}"/>
+						</m:footer>
+					</m:Column>
+					<m:Column minScreenWidth="Tablet" demandPopin="true">
+						<m:Label text="Dt. Validade"/>
+					</m:Column>
+					<m:Column minScreenWidth="Tablet" demandPopin="true">
+						<m:Label text="CPF/CNPJ"/>
+					</m:Column>
+					<m:Column minScreenWidth="Tablet" demandPopin="true">
+						<m:Label text="Dt.Lançamento"/>
+					</m:Column>
+					<m:Column minScreenWidth="Tablet" demandPopin="true">
+						<m:Label text="Status"/>
+					</m:Column>
+					<m:Column minScreenWidth="Tablet" demandPopin="true">
+						<m:Label text="Cód.Transação"/>
+					</m:Column>
+					<m:Column minScreenWidth="Tablet" demandPopin="true">
+						<m:Label text="N° Baixa"/>
+					</m:Column>
+					<m:Column minScreenWidth="Tablet" demandPopin="true">
+						<m:Label text="Data Baixa"/>
+					</m:Column>
+				</m:columns>
+				<m:items>
+					<m:ColumnListItem>
+						<m:cells>
+							<m:Text text="{ path: 'baixaChequeModel>OrdemVenda' }"/>
+							<m:Text text="{baixaChequeModel>NumCheque}"/>
+							<m:Text text="{ path: 'baixaChequeModel>ValorCheque', formatter: '.formatPrice'}"/>
+							<m:Text text="{ path: 'baixaChequeModel>ValidadeChque', formatter: '.formatDate' }"/>
+							<m:Text text="{ path: 'baixaChequeModel>CnpjCpf', formatter: '.formatCPFCNPJ' }"/>
+							<m:Text text="{ path: 'baixaChequeModel>DtLctoCheque', formatter: '.formatDate' }"/>
+							<m:Text text="{ path: 'baixaChequeModel>Status', formatter: '.formatStatus' }"/>
+							<m:Text text="{ path: 'baixaChequeModel>CodTransacao'}"/>
+							<m:Text text="{ path: 'baixaChequeModel>CodBaixa'}"/>
+							<m:Text text="{ path: 'baixaChequeModel>DataBaixa', formatter: '.formatDate' }"/>
+						</m:cells>
+					</m:ColumnListItem>
+				</m:items>
+			</m:Table>
+		</semantic:content>
+		<semantic:customFooterContent>
+			<m:Button text="Salvar" press="onSaveCheckData" enabled="true"/>
+		</semantic:customFooterContent>
+	</semantic:DetailPage>
+</mvc:View>

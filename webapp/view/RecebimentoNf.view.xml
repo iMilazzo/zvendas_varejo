@@ -1,0 +1,48 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+	controllerName="arcelor.controller.RecebimentoNf">
+	<Page id="page" showNavButton="true" title="Recebimento Nf" navButtonPress="onNavBack" enableScrolling="true">
+		<content>
+			<Panel headerText="Parâmetros">
+				<VBox class="sapUiSmallMargin" width="50%">
+					<form:Form xmlns:sap.ui.layout.form="sap.ui.layout.form" editable="true" id="__form0">
+						<form:layout>
+							<form:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="3" adjustLabelSpan="true" emptySpanXL="1"
+								emptySpanL="1" emptySpanM="1" emptySpanS="1" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+						</form:layout>
+						<form:formContainers>
+							<form:FormContainer title="" id="__container0">
+								<form:formElements>
+									<form:FormElement id="__element0" label="Nota Fiscal">
+										<form:fields>
+											<Input id="idNfnum" placeholder="Nota"/>
+											<Input id="idSerie" placeholder="Serie"/>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement id="__element1" label="Data da Nota Fiscal">
+										<form:fields>
+											<DatePicker id="idData" displayFormat="short"/>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement id="__element3" label="Centro de Origem">
+										<form:fields>
+											<ComboBox class="sapUiSmallMarginEnd" id="idComboBoxCentro" showSecondaryValues="true" items="{/modelCentro}">
+												<core:ListItem key="{Werks}" text="{Werks} - {Name1}"/>
+											</ComboBox>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement id="__element5" label="">
+										<form:fields>
+											<HBox alignItems="End" justifyContent="SpaceAround" class="sapUiMediumMarginTopBottom">
+												<Button icon="sap-icon://search" text="{i18n>pesquisarDesc}" press="onSearch" class="sapUiTinyMarginEnd"/>
+											</HBox>
+										</form:fields>
+									</form:FormElement>
+								</form:formElements>
+							</form:FormContainer>
+						</form:formContainers>
+					</form:Form>
+				</VBox>
+			</Panel>
+		</content>
+	</Page>
+</mvc:View>

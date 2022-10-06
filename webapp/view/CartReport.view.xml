@@ -1,0 +1,75 @@
+<mvc:View controllerName="arcelor.controller.CartReport" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+	<Page title="Impressão de Carrinho de Compras"
+		class="sapUiContentPadding sapUiResponsivePadding--header sapUiResponsivePadding--subHeader sapUiResponsivePadding--content sapUiResponsivePadding--footer">
+		<content>
+			<Panel width="auto" accessibleRole="Region">
+				<HBox justifyContent="SpaceBetween">
+					<HBox>
+						<Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+					</HBox>
+					<HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center">
+						<Text text="Loja: " class="sapUiTinyMarginEnd titleHeader"/>
+						<Text id="loja" text="id" class="sapUiTinyMarginEnd"/>
+						<Text text="Centro: " class="sapUiTinyMarginEnd titleHeader"/>
+						<Text id="centro" text="id" class="sapUiTinyMarginEnd"/>
+						<Text text="Vendedor: " class="sapUiTinyMarginEnd titleHeader"/>
+						<Text id="vendedor" text="id"/>
+					</HBox>
+				</HBox>
+			</Panel>
+			<Table items="{path: 'cartProducts>/cartEntries'}">
+				<columns>
+					<Column>
+						<Text text="Código"/>
+					</Column>
+					<Column>
+						<Text text="Produto"/>
+					</Column>
+					<Column>
+						<Text text="Preço"/>
+					</Column>
+					<Column>
+						<Text text="Qtd"/>
+					</Column>
+					<Column>
+						<Text text="Unidade"/>
+					</Column>
+					<Column>
+						<Text text="Centro"/>
+					</Column>
+					<Column>
+						<Text text="Tipo Frete"/>
+					</Column>
+					<Column>
+						<Text text="Subtotal"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem vAlign="Middle">
+						<cells>
+							<Text text="{= parseFloat(${path : 'cartProducts>Material'}) }"/>
+							<Text text="{cartProducts>Descricao}"/>
+							<Text text="{path: 'cartProducts>PrecoBase', formatter: '.formatter.price'}"/>
+							<Text text="{cartProducts>Qtd}"/>
+							<Text text="{cartProducts>Unidade}"/>
+							<Text text="{cartProducts>Centro}"/>
+							<Text text="{path: 'cartProducts>Frete', formatter: '.setFreigthText'}"/>
+							<Text text="{path: 'cartProducts>ValorTotItem', formatter : '.formatter.price'}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			<HBox justifyContent="End" alignItems="End" alignContent="End" class="sapUiMediumMargin"></HBox>
+			<Bar>
+				<contentRight>
+					<Text text="Total: "/>
+					<Text id="total" text="R$ 1004,04" class="subTotal"/>
+				</contentRight>
+				<contentLeft>
+					<Text text="Orçamento realizado em: "/>
+					<Text id="dataorc"/>
+				</contentLeft>
+			</Bar>
+		</content>
+	</Page>
+</mvc:View>

@@ -1,0 +1,80 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+  controllerName="arcelor.controller.VendasNew">
+  <TableSelectDialog id="tbNiveisServ" noDataText="Sem dados" title="Niveis de Servico" search="onSearchHelper" confirm="onConfirmShlp"
+    contentWidth="90%" cancel="onConfirmShlp" items="{viewNS>/}">
+    <columns vAlign="Middle">
+      <Column hAlign="Center">
+        <header>
+          <Text text="Nivel de Servico"/>
+        </header>
+      </Column>
+      <Column hAlign="Center">
+        <header>
+          <Text text="Incoterms"/>
+        </header>
+      </Column>
+      <Column hAlign="Center">
+        <header>
+          <Text text="Escritorio de Vendas"/>
+        </header>
+      </Column>
+      <Column hAlign="Center">
+        <header>
+          <Text text="Cidade Origem"/>
+        </header>
+      </Column>
+      <Column hAlign="Center">
+        <header>
+          <Text text="Cidade Destino"/>
+        </header>
+      </Column>
+      <Column hAlign="Center">
+        <header>
+          <Text text="Tiket Min"/>
+        </header>
+      </Column>
+      <Column hAlign="Center">
+        <header>
+          <Text text="Taxa Fixa"/>
+        </header>
+      </Column>  
+      <Column hAlign="Center">
+        <header>
+          <Text text="Adicional por Kilo"/>
+        </header>
+      </Column> 
+      <Column hAlign="Center">
+        <header>
+          <Text text="Prazo de Entrega"/>
+        </header>
+      </Column> 
+      <Column hAlign="Center">
+        <header>
+          <Text text="Inicio da Validade"/>
+        </header>
+      </Column> 
+      <Column hAlign="Center">
+        <header>
+          <Text text="Fim da Validade"/>
+        </header>
+      </Column>       
+    </columns>
+    <items>
+      <ColumnListItem>
+        <cells>
+          <Text text="{viewNS>nivserv}"/>
+          <Text text="{viewNS>inco1}"/>
+          <Text text="{viewNS>vkbur}"/>
+          <Text text="{viewNS>cod_cidade_ori}"/>
+          <Text text="{viewNS>cod_cidade_dest}"/>
+          <Text text="{viewNS>tiket_min}"/>
+          <Text text="{viewNS>taxa_fix}"/>
+          <Text text="{viewNS>adic}"/>
+          <Text text="{viewNS>przentr}"/>
+          <Text text="{path: 'viewNS>datab', type:'sap.ui.model.type.Date', formatOptions : { UTC:true, style:'short'}}"/>
+          <Text text="{path: 'viewNS>datbi', type:'sap.ui.model.type.Date', formatOptions : { UTC:true, style:'short'}}"/>
+        </cells>
+      </ColumnListItem>
+    </items>
+  </TableSelectDialog>
+</core:FragmentDefinition>

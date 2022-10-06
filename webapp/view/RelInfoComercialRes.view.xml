@@ -1,0 +1,146 @@
+<mvc:View controllerName="arcelor.controller.RelInfoComercialRes" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:tab="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="{i18n>relInfoComercialResTitle}" showNavButton="true" navButtonPress="onNavBack">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" text="{i18n>relInfoComercialResTitle}"/>
+						</contentMiddle>
+						<contentRight>
+							<Button icon="sap-icon://print" text="Imprimir" press="onImprimirPress"/>
+							<Button icon="sap-icon://excel-attachment" text="Gerar Excel" press="exportSpreadsheet"/>
+							<Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+						<Panel width="auto" accessibleRole="Region">
+							<HBox justifyContent="SpaceBetween">
+								<HBox>
+									<Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+								</HBox>
+								<HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center">
+									<Text text="" id="dataAtual"/>
+								</HBox>
+							</HBox>
+						</Panel>
+						<Panel id="__panel0">
+							<content>
+								<Label text="Label" width="100%" id="__label0"/>
+								<Label text="Label" width="100%" id="__label1"/>
+								<Label text="Label" width="100%" id="__label2"/>
+							</content>
+						</Panel>
+						<Table id="tabela_relatorio" growing="true" growingThreshold="1000" sticky="HeaderToolbar,ColumnHeaders" items="{path: '/result'}"
+							fixedLayout="false">
+							<columns>
+								<Column mergeDuplicates="true">
+									<Text text="{i18n>name2}"/>
+								</Column>
+								<Column >
+									<Text text="{i18n>kondm}"/>
+								</Column>
+								<Column >
+									<Text text="{i18n>vtext}"/>
+								</Column>
+								<Column >
+									<Text text="{i18n>mark_up}"/>
+								</Column>
+								<Column >
+									<Text text="{i18n>desc_max}"/>
+								</Column>
+								<Column >
+									<Text text="{i18n>markup_min}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{Name}" wrapping="false"/>
+										<Text text="{Kondm}" wrapping="false"/>
+										<Text text="{Vtext}" wrapping="false"/>
+										<Text text="{path: 'MarkUp', formatter: '.formatter.price3'}" wrapping="false"/>
+										<Text text="{path: 'DescMax', formatter: '.formatter.price3'}" wrapping="false"/>
+										<Text text="{path: 'MarkupMin', formatter: '.formatter.price3'}" wrapping="false"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</ScrollContainer>
+					<tab:Table id="tabRelatorio" visible="false" rows="{/RelInfoComercialSet/}" title="" selectionMode="None" visibleRowCount="20">
+						<tab:toolbar>
+							<Toolbar>
+								<content>
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://excel-attachment" press="exportSpreadsheet" tooltip="{i18n>exportExcel}"/>
+								</content>
+							</Toolbar>
+						</tab:toolbar>
+						<tab:columns>
+							<tab:Column width="11rem">
+								<Label text="{i18n>werks}"/>
+								<tab:template>
+									<Text text="{Werks}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>kondm}"/>
+								<tab:template>
+									<Text text="{Kondm}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>vtext}"/>
+								<tab:template>
+									<Text text="{Vtext}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>mark_up}"/>
+								<tab:template>
+									<Text text="{Mark_up}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>desc_max}"/>
+								<tab:template>
+									<Text text="{Desc_max}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>markup_min}"/>
+								<tab:template>
+									<Text text="{Markup_min}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>name}"/>
+								<tab:template>
+									<Text text="{Name}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>matnr}"/>
+								<tab:template>
+									<Text text="{Matnr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>maktx}"/>
+								<tab:template>
+									<Text text="{Maktx}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+						</tab:columns>
+					</tab:Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

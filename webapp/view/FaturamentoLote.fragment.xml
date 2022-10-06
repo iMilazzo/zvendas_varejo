@@ -1,0 +1,70 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+  <Dialog showHeader="true" state="None" stretch="false" title="{i18n>atribuicaoDeLotes}" type="Standard" verticalScrolling="true"
+    contentWidth="1200px" afterClose="dialogAfterclose">
+    <content>
+      <ObjectHeader responsive="true"
+        title="Remessa: {BillingModel>/Remessa} - {BillingModel>/CurrentItem/MaterialOut} - {BillingModel>/CurrentItem/Descricao}">
+        <attributes>
+          <ObjectAttribute title="Item" text="{BillingModel>/CurrentItem/Item}" active="false" visible="true"/>
+          <ObjectAttribute title="Qtde(OV)" text="{BillingModel>/CurrentItem/Quantidade} {BillingModel>/CurrentItem/Unidade}" active="false"
+            visible="true" id="pernr"/>
+          <ObjectAttribute title="Centro" text="{BillingModel>/CurrentItem/Centro}" active="false" visible="true"/>
+        </attributes>
+      </ObjectHeader>
+      <Table items="{BillingModel>/CurrentItem/Attribuition}">
+        <headerToolbar>
+          <Toolbar>
+            <content>
+              <Title text="Lotes Informados - Saldo Qtde: {BillingModel>/CurrentItem/AvailableQuantity} {BillingModel>/CurrentItem/Unidade}"/>
+              <ToolbarSpacer/>
+              <Label text="Lote:"/>
+              <ComboBox selectedKey="{BillingModel>/CurrentItem/Charg}" items="{ path: 'BillingModel>/CurrentItem/Lotes', length: 1000 }" change="onChargSelection">
+                <core:Item key="{BillingModel>Lote}" text="{BillingModel>Lote}"/>
+              </ComboBox>
+              <Text text="{i18n>disponivel}: {BillingModel>/CurrentItem/ChargAvailability} {BillingModel>/CurrentItem/Unidade}"
+                visible="{BillingModel>/CurrentItem/ChargAvlVisible}"/>
+              <Label text="Quantidade:"/>
+              <Input value="{BillingModel>/CurrentItem/Quantity}" width="100px"/>
+              <Button text="Atribuir" iconFirst="true" icon="sap-icon://add" press="onAddCharg"/>
+            </content>
+          </Toolbar>
+        </headerToolbar>
+        <columns>
+          <Column>
+            <Text text="Lote"/>
+          </Column>
+          <Column minScreenWidth="Tablet" demandPopin="true">
+            <Text text="{i18n>deposito}"/>
+          </Column>
+          <Column minScreenWidth="Tablet" demandPopin="true">
+            <Text text="{i18n>disponivel}"/>
+          </Column>
+          <Column minScreenWidth="Tablet" demandPopin="true">
+            <Text text="Qtd. Transf"/>
+          </Column>
+          <Column width="10%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+            <Text text=""/>
+          </Column>
+        </columns>
+        <items>
+          <ColumnListItem press="onPress" class="statusUIIcon">
+            <cells>
+              <Text text="{BillingModel>Charg}"/>
+              <Text text="{BillingModel>Lgort}"/>
+              <Text text="{BillingModel>Available}"/>
+              <Text text="{BillingModel>Quantity}"/>
+              <Button icon="sap-icon://delete" press="onDeleteCharg"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+    </content>
+    <beginButton/>
+    <buttons>
+      <Button text="Anterior" iconFirst="true" icon="sap-icon://close-command-field" press="onPreviousItem"/>
+      <Button text="{i18n>proximo}" iconFirst="true" icon="sap-icon://open-command-field" press="onNextItem"/>
+      <Button text="Finalizar" press="onFinishCharg"/>
+      <Button text="Cancelar" press="onCancelCharg"/>
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

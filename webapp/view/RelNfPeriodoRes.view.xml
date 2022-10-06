@@ -1,0 +1,194 @@
+<mvc:View controllerName="arcelor.controller.RelNfPeriodoRes" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:tab="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="NF Período" showNavButton="true" navButtonPress="onNavBack">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" text="NF Período"/>
+						</contentMiddle>
+						<contentRight>
+							<Button icon="sap-icon://print" text="Imprimir" press="onImprimirPress"/>
+							<Button icon="sap-icon://excel-attachment" text="Gerar Excel" press="exportSpreadsheet"/>
+							<Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+						<Panel width="auto" accessibleRole="Region">
+							<HBox justifyContent="SpaceBetween">
+								<HBox>
+									<Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+								</HBox>
+								<HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center">
+									<Text text="" id="dataAtual"/>
+								</HBox>
+							</HBox>
+						</Panel>
+						<Table id="tb_nf" growing="true" growingThreshold="500" sticky="HeaderToolbar,ColumnHeaders"
+							items="{ path: '/results', sorter: [ { path: 'Nfenum', descending: false, group: false } ] }" width="140rem" contextualWidth="Auto"
+							fixedLayout="false">
+							<columns>
+								<Column>
+									<Text text="N° Doc."/>
+								</Column>
+								<Column>
+									<Text text="N° NF"/>
+								</Column>
+								<Column>
+									<Text text="Série"/>
+								</Column>
+								<Column>
+									<Text text="NF-e"/>
+								</Column>
+								<Column>
+									<Text text="Eletrônica?"/>
+								</Column>
+								<Column>
+									<Text text="Categoria NF"/>
+								</Column>
+								<Column>
+									<Text text="Data"/>
+								</Column>
+								<Column>
+									<Text text="Cliente"/>
+								</Column>
+								<Column>
+									<Text text="Valor"/>
+								</Column>
+								<Column>
+									<Text text="Vendedor"/>
+								</Column>
+								<Column>
+									<Text text="Centro"/>
+								</Column>
+								<Column>
+									<Text text="Peso"/>
+								</Column>
+								<Column>
+									<Text text="Placa"/>
+								</Column>
+								<Column>
+									<Text text="Transportadora"/>
+								</Column>
+								<Column>
+									<Text text="Estornado?"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{path: 'Docnum', formatter: '.formatter.setIntFormat'}"/>
+										<Text text="{path: 'Nfnum', formatter: '.formatter.setIntFormat'}"/>
+										<Text text="{path: 'Series'}"/>
+										<Text text="{path: 'Nfenum', formatter: '.formatter.setIntFormat'}"/>
+										<Text text="{path: 'NfeFlag', formatter: '.formatter.setBooleanToStrBr'}"/>
+										<Text text="{Nfttxt}"/>
+										<Text text="{path: 'Docdat', formatter: '.formatter.strToDataBrOneDay'}"/>
+										<Text text="{Name1Ad}"/>
+										<Text text="{path: 'Valipi', formatter: '.formatter.price'}"/>
+										<Text text="{Bezei}"/>
+										<Text text="{Werks}"/>
+										<Text text="{path: 'Ntgew', formatter: '.formatter.price'}"/>
+										<Text text="{Tdline}"/>
+										<Text text="{Name1Gp}"/>
+										<Text text="{path: 'Cancel', formatter: '.formatter.setBooleanToStr'}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</ScrollContainer>
+					<tab:Table visible="false" id="tabRelatorio" rows="{/RelNfPeriodoSet/}" title="" selectionMode="None" visibleRowCount="20">
+						<tab:toolbar>
+							<Toolbar>
+								<content>
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://excel-attachment" press="exportSpreadsheet" tooltip="{i18n>exportExcel}"/>
+								</content>
+							</Toolbar>
+						</tab:toolbar>
+						<tab:columns>
+							<tab:Column width="11rem">
+								<Label text="{i18n>nfnum}"/>
+								<tab:template>
+									<Text text="{Docnum}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>series}"/>
+								<tab:template>
+									<Text text="{Series}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>nfenum}"/>
+								<tab:template>
+									<Text text="{Nfenum}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>nfttxt}"/>
+								<tab:template>
+									<Text text="{Nfttxt}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>docdat}"/>
+								<tab:template>
+									<Text text="{ path: 'Docdat', type: 'sap.ui.model.type.Date', formatOptions: {UTC:true} }" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>name1ad}"/>
+								<tab:template>
+									<Text text="{Name1Ad}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>valipi}"/>
+								<tab:template>
+									<Text text="{Valipi}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>bezei}"/>
+								<tab:template>
+									<Text text="{Bezei}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>ntgew}"/>
+								<tab:template>
+									<Text text="{Ntgew}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>tdline}"/>
+								<tab:template>
+									<Text text="{Tdline}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>name1gp}"/>
+								<tab:template>
+									<Text text="{Name1Gp}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>cancel}"/>
+								<tab:template>
+									<Text text="{Cancel}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+						</tab:columns>
+					</tab:Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

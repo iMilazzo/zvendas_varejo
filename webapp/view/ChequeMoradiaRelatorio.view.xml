@@ -1,0 +1,109 @@
+<mvc:View xmlns="sap.uxap" xmlns:z="sap.m" xmlns:f="sap.ui.layout.form" xmlns:m="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	controllerName="arcelor.controller.ChequeMoradiaRelatorio" xmlns:fb="sap.ui.comp.filterbar">
+	<semantic:DetailPage id="page" showNavButton="true" navButtonPress="onNavBase" title=" Relatório e Indicadores – Gestão Cheque Moradia"
+		enableScrolling="true" xmlns:semantic="sap.m.semantic" xmlns:layout="sap.ui.layout">
+		<semantic:customHeaderContent>
+			<z:Button icon="sap-icon://print" text="Imprimir" press="onImprimirPress"/>
+			<z:Button icon="sap-icon://excel-attachment" text="Gerar Excel" press="ExcelExport"/>
+		</semantic:customHeaderContent>
+		<semantic:content>
+			<z:ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+				<m:Table id="idCheckTable" items="{ path: 'chequeMoradiaRelatorioModel>/checkItems'}" growing="true" growingThreshold="500"
+					sticky="HeaderToolbar,ColumnHeaders" contextualWidth="Auto" fixedLayout="false">
+					<m:columns>
+						<m:Column >
+							<m:Label text="Empresa"/>
+						</m:Column>
+						<m:Column >
+							<m:Label text="Filial"/>
+						</m:Column>
+						<m:Column >
+							<m:Label text="Centro"/>
+						</m:Column>
+						<m:Column >
+							<m:Label text="Esc. Vendas"/>
+						</m:Column>
+						<m:Column >
+							<m:Label text="OV" width="4rem"/>
+						</m:Column>
+						<m:Column>
+							<m:Label text="Cheque"/>
+						</m:Column>
+						<m:Column >
+							<m:Label text="CPF/CNPJ" width="8rem"/>
+						</m:Column>
+						<m:Column >
+							<m:Label text="Cliente" width="4rem"/>
+						</m:Column>
+						<m:Column >
+							<m:Label text="Nome do Cliente" width="10rem"/>
+						</m:Column>
+						<m:Column >
+							<m:Label text="Dt. Validade"/>
+						</m:Column>
+						<m:Column >
+							<m:Label text="Valor" width="4rem"/>
+						</m:Column>
+						<m:Column >
+							<m:Label text="Dt.Lançamento"/>
+						</m:Column>
+						<m:Column >
+							<m:Label text="Usuário" width="5rem"/>
+						</m:Column>
+						<m:Column >
+							<m:Label text="Doc. Fatura" width="5rem"/>
+						</m:Column>
+						<m:Column >
+							<m:Label text="Nota Fiscal"/>
+						</m:Column>
+						<m:Column >
+							<m:Label text="Data do Documento"/>
+						</m:Column>
+						<m:Column >
+							<m:Label text="Status" width="4rem"/>
+						</m:Column>
+						<m:Column >
+							<m:Label text="Código Transação"/>
+						</m:Column>
+						<m:Column >
+							<m:Label text="Número Baixa"/>
+						</m:Column>
+						<m:Column >
+							<m:Label text="Data Baixa" width="5rem"/>
+						</m:Column>
+						<m:Column >
+							<m:Label text="Doc. Contábil"/>
+						</m:Column>
+					</m:columns>
+					<m:items>
+						<m:ColumnListItem>
+							<m:cells>
+								<m:Text text="{ path: 'chequeMoradiaRelatorioModel>Empresa' }"/>
+								<m:Text text="{ path: 'chequeMoradiaRelatorioModel>Filial' }"/>
+								<m:Text text="{ path: 'chequeMoradiaRelatorioModel>Centro' }"/>
+								<m:Text text="{ path: 'chequeMoradiaRelatorioModel>EscritVendas' }"/>
+								<m:ObjectIdentifier title="{ path: 'chequeMoradiaRelatorioModel>OrdemVenda' }" titleActive="true" titlePress="onSalesOrder"></m:ObjectIdentifier>
+								<m:Text text="{chequeMoradiaRelatorioModel>NumCheque}"/>
+								<m:Text text="{ path: 'chequeMoradiaRelatorioModel>CnpjCpf', formatter: '.formatCPFCNPJ' }"/>
+								<m:Text text="{chequeMoradiaRelatorioModel>Cliente}"/>
+								<m:Text text="{chequeMoradiaRelatorioModel>NomeCliente}"/>
+								<m:Text text="{ path: 'chequeMoradiaRelatorioModel>ValidadeChque', formatter: '.formatDate' }"/>
+								<m:Text text="{ path: 'chequeMoradiaRelatorioModel>ValorCheque', formatter: '.formatPrice'}"/>
+								<m:Text text="{ path: 'chequeMoradiaRelatorioModel>DtLctoCheque', formatter: '.formatDate' }"/>
+								<m:Text text="{chequeMoradiaRelatorioModel>CriadorCheque}"/>
+								<m:Text text="{chequeMoradiaRelatorioModel>Faturamento}"/>
+								<m:Text text="{chequeMoradiaRelatorioModel>NFeNum}"/>
+								<m:Text text="{ path: 'chequeMoradiaRelatorioModel>DataDocumento', formatter: '.formatDate' }"/>
+								<m:Text text="{ path: 'chequeMoradiaRelatorioModel>Status', formatter: '.formatStatus' }"/>
+								<m:Text text="{chequeMoradiaRelatorioModel>CodTransacao}"/>
+								<m:Text text="{chequeMoradiaRelatorioModel>CodBaixa}"/>
+								<m:Text text="{ path: 'chequeMoradiaRelatorioModel>DataBaixa', formatter: '.formatDate' }"/>
+								<m:Text text="{chequeMoradiaRelatorioModel>Documento}"/>
+							</m:cells>
+						</m:ColumnListItem>
+					</m:items>
+				</m:Table>
+			</z:ScrollContainer>
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>

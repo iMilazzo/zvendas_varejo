@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:arcelor="arcelor.controls">
+	<Dialog title="Log Faturamento" contentWidth="1300px">
+		<content>
+			<Table items="{BillingModel>/Log}">
+				<columns>
+					<Column width="10%">
+						<Text text="Ordem de Venda"/>
+					</Column>
+					<Column width="10%" minScreenWidth="Tablet" demandPopin="true">
+						<Text text="Fornecimento"/>
+					</Column>
+					<Column width="10%" minScreenWidth="Tablet" demandPopin="true">
+						<Text text="Fatura"/>
+					</Column>
+					<Column width="10%" minScreenWidth="Tablet" demandPopin="true">
+						<Text text="Nota Fiscal"/>
+					</Column>
+					<Column width="10%" hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+						<Text text="Tipo Mensagem"/>
+					</Column>
+					<Column width="50%" minScreenWidth="Tablet" demandPopin="true">
+						<Text text="Mensagem"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem press="onPress" class="statusUIIcon">
+						<cells>
+							<Text text="{BillingModel>SalesOrder}"/>
+							<Text text="{BillingModel>DeliveryDocument}"/>
+							<Text text="{BillingModel>BillingDocument}"/>
+							<Text text="{BillingModel>FiscalNote}"/>
+							<arcelor:StatusIcon src="{path: 'BillingModel>MessageType'}" status="{BillingModel>MessageColor}"></arcelor:StatusIcon>
+							<Text text="{BillingModel>Message}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		<beginButton>
+			<Button text="OK" press="onConfirmPopup"/>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

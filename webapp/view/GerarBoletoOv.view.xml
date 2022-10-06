@@ -1,0 +1,132 @@
+<mvc:View controllerName="arcelor.controller.GerarBoletoOv" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:tab="sap.ui.table">
+	<Table id="List" items="{/GerarBoletoOvSet/}">
+		<columns>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column>
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+			<Column >
+				<Label text=""/>
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<Text id="NAME1" text="{NAME}"/>
+					<Text id="BLDAT1" text="{BLDAT}"/>
+					<Text id="XBLNR1" text="{XBLNR}"/>
+					<Text id="BUZEI1" text="{BUZEI}"/>
+					<Text id="DMBTR1" text="{DMBTR}"/>
+					<Text id="STRAS1" text="{STRAS}"/>
+					<Text id="ANFAE1" text="{ANFAE}"/>
+					<Text id="LAUFD1" text="{LAUFD}"/>
+					<Text id="PSTLZ1" text="{PSTLZ}"/>
+					<Text id="ORT011" text="{ORT01}"/>
+					<Text id="STCD11" text="{STCD1}"/>
+					<Text id="UBKNT1" text="{UBKNT}"/>
+					<Text id="UBKON1" text="{UBKON}"/>
+					<Text id="UBKON_AUX1" text="{UBKON_AUX}"/>
+					<Text id="UBNKL1" text="{UBNKL}"/>
+					<Text id="BARCODE1" text="{BARCODE}"/>
+					<Text id="NOSSO1" text="{NOSSO1}"/>
+					<Text id="CARTEIRA1" text="{CARTEIRA}"/>
+					<Text id="JUROS1" text="{JUROS}"/>
+					<Text id="CEDENTE1" text="{CEDENTE}"/>
+					<Text id="VENC1" text="{VENC}"/>
+					<Text id="CIP1" text="{CIP}"/>
+					<Text id="INSTRUCAO1" text="{INSTRUCAO}"/>
+					<Text id="INSTRUCAO21" text="{INSTRUCAO2}"/>
+					<Text id="TXT_ABATIM1" text="{TXT_ABATIM}"/>
+					<Text id="VINCULACAO1" text="{VINCULACAO}"/>
+					<Text id="HBKID1" text="{HBKID}"/>
+					<Text id="ENDERECO1" text="{ENDERECO}"/>
+					<Text id="CNPJ1" text="{CNPJ}"/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+	<html:center>
+		<Button text="Gerar Boleto" press="GerarBoleto"/>
+	</html:center>
+</mvc:View>

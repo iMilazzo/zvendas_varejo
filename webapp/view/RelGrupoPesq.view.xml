@@ -1,0 +1,82 @@
+<mvc:View controllerName="arcelor.controller.RelGrupoPesq" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:form="sap.ui.layout.form">
+	<App>
+		<pages>
+			<Page title="Relatorio de Estoque" showNavButton="true" navButtonPress="onNavBack">
+				<content>
+					<!-- Carregamento dos dados mestre:
+						Condi��o de Pagamento -->
+					<Table id="inputDadoMestre" items="{/DadoMestreSet}" visible="false" updateStarted="inicioUpdateTabela" updateFinished="fimUpdateTabela">
+						<columns>
+							<Column hAlign="Left">
+								<Text text="Codconsulta"/>
+							</Column>
+							<Column hAlign="Left">
+								<Text text="Coddadomestre"/>
+							</Column>
+							<Column hAlign="Left">
+								<Text text="Textodadomestre"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem type="Active">
+								<cells>
+									<Input value="{Codconsulta}"/>
+									<Input value="{Coddadomestre}"/>
+									<Input value="{Textodadomestre}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+					<VBox class="sapUiSmallMargin" width="55rem">
+						<form:Form id="idForm1" editable="true">
+							<form:title>
+								<core:Title text="{i18n>paramSelecao}"/>
+							</form:title>
+							<form:layout>
+								<form:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="3" adjustLabelSpan="true" emptySpanXL="1"
+									emptySpanL="1" emptySpanM="1" emptySpanS="1" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+							</form:layout>
+							<form:formContainers>
+								<form:FormContainer>
+									<form:formElements>
+											<!-- Material -->
+										<form:FormElement label="{i18n>material}">
+											<form:fields>
+												<ComboBox  width="34rem" id="idComboBoxMaterial" showSecondaryValues="true" items="{/modelMaterial}" loadItems="onLoadItemsCbMaterial">
+													<core:ListItem key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+												</ComboBox>
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="Grupo de Material">
+											<form:fields>
+												<ComboBox width="34rem" id="idComboBoxTipo" showSecondaryValues="true" items="{/modelTipo}" loadItems="onLoadItemsCbMaterial">
+													<core:ListItem key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+												</ComboBox>
+											</form:fields>
+										</form:FormElement>
+		                               <form:FormElement label="Unidade de Medida">
+											<form:fields>
+
+												<ComboBox width="34rem" id="idComboBoxUnidade" showSecondaryValues="true" items="{/modelUnidade}" >
+													<core:ListItem key="{Coddadomestre}" text="{Coddadomestre} - {Textodadomestre}"/>
+												</ComboBox>
+											</form:fields>
+										</form:FormElement>
+		
+										<!-- Excluir Remessa Final -->
+										<form:FormElement label="">
+											<form:fields>
+												<Button width="20%" text="{i18n>pesquisarDesc}" press="onSearch" class="sapUiSmallMarginTop"/>
+											</form:fields>
+										</form:FormElement>
+									</form:formElements>
+								</form:FormContainer>
+							</form:formContainers>
+						</form:Form>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

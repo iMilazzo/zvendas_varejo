@@ -1,0 +1,64 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+	controllerName="arcelor.controller.Adiantamento">
+	<Page id="page" enableScrolling="true">
+		<customHeader>
+			<Bar>
+				<contentLeft>
+					<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+				</contentLeft>
+				<contentMiddle>
+					<Title level="H2" text="Solicitar Adiantamento"/>
+				</contentMiddle>
+				<contentRight>
+					<Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+				</contentRight>
+			</Bar>
+		</customHeader>
+		<content>
+			<f:SimpleForm id="SimpleFormDisplay1" editable="false" layout="ResponsiveGridLayout" title="Parâmetros" columnsL="2"
+				columnsM="2"/>
+			<Panel class="sapUiNoContentPadding">
+				<l:HorizontalLayout class="sapUiContentPadding">
+					<l:VerticalLayout>
+						<Label text="Cliente"/>
+						<Input id="fieldKunnr" type="Text" placeholder="Digite o Cliente ..." showValueHelp="true" value="{view>/Kunnr}"
+							valueHelpRequest="onCustomerValueHelp" submit="onCustomerValueHelp" valueHelpOnly="true" width="200px">
+							<layoutData>
+								<FlexItemData growFactor="3"/>
+							</layoutData>
+						</Input>
+					</l:VerticalLayout>
+					<l:VerticalLayout>
+						<Label text=" "/>
+						<Text text="{view>/Name1}"/>
+					</l:VerticalLayout>
+				</l:HorizontalLayout>
+				<l:HorizontalLayout class="sapUiContentPadding">
+					<l:VerticalLayout>
+						<Label text="Valor da OV/Depósito:"/>
+						<Input id="fieldWrbtr" width="200px" value="{ path:'view>/Wrbtr', type:'sap.ui.model.type.Currency', formatOptions: {showMeasure: false }}"/>
+					</l:VerticalLayout>
+					<l:VerticalLayout>
+						<Label text="Data do Depósito:"/>
+						<DatePicker value="{view>/Budat}" width="200px" displayFormat="dd/MM/yyyy"/>
+					</l:VerticalLayout>
+					<l:VerticalLayout>
+						<Label text="Ordem de Venda:"/>
+						<Input value="{view>/Vbeln}" width="200px"/>
+					</l:VerticalLayout>
+					<l:VerticalLayout>
+						<Label text="Texto"/>
+						<Input value="{view>/Sgtxt}" width="500px"/>
+					</l:VerticalLayout>
+				</l:HorizontalLayout>
+			</Panel>
+		</content>
+		<footer>
+			<OverflowToolbar class="sapUiMediumMarginTop">
+				<ToolbarSpacer/>
+				<Button text="Prosseguir" icon="sap-icon://open-command-field" press="onConfirm" />
+				<Button text="Limpar" icon="sap-icon://clear-filter" press="onClear" />
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

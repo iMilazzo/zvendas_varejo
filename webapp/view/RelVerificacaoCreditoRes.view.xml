@@ -1,0 +1,151 @@
+<mvc:View controllerName="arcelor.controller.RelVerificacaoCreditoRes" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:tab="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="{i18n>relRelVerificacaoCreditoTitle}" showNavButton="true" navButtonPress="onNavBack">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" text="{i18n>relRelVerificacaoCreditoTitle}"/>
+						</contentMiddle>
+						<contentRight>
+							<Button icon="sap-icon://print" text="Imprimir" press="onImprimirPress"/>
+							<Button icon="sap-icon://excel-attachment" text="Gerar Excel" press="exportSpreadsheet"/>
+							<Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+						<Panel width="auto" accessibleRole="Region">
+							<HBox justifyContent="SpaceBetween">
+								<HBox>
+									<Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+								</HBox>
+								<HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center">
+									<Text text="" id="dataAtual"/>
+								</HBox>
+							</HBox>
+						</Panel>
+						<Table id="tabela_relatorio" growing="true" growingThreshold="1000" sticky="HeaderToolbar,ColumnHeaders" items="{path: '/result'}"
+							fixedLayout="false">
+							<columns>
+								<Column>
+									<Text text="{i18n>vbeln}" width="4rem"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>cmngv}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>kunnr}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>name1}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>netwr}"/>
+								</Column>
+								<Column >
+									<Text text="{i18n>klprz}"/>
+								</Column>
+								<Column >
+									<Text text="{i18n>zterm1}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>ztermtext}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>cstat}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{Vbeln}" wrapping="false"/>
+										<Text text="{path: 'Cmngv', formatter: '.formatter.strToDataBrOneDay'}" wrapping="false"/>
+										<Text text="{Knkli}" wrapping="false"/>
+										<Text text="{Name1}" wrapping="false"/>
+										<Text text="{path: 'Netwr', formatter: '.formatter.price'}" wrapping="false"/>
+										<Text text="{Klprz}" wrapping="false"/>
+										<Text text="{Zterm}" wrapping="false"/>
+										<Text text="{ZtermText}" wrapping="false"/>
+										<Text text="{Cstat}" wrapping="false"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</ScrollContainer>
+					<tab:Table id="tabRelatorio" visible="false" rows="{/RelVerificacaoCreditoSet/}" title="" selectionMode="None" visibleRowCount="20">
+						<tab:toolbar>
+							<Toolbar>
+								<content>
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://excel-attachment" press="exportSpreadsheet" tooltip="{i18n>exportExcel}"/>
+								</content>
+							</Toolbar>
+						</tab:toolbar>
+						<tab:columns>
+							<tab:Column width="11rem">
+								<Label text="{i18n>vbeln}"/>
+								<tab:template>
+									<Text text="{Vbeln}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>cmngv}"/>
+								<tab:template>
+									<Text text="{ path: 'Cmngv', type: 'sap.ui.model.type.Date', formatOptions: {UTC:true} }" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>kunnr}"/>
+								<tab:template>
+									<Text text="{Knkli}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>name1}"/>
+								<tab:template>
+									<Text text="{Name1}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>netwr}"/>
+								<tab:template>
+									<Text text="{Netwr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>klprz}"/>
+								<tab:template>
+									<Text text="{Klprz}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>zterm1}"/>
+								<tab:template>
+									<Text text="{Zterm}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>ztermtext}"/>
+								<tab:template>
+									<Text text="{ZtermText}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>cstat}"/>
+								<tab:template>
+									<Text text="{Cstat}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+						</tab:columns>
+					</tab:Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

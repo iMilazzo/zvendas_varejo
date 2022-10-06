@@ -1,0 +1,169 @@
+<mvc:View controllerName="arcelor.controller.RelDadosCobrancaPesq"
+    xmlns="sap.m"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:form="sap.ui.layout.form">
+    <App>
+        <pages>
+            <Page title="Dados de Cobrança" showNavButton="true" navButtonPress="onNavBack">
+                <customHeader>
+                    <Bar>
+                        <contentLeft>
+                            <Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+                        </contentLeft>
+                        <contentMiddle>
+                            <Title level="H2" text="Dados de Cobrança"/>
+                        </contentMiddle>
+                        <contentRight>
+                            <Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+                        </contentRight>
+                    </Bar>
+                </customHeader>
+                <content>
+                    <!-- Carregamento dos dados mestre: Condição de Pagamento -->
+                    <Table id="inputDadoMestre" items="{/DadoMestreSet}" visible="false" updateStarted="inicioUpdateTabela" updateFinished="fimUpdateTabela">
+                        <columns>
+                            <Column hAlign="Left">
+                                <Text text="Codconsulta"/>
+                            </Column>
+                            <Column hAlign="Left">
+                                <Text text="Coddadomestre"/>
+                            </Column>
+                            <Column hAlign="Left">
+                                <Text text="Textodadomestre"/>
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem type="Active">
+                                <cells>
+                                    <Input value="{Codconsulta}"/>
+                                    <Input value="{Coddadomestre}"/>
+                                    <Input value="{Textodadomestre}"/>
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                    <Panel headerText="Parâmetros do Relatório">
+                        <FlexBox alignItems="Center" justifyContent="Center">
+                            <items>
+                                <VBox>
+                                    <!-- Cliente De -->
+                                    <HBox alignItems="Center" class="sapUiTinyMargin" justifyContent="Start">
+                                        <Label text="Cliente De:" labelFor="cpfCnpjDe" class="sapUiTinyMarginEnd" width="7em" textAlign="Right" />
+                                        <Input id="cpfCnpjDe" type="Text" placeholder="Código, CPF, CNPJ ou Nome" showSuggestion="true" startSuggestion="4" showTableSuggestionValueHelp="false" suggest="handleSuggest" suggestionRows="{/ClientesSet}">
+                                            <suggestionColumns>
+                                                <Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+                                                    <Label text="{i18n>codClienteDesc}"/>
+                                                </Column>
+                                                <Column hAlign="Center" popinDisplay="Inline" demandPopin="true">
+                                                    <Label text="{i18n>nomeDesc}"/>
+                                                </Column>
+                                                <Column hAlign="Center" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+                                                    <Label text="{i18n>cnpjDesc}"/>
+                                                </Column>
+                                                <Column hAlign="End" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+                                                    <Label text="{i18n>cpfDesc}"/>
+                                                </Column>
+                                            </suggestionColumns>
+                                            <suggestionRows>
+                                                <ColumnListItem>
+                                                    <cells>
+                                                        <Label text="{Codcliente}"/>
+                                                        <Label text="{Nome}"/>
+                                                        <Label text="{Cnpj}"/>
+                                                        <Label text="{Cpf}"/>
+                                                    </cells>
+                                                </ColumnListItem>
+                                            </suggestionRows>
+                                            <layoutData>
+                                                <FlexItemData growFactor="50"/>
+                                            </layoutData>
+                                        </Input>
+                                    </HBox>
+
+                                    <!-- Cliente Até -->
+                                    <HBox alignItems="Center" class="sapUiTinyMargin" justifyContent="Start">
+                                        <Label text="Cliente Até:" labelFor="cpfCnpjAte" class="sapUiTinyMarginEnd" width="7em" textAlign="Right" />
+                                        <Input id="cpfCnpjAte" type="Text" placeholder="Código, CPF, CNPJ ou Nome" showSuggestion="true" startSuggestion="4" showTableSuggestionValueHelp="false" suggest="handleSuggest" suggestionRows="{/ClientesSet}">
+                                            <suggestionColumns>
+                                                <Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+                                                    <Label text="{i18n>codClienteDesc}"/>
+                                                </Column>
+                                                <Column hAlign="Center" popinDisplay="Inline" demandPopin="true">
+                                                    <Label text="{i18n>nomeDesc}"/>
+                                                </Column>
+                                                <Column hAlign="Center" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+                                                    <Label text="{i18n>cnpjDesc}"/>
+                                                </Column>
+                                                <Column hAlign="End" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+                                                    <Label text="{i18n>cpfDesc}"/>
+                                                </Column>
+                                            </suggestionColumns>
+                                            <suggestionRows>
+                                                <ColumnListItem>
+                                                    <cells>
+                                                        <Label text="{Codcliente}"/>
+                                                        <Label text="{Nome}"/>
+                                                        <Label text="{Cnpj}"/>
+                                                        <Label text="{Cpf}"/>
+                                                    </cells>
+                                                </ColumnListItem>
+                                            </suggestionRows>
+                                            <layoutData>
+                                                <FlexItemData growFactor="50"/>
+                                            </layoutData>
+                                        </Input>
+                                    </HBox>
+
+                                    <!-- Data Emissão -->
+                                    <HBox alignItems="Center" class="sapUiTinyMargin" justifyContent="Start">
+                                        <Label text="Data Emissao:" labelFor="dtEmissaoDe" class="sapUiTinyMarginEnd" width="7em" textAlign="Right"/>
+                                        <HBox width="100%">
+                                            <DatePicker id="dtEmissaoDe" placeholder="De " displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd"  change="handleEmissaoDP" />
+                                            <DatePicker id="dtEmissaoAte" placeholder="Até" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd"  change="handleEmissaoDP" class="sapUiTinyMarginBegin"/>
+                                        </HBox>
+                                    </HBox>
+
+                                    <!-- Data Vencimento -->
+                                    <HBox alignItems="Center" class="sapUiTinyMargin" justifyContent="Start">
+                                        <Label text="Data Vencto.:" labelFor="dtVencimentoDe" class="sapUiTinyMarginEnd" width="7em" textAlign="Right"/>
+                                        <HBox width="100%">
+                                            <DatePicker id="dtVencimentoDe" placeholder="De " displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd" />
+                                            <DatePicker id="dtVencimentoAte" placeholder="Até" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd" class="sapUiTinyMarginBegin" />
+                                        </HBox>
+                                    </HBox>
+
+                                    <!-- Tipo Documento -->
+                                    <HBox alignItems="Center" class="sapUiTinyMargin" justifyContent="Start">
+                                        <Label text="Tipo Docto.:" labelFor="tipoDocDe" class="sapUiTinyMarginEnd" width="7em" textAlign="Right"/>
+                                        <HBox width="100%">
+                                            <ComboBox placeholder="Tipo de Documento" id="tipoDocDe" items="{path: '/results'}" width="100%">
+                                                <core:Item text="{Coddadomestre} - {Textodadomestre}" key="{Coddadomestre}"/>
+                                                <layoutData>
+                                                    <FlexItemData growFactor="2"/>
+                                                </layoutData>
+                                            </ComboBox>
+                                            <ComboBox placeholder="Tipo de Documento" id="tipoDocAte" items="{path: '/results'}" width="100%" class="sapUiTinyMarginBegin">
+                                                <core:Item text="{Coddadomestre} - {Textodadomestre}" key="{Coddadomestre}"/>
+                                                <layoutData>
+                                                    <FlexItemData growFactor="2"/>
+                                                </layoutData>
+                                            </ComboBox>
+                                        </HBox>
+                                    </HBox>
+
+                                    <!-- Botoes -->
+                                    <HBox alignItems="Center" class="sapUiTinyMargin" justifyContent="End">
+                                        <Button text="Pesquisar" press="onPesquisar" icon="sap-icon://search" class="sapUiTinyMarginEnd"/>
+                                        <Button text="Limpar" press="onLimpar" icon="sap-icon://clear-filter/"/>
+                                    </HBox>
+                                </VBox>
+                            </items>
+                        </FlexBox>
+                    </Panel>
+                </content>
+            </Page>
+        </pages>
+    </App>
+</mvc:View>

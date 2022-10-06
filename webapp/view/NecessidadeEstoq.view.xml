@@ -1,0 +1,131 @@
+<mvc:View controllerName="arcelor.controller.NecessidadeEstoq" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:tab="sap.ui.table" xmlns:form="sap.ui.layout.form">
+	<App>
+		<pages>
+			<Page title="Necessidade de Estoque" showNavButton="true" navButtonPress="onNavBack">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" text="Necessidade de Estoque"/>
+						</contentMiddle>
+					</Bar>
+				</customHeader>
+				<content>
+					<ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+						<Panel width="auto" accessibleRole="Region">
+							<HBox justifyContent="SpaceBetween">
+								<HBox>
+									<Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+								</HBox>
+							</HBox>
+							<form:Form xmlns:sap.ui.layout.form="sap.ui.layout.form" editable="true" id="__form0">
+								<form:layout>
+									<form:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0"
+										emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="3" singleContainerFullSize="false"/>
+								</form:layout>
+								<form:formContainers>
+									<form:FormContainer title="">
+										<form:formElements>
+											<form:FormElement label="Material">
+												<form:fields>
+													<Text id="Matnr"/>
+												</form:fields>
+											</form:FormElement>
+											<form:FormElement label="Tipo de MRP">
+												<form:fields>
+													<Text id="Dismm"/>
+												</form:fields>
+											</form:FormElement>
+										</form:formElements>
+									</form:FormContainer>
+									<form:FormContainer title="">
+										<form:formElements>
+											<form:FormElement label="Descrição">
+												<form:fields>
+													<Text id="Maktx"/>
+												</form:fields>
+											</form:FormElement>
+											<form:FormElement label="Tipo de Material">
+												<form:fields>
+													<Text id="Mtart"/>
+												</form:fields>
+											</form:FormElement>
+										</form:formElements>
+									</form:FormContainer>
+									<form:FormContainer title="">
+										<form:formElements>
+											<form:FormElement label="Centro">
+												<form:fields>
+													<Text id="Werks"/>
+												</form:fields>
+											</form:FormElement>
+											<form:FormElement label="UM">
+												<form:fields>
+													<Text id="Meins"/>
+												</form:fields>
+											</form:FormElement>
+										</form:formElements>
+									</form:FormContainer>
+								</form:formContainers>
+							</form:Form>
+						</Panel>
+						<Table id="tabela_relatorio" growing="true" growingThreshold="1000" sticky="HeaderToolbar,ColumnHeaders" items="{path: '/result'}"
+							fixedLayout="false">
+							<columns>
+								<Column>
+									<Text text="Data" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="Elem.MRP" wrapping="false"/>
+								</Column>
+								<Column >
+									<Text text="Doc.Inf.Adic." wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="Fix DataReprog" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="ME" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="Entrada/nec." wrapping="false"/>
+								</Column>
+								<Column >
+									<Text text="Qtd.Disponível" wrapping="false"/>
+								</Column>
+								<Column >
+									<Text text="Estoq. Em Trânsito" wrapping="false"/>
+								</Column>
+								<Column >
+									<Text text="Centro Fornec." wrapping="false"/>
+								</Column>
+								<Column >
+									<Text text="Depósito" wrapping="false"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{path: 'Dat00', formatter: '.formatter.strToDataBrOneDay'}" wrapping="false"/>
+										<Text text="{Delb0}" wrapping="false"/>
+										<Text text="{Extra}" wrapping="false"/>
+										<Text text="{path: 'Umdat', formatter: '.formatter.strToDataBrOneDay'}" wrapping="false"/>
+										<Text text="{Auskt}" wrapping="false"/>
+										<Text text="{path: 'Mng01', formatter: '.formatter.price3'}" wrapping="false"/>
+										<Text text="{path: 'Mng02', formatter: '.formatter.price3'}" wrapping="false"/>
+										<Text text="{path: 'Tramg', formatter: '.formatter.price3'}" wrapping="false"/>
+										<Text text="{Wrk02}" wrapping="false"/>
+										<Text text="{Lgort}" wrapping="false"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</ScrollContainer>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

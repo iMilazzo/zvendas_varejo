@@ -1,0 +1,107 @@
+<mvc:View controllerName="arcelor.controller.RelPagAntPesq"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+    <Page title="Relatório Pagamento Antecipado" showNavButton="true" navButtonPress="onNavBack">
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+                </contentLeft>
+                <contentMiddle>
+                    <Title level="H2" text="Relatório Pagamento Antecipado"/>
+                </contentMiddle>
+                <contentRight>
+                    <Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+                </contentRight>
+            </Bar>
+        </customHeader>
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <f:SimpleForm title="Parâmetros" editable="true" layout="ResponsiveGridLayout" columnsXL="-1" emptySpanXL="2" labelSpanXL="2" columnsL="1" emptySpanL="2" labelSpanL="2" columnsM="1" emptySpanM="0" labelSpanM="2" emptySpanS="0"
+labelSpanS="12" adjustLabelSpan="false">
+                    <f:content>
+                        <Label text="Empresa" />
+                        <Input id="inEmpresaDe" placeholder="De" />
+                        <Input id="inEmpresaAte" placeholder="Até" />
+
+                        <Label text="Data Documento" labelFor="dpDataPgtoDe" />
+                        <DatePicker id="dpDataPgtoDe" displayFormat="dd/MM/yyyy" change="onDPChange"/>
+                        <DatePicker id="dpDataPgtoAte" displayFormat="dd/MM/yyyy" change="onDPChange"/>
+
+                        <Label text="Cliente" labelFor="inClienteDe" />
+                        <Input id="inClienteDe" placeholder="De" change="onInputChange" showSuggestion="true" suggest="handleSuggest" suggestionRows="{/ClientesSet}" startSuggestion="3" showTableSuggestionValueHelp="false">
+                            <suggestionColumns>
+                                <Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+                                    <Label text="{i18n>codClienteDesc}"/>
+                                </Column>
+                                <Column hAlign="Center" popinDisplay="Inline" demandPopin="true">
+                                    <Label text="{i18n>nomeDesc}"/>
+                                </Column>
+                                <Column hAlign="Center" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+                                    <Label text="{i18n>cnpjDesc}"/>
+                                </Column>
+                                <Column hAlign="End" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+                                    <Label text="{i18n>cpfDesc}"/>
+                                </Column>
+                            </suggestionColumns>
+                            <suggestionRows>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Label text="{Codcliente}"/>
+                                        <Label text="{Nome}"/>
+                                        <Label text="{Cnpj}"/>
+                                        <Label text="{Cpf}"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </suggestionRows>
+                        </Input>
+                        <Input id="inClienteAte" placeholder="Até" showSuggestion="true" suggest="handleSuggest" suggestionRows="{/ClientesSet}" startSuggestion="3" showTableSuggestionValueHelp="false">
+                            <suggestionColumns>
+                                <Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+                                    <Label text="{i18n>codClienteDesc}"/>
+                                </Column>
+                                <Column hAlign="Center" popinDisplay="Inline" demandPopin="true">
+                                    <Label text="{i18n>nomeDesc}"/>
+                                </Column>
+                                <Column hAlign="Center" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+                                    <Label text="{i18n>cnpjDesc}"/>
+                                </Column>
+                                <Column hAlign="End" popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+                                    <Label text="{i18n>cpfDesc}"/>
+                                </Column>
+                            </suggestionColumns>
+                            <suggestionRows>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Label text="{Codcliente}"/>
+                                        <Label text="{Nome}"/>
+                                        <Label text="{Cnpj}"/>
+                                        <Label text="{Cpf}"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </suggestionRows>
+                        </Input>
+
+                        <Label text="Ordem" labelFor="inOrdemDe" />
+                        <Input id="inOrdemDe" placeholder="De" change="onInputChange"/>
+                        <Input id="inOrdemAte" placeholder="Até"/>
+                    </f:content>
+                </f:SimpleForm>
+                <f:SimpleForm title="Opções" editable="true" layout="ResponsiveGridLayout">
+                    <f:content>
+                        <Label text="" />
+                        <VBox >
+                            <CheckBox id="cbEfetuados" text="Lançamentos Efetuados" select="onCheckSelect"/>
+                            <CheckBox id="cbNaoEfetuados" text="Lançamentos não Efetuados" select="onCheckSelect"/>
+                            <CheckBox id="cbBloqueadas" text="Ordem de Vendas Bloqueadas" select="onCheckSelect"/>
+                            <Button icon="sap-icon://search" text="Pesquisar" press="onSearch" class="sapUiSmallMarginTop"/>
+                        </VBox>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

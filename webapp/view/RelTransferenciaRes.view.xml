@@ -1,0 +1,326 @@
+<mvc:View
+    controllerName="arcelor.controller.RelTransferenciaRes"
+    xmlns="sap.m"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:tab="sap.ui.table">
+  <App>
+    <pages>
+      <Page title="{i18n>relTransferenciaResTitle}" showNavButton="true" navButtonPress="onNavBack">
+        <customHeader>
+          <Bar>
+            <contentLeft>
+              <Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+            </contentLeft>
+            <contentMiddle>
+              <Title level="H2" text="{i18n>relTransferenciaResTitle}"/>
+            </contentMiddle>
+            <contentRight>
+              <Button icon="sap-icon://print" text="Imprimir" press="onImprimirPress"/>
+              <Button icon="sap-icon://excel-attachment" text="Gerar Excel" press="exportSpreadsheet"/>
+              <Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+            </contentRight>
+          </Bar>
+        </customHeader>
+        <content>
+          <ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+            <Panel width="auto" accessibleRole="Region">
+              <HBox justifyContent="SpaceBetween">
+                <HBox>
+                  <Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+                </HBox>
+                <HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center">
+                  <Text text="" id="dataAtual"/>
+                </HBox>
+              </HBox>
+            </Panel>
+            <Table id="relatorio_transferencia" growing="true" growingThreshold="500"
+                   sticky="HeaderToolbar,ColumnHeaders" items="{path: '/results'}">
+              <columns>
+                <Column width="5em">
+                  <Text text="Orig"/> <!-- reswk -->
+                </Column>
+                <Column width="5em">
+                  <Text text="Dest"/> <!-- werks -->
+                </Column>
+                <Column width="7em">
+                  <Text text="Grp Merc"/> <!-- matkl -->
+                </Column>
+                <Column width="7em">
+                  <Text text="Criação"/> <!-- bedat -->
+                </Column>
+                <Column width="7em">
+                  <Text text="Pedido"/> <!-- ebeln -->
+                </Column>
+                <Column width="5em">
+                  <Text text="Item"/> <!-- ebelp -->
+                </Column>
+                <Column width="7em">
+                  <Text text="N° RC"/> <!-- banfn -->
+                </Column>
+                <Column width="7em">
+                  <Text text="N° Item RC"/> <!-- bnfpo -->
+                </Column>
+                <Column width="7em">
+                  <Text text="Material"/> <!-- matnr -->
+                </Column>
+                <Column width="25em">
+                  <Text text="Descrição"/> <!-- txz01 -->
+                </Column>
+                <Column width="7em">
+                  <Text text="Qtde Pedido"/> <!-- menge -->
+                </Column>
+                <Column width="5em">
+                  <Text text="U.M."/> <!-- meins -->
+                </Column>
+                <Column width="7em">
+                  <Text text="Dt Remessa"/> <!-- eindt -->
+                </Column>
+                <Column width="7em">
+                  <Text text="Dt Fornec."/> <!-- budat -->
+                </Column>
+                <Column width="8em">
+                  <Text text="Fornec."/> <!-- belnr -->
+                </Column>
+                <Column width="8em">
+                  <Text text="Qtde Fornec."/> <!-- lfimg -->
+                </Column>
+                <Column width="5em">
+                  <Text text="U.V."/> <!-- vrkme -->
+                </Column>
+                <Column width="7em">
+                  <Text text="Dt Transp."/> <!-- erdat_transp -->
+                </Column>
+                <Column width="10em">
+                  <Text text="Transp."/> <!-- vbeln_transp -->
+                </Column>
+                <Column width="8em">
+                  <Text text="Transp.Sub1"/> <!-- tknum_sub1 -->
+                </Column>
+                <Column width="8em">
+                  <Text text="Transp.Sub2"/> <!-- tknum_sub2 -->
+                </Column>
+                <Column width="7em">
+                  <Text text="Dt Fatura"/> <!-- erdat_fat -->
+                </Column>
+                <Column width="7em">
+                  <Text text="NF"/> <!-- xblnr -->
+                </Column>
+                <Column width="5em">
+                  <Text text="NFE"/> <!-- nfe -->
+                </Column>
+                <Column width="7em">
+                  <Text text="Dt Recep"/> <!-- erdat_recep -->
+                </Column>
+                <Column width="5em">
+                  <Text text="IAP %"/> <!-- iap -->
+                </Column>
+              </columns>
+              <items>
+                <ColumnListItem>
+                  <cells>
+                    <Text text="{Reswk}"/>
+                    <Text text="{Werks}"/>
+                    <Text text="{Matkl}"/>
+                    <Text text="{path: 'Bedat', formatter: '.formatter.strToDataBrOneDay'}"/>
+                    <Text text="{Ebeln}"/>
+                    <Text text="{Ebelp}"/>
+                    <Text text="{Banfn}"/>
+                    <Text text="{Bnfpo}"/>
+                    <Text text="{path: 'Matnr', formatter: '.formatter.setIntFormat'}"/>
+                    <Text text="{Txz01}"/>
+                    <Text text="{path: 'Menge', formatter: '.formatter.price'}"/>
+                    <Text text="{path: 'MeinsPo', formatter: '.formatter.price3'}"/>
+                    <Text text="{path: 'Eindt', formatter: '.formatter.strToDataBrOneDay'}"/>
+                    <Text text="{path: 'Budat', formatter: '.formatter.strToDataBrOneDay'}"/>
+                    <Text text="{Belnr}"/>
+                    <Text text="{path: 'Lfimg', formatter: '.formatter.price'}"/>
+                    <Text text="{Vrkme}"/>
+                    <Text text="{{path: 'ErdatTransp', formatter: '.formatter.strToDataBrOneDay'}"/>
+                    <Text text="{VbelnTransp}"/>
+                    <Text text="{TknumSub1}"/>
+                    <Text text="{TknumSub2}"/>
+                    <Text text="{path: 'ErdatFat', formatter: '.formatter.strToDataBrOneDay'}"/>
+                    <Text text="{Xblnr}"/>
+                    <Text text="{Nfe}"/>
+                    <Text text="{path: 'ErdatRecep', formatter: '.formatter.strToDataBrOneDay'}"/>
+                    <Text text="{Iap}"/>
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>
+          </ScrollContainer>
+          <tab:Table visible="false" id="tabRelatorio" rows="{/RelTransferenciaSet/}" title="" selectionMode="None" visibleRowCount="20">
+            <tab:toolbar>
+              <Toolbar>
+                <content>
+                  <ToolbarSpacer/>
+                  <Button icon="sap-icon://excel-attachment" press="exportSpreadsheet" tooltip="{i18n>exportExcel}"/>
+                </content>
+              </Toolbar>
+            </tab:toolbar>
+            <tab:columns>
+              <tab:Column width="5em">
+                <Label text="{i18n>rt_reswk}"/>
+                <tab:template>
+                  <Text text="{Reswk}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="5em">
+                <Label text="{i18n>rt_werks}"/>
+                <tab:template>
+                  <Text text="{Werks}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="7em">
+                <Label text="{i18n>rt_matkl}"/>
+                <tab:template>
+                  <Text text="{Matkl}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="7em">
+                <Label text="{i18n>rt_bedat}"/>
+                <tab:template>
+                  <Text text="{ path: 'Bedat', type: 'sap.ui.model.type.Date', formatOptions: {UTC:true} }" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="7em">
+                <Label text="{i18n>rt_ebeln}"/>
+                <tab:template>
+                  <Text text="{Ebeln}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="5em">
+                <Label text="{i18n>rt_ebelp}"/>
+                <tab:template>
+                  <Text text="{Ebelp}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="7em">
+                <Label text="{i18n>rt_banfn}"/>
+                <tab:template>
+                  <Text text="{Banfn}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="7em">
+                <Label text="{i18n>rt_bnfpo}"/>
+                <tab:template>
+                  <Text text="{Bnfpo}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="7em">
+                <Label text="{i18n>rt_matnr}"/>
+                <tab:template>
+                  <Text text="{Matnr}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="25em">
+                <Label text="{i18n>rt_txz01}"/>
+                <tab:template>
+                  <Text text="Descrição" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="7em">
+                <Label text="{i18n>rt_menge}"/>
+                <tab:template>
+                  <Text text="{Menge}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="5em">
+                <Label text="{i18n>rt_meins}"/>
+                <tab:template>
+                  <Text text="{path: 'Meins' , formatter: '.formatter.price3'}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="7em">
+                <Label text="{i18n>rt_eindt}"/>
+                <tab:template>
+                  <Text text="{path: 'Eindt' , formatter: '.formatter.strToDataBr'}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="7em">
+                <Label text="{i18n>rt_budat}"/>
+                <tab:template>
+                  <Text text="{ path: 'Budat', type: 'sap.ui.model.type.Date', formatOptions: {UTC:true} }" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="8em">
+                <Label text="{i18n>rt_belnr}"/>
+                <tab:template>
+                  <Text text="{Belnr}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="8em">
+                <Label text="{i18n>rt_lfimg}"/>
+                <tab:template>
+                  <Text text="{Lfimg}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="5em">
+                <Label text="{i18n>rt_vrkme}"/>
+                <tab:template>
+                  <Text text="{vrkme}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="7em">
+                <Label text="{i18n>rt_erdat_transp}"/>
+                <tab:template>
+                  <Text text="{ path: 'ErdatTransp', type: 'sap.ui.model.type.Date', formatOptions: {UTC:true} }" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="5em">
+                <Label text="{i18n>rt_vbeln_transp}"/>
+                <tab:template>
+                  <Text text="{VbelnTransp}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="8em">
+                <Label text="{i18n>rt_tknum_sub1}"/>
+                <tab:template>
+                  <Text text="{TknumSub1}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="8em">
+                <Label text="{i18n>rt_tknum_sub2}"/>
+                <tab:template>
+                  <Text text="{TknumSub2}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="7em">
+                <Label text="{i18n>rt_erdat_fat}"/>
+                <tab:template>
+                  <Text text="{ path: 'ErdatFat', type: 'sap.ui.model.type.Date', formatOptions: {UTC:true} }" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="7em">
+                <Label text="{i18n>rt_xblnr}"/>
+                <tab:template>
+                  <Text text="{Xblnr}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="3em">
+                <Label text="{i18n>rt_nfe}"/>
+                <tab:template>
+                  <Text text="{Nfe}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="7em">
+                <Label text="{i18n>rt_erdat_recep}"/>
+                <tab:template>
+                  <Text text="{ path: 'ErdatRecep', type: 'sap.ui.model.type.Date', formatOptions: {UTC:true} }" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+              <tab:Column width="5em">
+                <Label text="{i18n>rt_iap}"/>
+                <tab:template>
+                  <Text text="{Iap}" wrapping="false"/>
+                </tab:template>
+              </tab:Column>
+            </tab:columns>
+          </tab:Table>
+        </content>
+      </Page>
+    </pages>
+  </App>
+</mvc:View>

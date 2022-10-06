@@ -1,0 +1,270 @@
+<mvc:View 
+	controllerName="arcelor.controller.RelFechamentoCaixaRes" 
+	xmlns="sap.m" 
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:tab="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="{i18n>relRelFechamentoCaixaTitle}" showNavButton="true" navButtonPress="onNavBack">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" text="{i18n>relFechamentoCaixaTitle}"/>
+						</contentMiddle>
+						<contentRight>
+							<Button icon="sap-icon://print" text="Imprimir" press="onImprimirPress"/>
+							<Button icon="sap-icon://excel-attachment" text="Gerar Excel" press="exportSpreadsheet"/>
+							<Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+						<Panel width="auto" accessibleRole="Region">
+							<HBox justifyContent="SpaceBetween">
+								<HBox>
+									<Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+								</HBox>
+							</HBox>
+							<HBox>
+								<Text text="Data Geração:"/>
+								<Text text="" id="dataAtual"/>
+							</HBox>
+						</Panel>
+						<HBox justifyContent="SpaceAround">
+							<BusyIndicator ariaLabelledBy="__text3-__clone5" busy="true" busyIndicatorDelay="0" text="" id="indic" busyIndicatorSize="Auto"
+								customIconHeight="100px" customIconWidth="800px" textDirection="RTL"/>
+						</HBox>
+						<Table id="tabela_relatorio" growing="true" visible="false" growingThreshold="1000" sticky="HeaderToolbar,ColumnHeaders"
+							items="{path: '/result'}" fixedLayout="false">
+							<columns>
+								<Column>
+									<Text text="{i18n>zterm}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>nfenum}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>vbeln}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>escritorio}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>Vkgrp}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>kunnr}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>name1}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="Data Fatura" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>valorov}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>valorfat}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>valorpago}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>diferenca}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>conciliado}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>dtconciliado}" wrapping="false"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{Zterm} - {Vtext}" wrapping="false"/>
+										<Text text="{Nfenum}" wrapping="false"/>
+										<Text text="{Vbeln}" wrapping="false"/>
+										<Text text="{Vkbur}" wrapping="false"/>
+										<Text text="{Vkgrp}" wrapping="false"/>
+										<Text text="{Kunnr}" wrapping="false"/>
+										<Text text="{Name1}" wrapping="true"/>
+										<Text text="{path: 'fkdat', formatter: '.formatter.strToDataBrOneDay'}" wrapping="true"/>
+										<Text text="{path: 'ValorOrdem', formatter: '.formatter.price'}" wrapping="false"/>
+										<Text text="{path: 'Nftot', formatter: '.formatter.price'}" wrapping="false"/>
+										<Text text="{path: 'Autwr', formatter: '.formatter.price'}" wrapping="false"/>
+										<Text text="{path: 'Dife', formatter: '.formatter.price'}" wrapping="false"/>
+										<Text text="{Conciliado}" wrapping="false"/>
+										<Text text="{ path: 'AudatCo', formatter: '.formatter.strToDataBrOneDay' }" wrapping="false"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+						<Table id="tabela_relatorio_geral" growing="true" visible="false" growingThreshold="1000" sticky="HeaderToolbar,ColumnHeaders"
+							items="{path: '/result' }" fixedLayout="false">
+							<columns>
+								<Column>
+									<Text text="{i18n>zterm}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>ztermtext}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>valorov}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>valorfat}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>valorpago}" wrapping="false"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>diferenca}" wrapping="false"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{Zterm}" wrapping="false"/>
+										<Text text="{Vtext}" wrapping="false"/>
+										<Text text="{path: 'TotalOrdem', formatter: '.formatter.price'}" wrapping="false"/>
+										<Text text="{path: 'Total', formatter: '.formatter.price'}" wrapping="false"/>
+										<Text text="{path: 'TotalPago', formatter: '.formatter.price'}" wrapping="false"/>
+										<Text text="{path: 'TotalDif', formatter: '.formatter.price'}" wrapping="false"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</ScrollContainer>
+					<tab:Table id="tabRelatorio" visible="false" rows="{/RelFechamentoCaixaSet/}" title="" selectionMode="None" visibleRowCount="20">
+						<tab:toolbar>
+							<Toolbar>
+								<content>
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://excel-attachment" press="exportSpreadsheet" tooltip="{i18n>exportExcel}"/>
+								</content>
+							</Toolbar>
+						</tab:toolbar>
+						<tab:columns>
+							<tab:Column width="11rem">
+								<Label text="{i18n>vbeln}"/>
+								<tab:template>
+									<Text text="{Vbeln}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>docnum}"/>
+								<tab:template>
+									<Text text="{Docnum}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>nfenum}"/>
+								<tab:template>
+									<Text text="{Nfenum}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>vkburt}"/>
+								<tab:template>
+									<Text text="{Vkbur}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>kunnr}"/>
+								<tab:template>
+									<Text text="{Kunnr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>name1}"/>
+								<tab:template>
+									<Text text="{Name1}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>nftot}"/>
+								<tab:template>
+									<Text text="{path: 'Nftot', formatter: '.formatter.price'}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>valorov}"/>
+								<tab:template>
+									<Text text="{path: 'ValorOrdem', formatter: '.formatter.price'}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>valorfat}"/>
+								<tab:template>
+									<Text text="{path: 'Nftot', formatter: '.formatter.price'}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>valorpago}"/>
+								<tab:template>
+									<Text text="{path: 'Autwr', formatter: '.formatter.price'}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>diferenca}"/>
+								<tab:template>
+									<Text text="{path: 'Dife', formatter: '.formatter.price'}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>conciliado}"/>
+								<tab:template>
+									<Text text="{Conciliado}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>dtconciliado}"/>
+								<tab:template>
+									<Text text="{ path: 'AudatCo', formatter: '.formatter.strToDataBrOneDay' }" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>vkgrp}"/>
+								<tab:template>
+									<Text text="{Vkgrp}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="Total Ordem"/>
+								<tab:template>
+									<Text text="{path: 'TotalOrdem', formatter: '.formatter.price'}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="TotalFaturamento"/>
+								<tab:template>
+									<Text text="{path: 'Total', formatter: '.formatter.price'}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="TotalPago"/>
+								<tab:template>
+									<Text text="{path: 'TotalPago', formatter: '.formatter.price'}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="TotalDif"/>
+								<tab:template>
+									<Text text="{path: 'TotalDif', formatter: '.formatter.price'}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+						</tab:columns>
+					</tab:Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

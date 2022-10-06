@@ -1,0 +1,16 @@
+<mvc:View
+	controllerName="arcelor.controller.BaseController"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+
+	<MessagePage
+		id="pageUnauthorized"
+		title="{i18n>unauthorizedTitle}"
+		text="{i18n>unauthorizedText}"
+		icon="sap-icon://permission"
+		description=""
+		showNavButton="{device>/system/phone}"
+		navButtonPress="onNavBack">		
+	</MessagePage>
+
+</mvc:View>

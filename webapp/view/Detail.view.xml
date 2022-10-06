@@ -1,0 +1,32 @@
+<mvc:View controllerName="arcelor.controller.Detail" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic"
+	xmlns:footerbar="sap.ushell.ui.footerbar">
+	<semantic:DetailPage id="page" navButtonPress="onNavBack" showNavButton="{device>/system/phone}" title="{i18n>detailTitle}"
+		busy="{detailView>/busy}" busyIndicatorDelay="{detailView>/delay}">
+		<customHeaderContent>
+			<Bar>
+				<contentLeft>
+					<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+				</contentLeft>
+				<contentMiddle>
+					<Title level="H2" tooltip="{i18n>welcomeDescription}" text="Produtos"/>
+				</contentMiddle>
+				<contentRight>
+					<Button id="TotalCarrinho" icon="sap-icon://cart" tooltip="{i18n>avatarButtonTooltip}" press="onVisualizarCarrinho"
+						text="{ path: 'cartProducts>/cartEntries', formatter: '.setCartLength' }"/>
+				</contentRight>
+			</Bar>
+		</customHeaderContent>
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
+		</semantic:sendEmailAction>
+		<semantic:shareInJamAction>
+			<semantic:ShareInJamAction id="shareInJam" visible="{FLP>/isShareInJamActive}" press="onShareInJamPress"/>
+		</semantic:shareInJamAction>
+		<semantic:saveAsTileAction>
+			<footerbar:AddBookmarkButton id="shareTile" title="{detailView>/saveAsTileTitle}"/>
+		</semantic:saveAsTileAction>
+		<semantic:customFooterContent>
+			<OverflowToolbarButton icon="sap-icon://log" text="Sair" tooltip="Sair" text="Logoff" press="closeapp"/>
+		</semantic:customFooterContent>
+	</semantic:DetailPage>
+</mvc:View>

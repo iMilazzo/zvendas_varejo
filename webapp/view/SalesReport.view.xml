@@ -1,0 +1,193 @@
+<mvc:View controllerName="arcelor.controller.SalesReport" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns="sap.m">
+	<Page title="Impressão de Ordem de Venda: {SalesModel>/SalesOrder}"
+		class="sapUiContentPadding sapUiResponsivePadding--header sapUiResponsivePadding--subHeader sapUiResponsivePadding--content sapUiResponsivePadding--footer">
+		<content>
+			<Panel width="auto" accessibleRole="Region" class="headerfixo">
+				<HBox justifyContent="SpaceBetween">
+					<HBox alignItems="Center" alignContent="Center">
+						<Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+						<Title text="OV: " class="sapUiTinyMarginEnd" level="H2"/>
+						<Title text="{SalesModel>/SalesOrder}" level="H2" id="numOv"/>
+					</HBox>
+					<HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center">
+						<Title level="H3" text="Loja: " class="sapUiTinyMarginEnd titleHeader"/>
+						<Title level="H2" id="loja" text="id" class="sapUiTinyMarginEnd"/>
+						<Title level="H3" text="Centro: " class="sapUiTinyMarginEnd titleHeader"/>
+						<Title level="H2" id="centro" text="id" class="sapUiTinyMarginEnd"/>
+						<Title level="H3" text="Vendedor: " class="sapUiTinyMarginEnd titleHeader"/>
+						<Title level="H2" id="vendedor" text="id"/>
+					</HBox>
+				</HBox>
+			</Panel>
+			<!-- VML Backup: title="Dados Básicos" -->
+			<Panel headerText="Dados Básicos" accessibleRole="Region" class="headerfixo">
+				<HBox justifyContent="SpaceBetween">
+					<VBox>
+						<!-- VML Backup: Todos HBox
+							<HBox justifyContent="Start" aligContent="Start" aligItems="Start">
+						-->
+						<HBox justifyContent="Start">
+							<Title level="H3" text="Tipo Operação: " class="sapUiTinyMarginEnd"/><Text text="{path: 'SalesModel>/SalesType', formatter: '.formatter.setSalesTypeText' }" id="tipoOperacao"/>
+						</HBox>
+						<HBox justifyContent="Start">
+							<Title level="H3" text="Cliente:" class="sapUiTinyMarginEnd"/><Text text="{SalesModel>/CustomerName}" id="cliente"/>
+						</HBox>
+						<HBox justifyContent="Start">
+							<Title level="H3" text="Entrega:" class="sapUiTinyMarginEnd"/><Text text="" id="entrega"/>
+						</HBox>
+						<HBox justifyContent="Start">
+							<Title text="Cobrança:" class="sapUiTinyMarginEnd"/><Text text="" id="cobranca"/>
+						</HBox>
+						<HBox justifyContent="Start">
+							<Title level="H3" text="Escrit/Vend:" class="sapUiTinyMarginEnd"/><Text text="{SalesModel>/SalesOffice}" id="escritorio"/>
+						</HBox>
+						<HBox justifyContent="Start">
+							<Title level="H3" text="Cond.Pagto:" class="sapUiTinyMarginEnd"/><Text text="{SalesModel>/SalesCondition}" id="condPagto"/>
+						</HBox>
+					</VBox>
+					<VBox>
+						<!-- VML Backup: Todos HBox
+							<HBox justifyContent="Start" aligContent="Start" aligItems="Start">
+						-->
+						<HBox justifyContent="Start">
+							<Title level="H3" text="Dias Adicionais: " class="sapUiTinyMarginEnd"/><Text text="{SalesModel>/AdditionalDays}" id="diasAdicionais"/>
+						</HBox>
+						<HBox justifyContent="Start">
+							<Title level="H3" text="Dt.Entrega: " class="sapUiTinyMarginEnd tituloReport"/><Text text="{SalesModel>/DeliveryDate}" id="dtEntrega"/>
+						</HBox>
+						<HBox justifyContent="Start">
+							<Title level="H3" text="CPF/CNPJ: " class="sapUiTinyMarginEnd"/><Text text="{SalesModel>/CustomerDoct}" id="cpfcnpj" class="sapUiTinyMarginEnd"/>
+						</HBox>
+						<HBox justifyContent="Start">
+							<Title level="H3" text="Domicílio Fiscal: " class="sapUiTinyMarginEnd"/><Text text="{SalesModel>/TaxDomcl}" id="domicilioFiscal"/>
+						</HBox>
+						<HBox justifyContent="Start">
+							<Title level="H3" text="Imposto: " class="sapUiTinyMarginEnd"/><Text text="{SalesModel>/TaxDefnt}" id="imposto"/>
+						</HBox>
+						<HBox justifyContent="Start">
+							<Title level="H3" text="Centro: " class="sapUiTinyMarginEnd"/><Text text="{SalesModel>/Plant}" id="centrodist"/>
+						</HBox>
+					</VBox>
+					<VBox>
+						<!-- VML Backup: Todos HBox
+							<HBox justifyContent="Start" aligContent="Start" aligItems="Start">
+						-->
+						<HBox justifyContent="Start">
+							<Title level="H3" text="Canal: " class="sapUiTinyMarginEnd"/><Text text="{SalesModel>/SalesChannel}" id="canal"/>
+						</HBox>
+						<HBox justifyContent="Start">
+							<Title level="H3" text="Num.Pedido: " class="sapUiTinyMarginEnd"/><Text text="{SalesModel>/PurchaseOrder}" id="numPedido"/>
+						</HBox>
+						<HBox justifyContent="Start">
+							<Title level="H3" text="Utilização" class="sapUiTinyMarginEnd"/><Text text="{SalesModel>/Utilization}" id="utilizacao"/>
+						</HBox>
+						<HBox justifyContent="Start">
+							<Title level="H3" text="Versão: " class="sapUiTinyMarginEnd"/><Text text="{SalesModel>/Version}" id="versao"/>
+						</HBox>
+					</VBox>
+				</HBox>
+			</Panel>
+			<HBox justifyContent="SpaceBetween" class="sapUiTinyMarginTop pontofixo">
+				<HBox>
+					<Text text="Impressão realizada em: " class="sapUiTinyMarginEnd"/>
+					<Text text="" id="dataov"/>
+				</HBox>
+				<HBox alignItems="Center" alignContent="Center">
+					<Text text="Total R$: " class="sapUiTinyMarginEnd"/>
+					<Text id="total" text="" class="subTotal"/>
+				</HBox>
+			</HBox>
+			<Table id="List" items="{path : 'SalesModel>/SalesItems', filters:[{path:'Deleted', operator:'EQ', value1:false}]}" showNoData="true"
+				fixedLayout="false" width="100%" growing="false" class="tabela">
+				<columns>
+					<Column id="nameColumn1" width="4%">
+						<Text id="nameColumnTitle" text="It."/>
+					</Column>
+					<Column id="nameColumn2" width="5%">
+						<Text text="Cód."/>
+					</Column>
+					<Column id="nameColumn3" demandPopin="true" minScreenWidth="Tablet" width="15%">
+						<Text text="{i18n>descricao}"/>
+					</Column>
+					<Column id="nameColumn5" demandPopin="true" minScreenWidth="Tablet" width="5%">
+						<Text text="Qtd"/>
+					</Column>
+					<Column id="nameColumn6" demandPopin="true" minScreenWidth="Tablet" width="7%">
+						<Text text="UM"/>
+					</Column>
+					<Column id="nameColumn9" demandPopin="true" minScreenWidth="Tablet" width="6%">
+						<Text text="Pr. Neg. s/IPI"/>
+					</Column>
+					<Column id="nameColumn10" demandPopin="true" minScreenWidth="Tablet" width="6%">
+						<Text text="Desc%"/>
+					</Column>
+					<Column id="nameColumn14" demandPopin="true" minScreenWidth="Tablet" width="8%">
+						<Text text="Centro"/>
+					</Column>
+					<Column id="nameColumn16" demandPopin="true" minScreenWidth="Tablet" width="3%">
+						<Text text="Item Pedido Cliente"/>
+					</Column>
+					<Column id="nameColumn15" demandPopin="true" minScreenWidth="Tablet" width="6%">
+						<Text text="Frete"/>
+					</Column>
+					<Column id="nameColumn7" demandPopin="true" minScreenWidth="Tablet" width="4%">
+						<Text text="Pr. Tabela s/IPI"/>
+					</Column>
+					<Column id="nameColumn8" demandPopin="true" minScreenWidth="Tablet" width="4%">
+						<Text text="Pr. Neg. c/IPI"/>
+					</Column>
+					<Column id="nameColumn18" demandPopin="true" minScreenWidth="Tablet" width="4%">
+						<Text text="% Markup"/>
+					</Column>
+					<Column id="nameColumn11" demandPopin="true" minScreenWidth="Tablet" width="4%">
+						<Text text="Valor tot. item"/>
+					</Column>
+					<Column id="nameColumn12" demandPopin="true" minScreenWidth="Tablet" width="4%">
+						<Text text="{i18n>precoTarget}"/>
+					</Column>
+					<Column id="nameColumn13" demandPopin="true" minScreenWidth="Tablet" width="4%">
+						<Text text="Valor ST"/>
+					</Column>
+					<Column id="nameColumn172" demandPopin="true" minScreenWidth="Tablet" width="6%">
+						<Text text=""/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem press="onPress">
+						<cells>
+							<ObjectNumber number="{= parseFloat(${path : 'SalesModel>Item'}) }" class="customCell"/>
+							<ObjectNumber number="{= parseFloat(${path : 'SalesModel>Material'}) }" class="customCell"/>
+							<Text text="{SalesModel>Descricao}" class="customMText"/>
+							<ObjectNumber number="{ path: 'SalesModel>Qtd', type: 'sap.ui.model.type.Float', formatOptions: {maxFractionDigits: 3}}" class="customCell"/>
+							<Text text="{SalesModel>Unidade}"/>
+							<ObjectNumber number="{ path: 'SalesModel>PrecoNegSemIPI', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2}}"
+								class="customCell"/>
+							<ObjectNumber
+								number="{ path: 'SalesModel>DescPercentual', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2} }"
+								class="customCell"/>
+							<Text text="{SalesModel>Centro}"/>
+							<Text text="{SalesModel>ItemPedidoCliente}" class="InputStyle customCell"/>
+							<Text text="{path: 'SalesModel>Frete', formatter: '.setFreigthText'}"/>
+							<ObjectNumber number="{ path: 'SalesModel>PrecoTbSemIPI', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2} }"
+								class="customCell"/>
+							<ObjectNumber
+								number="{ path: 'SalesModel>PrecoNegComIPI', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2} }"
+								class="customCell"/>
+							<ObjectNumber number="{ path: 'SalesModel>Markup', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2} }"
+								class="customCell"/>
+							<ObjectNumber number="{ path: 'SalesModel>ValorTotItem', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2}}"
+								class="customCell"/>
+							<ObjectNumber
+								number="{ path: 'SalesModel>PrecoTarget', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2}, formatter: 'arcelor.model.formatter.price' }"
+								class="customCell"/>
+							<ObjectNumber
+								number="{ path: 'SalesModel>ValorST', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2}, formatter: 'arcelor.model.formatter.price' }"
+								class="customCell"/>
+							<Text text="" class="customMText"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+	</Page>
+</mvc:View>

@@ -1,0 +1,141 @@
+<mvc:View controllerName="arcelor.controller.RelVolumeVendasRes" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:tab="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="{i18n>relVolumeVendasResTitle}" showNavButton="true" navButtonPress="onNavBack">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button id="back" icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" text="{i18n>relVolumeVendasResTitle}"/>
+						</contentMiddle>
+						<contentRight>
+							<Button icon="sap-icon://print" text="Imprimir" press="onImprimirPress"/>
+							<Button icon="sap-icon://excel-attachment" text="Gerar Excel" press="exportSpreadsheet"/>
+							<Button id="btnMenu" icon="sap-icon://full-screen" press="onPressMenuButton"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true" height="100%">
+						<Panel width="auto" accessibleRole="Region">
+							<HBox justifyContent="SpaceBetween">
+								<HBox>
+									<Image src="image/arcelormittal-logo.png" width="100px" class="sapUiSmallMarginEnd"/>
+								</HBox>
+								<HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center">
+									<Text text="" id="periodo"/>
+								</HBox>
+							</HBox>
+						</Panel>
+						<Table id="tb_volume_vendas" growing="true" growingThreshold="500" sticky="HeaderToolbar,ColumnHeaders"
+							items="{ path: '/results', sorter: [ {path: 'Name1', group: true} ], groupHeaderFactory: '.getGroupHeader'}" fixedLayout="false">
+							<columns>
+								<Column mergeDuplicates="true">
+									<Text text="Cliente"/>
+								</Column>
+								<Column>
+									<Text text="Material"/>
+								</Column>
+								<Column>
+									<Text text="Qtd. Conf."/>
+								</Column>
+								<Column>
+									<Text text="Qtd. Fat."/>
+								</Column>
+								<Column>
+									<Text text="Valor Fat."/>
+								</Column>
+								<Column>
+									<Text text="Receita Liq. Fat."/>
+								</Column>
+								<Column>
+									<Text text="Qtde Devolv."/>
+								</Column>
+								<Column>
+									<Text text="Receita Liq Devolv."/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="" wrapping="false"/>
+										<Text text="{path: 'Matnr', formatter: '.formatter.setIntFormat'} {Maktx}" wrapping="false"/>
+										<Text text="{path: 'Bmeng', formatter: '.formatter.price3'}" wrapping="false"/>
+										<Text text="{path: 'Fkimg', formatter: '.formatter.price3'}" wrapping="false"/>
+										<Text text="{path: 'Valfat', formatter: '.formatter.price'}" wrapping="false"/>
+										<Text text="{path: 'Liqfat', formatter: '.formatter.price'}" wrapping="false"/>
+										<Text text="{path: 'Qtddev', formatter: '.formatter.price3'}" wrapping="false"/>
+										<Text text="{path: 'REKZWI5', formatter: '.formatter.price3'}" wrapping="false"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</ScrollContainer>
+					<tab:Table id="tabRelatorio" rows="{/RelVolumeVendasSet/}" title="" visible="false" selectionMode="None" visibleRowCount="20">
+						<tab:toolbar>
+							<Toolbar>
+								<content>
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://excel-attachment" press="exportSpreadsheet" tooltip="{i18n>exportExcel}"/>
+								</content>
+							</Toolbar>
+						</tab:toolbar>
+						<tab:columns>
+							<tab:Column width="11rem">
+								<Label text="{i18n>name1}"/>
+								<tab:template>
+									<Text text="{Name1}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>matnr}"/>
+								<tab:template>
+									<Text text="{Matnr}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>bmeng}"/>
+								<tab:template>
+									<Text text="{Bmeng}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>fkimg}"/>
+								<tab:template>
+									<Text text="{Fkimg}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>valfat}"/>
+								<tab:template>
+									<Text text="{Valfat}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>liqfat}"/>
+								<tab:template>
+									<Text text="{Liqfat}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="{i18n>qtddev}"/>
+								<tab:template>
+									<Text text="{Qtddev}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+							<tab:Column width="11rem">
+								<Label text="Quantidade Liq. Devolvida"/>
+								<tab:template>
+									<Text text="{REKZWI5}" wrapping="false"/>
+								</tab:template>
+							</tab:Column>
+						</tab:columns>
+					</tab:Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

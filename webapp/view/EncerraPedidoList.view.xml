@@ -1,0 +1,101 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m" xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout" xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:arcelor="arcelor.controls"
+	controllerName="arcelor.controller.EncerraPedidoList">
+	<Page id="page" showNavButton="true"
+		title="Consultar Ordens de Venda Fornecidas com Saldo Pendente" navButtonPress="onNavBack"
+		enableScrolling="true">
+		<customHeader>
+			<Bar>
+				<contentLeft>
+					<Button id="back" icon="sap-icon://nav-back"
+						press="onNavBack" />
+				</contentLeft>
+				<contentMiddle>
+					<Title level="H2" tooltip="{i18n>welcomeDescription}"
+						text="Consultar Ordens de Venda Fornecidas com Saldo Pendente" />
+				</contentMiddle>
+				<contentRight>
+					<Button id="btnMenu" icon="sap-icon://full-screen"
+						press="onPressMenuButton" />
+				</contentRight>
+			</Bar>
+		</customHeader>
+		<content>
+			<f:SimpleForm id="SimpleFormDisplay1" editable="false"
+				layout="ResponsiveGridLayout" title="Buscar Ordem de Venda"
+				columnsL="2" columnsM="2" />
+			<Panel class="sapUiNoContentPadding">
+				<l:HorizontalLayout class="sapUiContentPadding">
+					<l:VerticalLayout>
+						<Label text="{i18n>numOrdem}:"/>
+						<MultiInput id="multiinput-ordem" width="200px" submit="onAddToken" showValueHelp="false"/>
+					</l:VerticalLayout>
+
+					<l:VerticalLayout>
+						<Label text="Cliente:"/>
+						<Input id="input-Cliente" type="Text" placeholder="Digite o Cliente ..." showSuggestion="true" showValueHelp="true"
+							valueHelpRequest="handleValueHelp" width="200px" submit="handleValueHelp" suggestionItems="{/ClientesSet}" enabled="true">
+							<suggestionItems>
+								<core:Item text="{Codcliente}"/>
+							</suggestionItems>
+						</Input>				
+					</l:VerticalLayout>					
+				</l:HorizontalLayout>
+				
+				<l:HorizontalLayout class="sapUiContentPadding">
+					<l:VerticalLayout>
+						<Label text="Data de Remessa:" labelFor="input-DtRemessa"/>
+						<DateRangeSelection id="input-remessa" width="200px" change="handleChange" placeholder="dd/MM/yyyy - dd/MM/yyyy"/>					
+					</l:VerticalLayout>
+				</l:HorizontalLayout>	
+				
+				<l:HorizontalLayout class="sapUiSmallMarginBottom">
+					<l:VerticalLayout>	
+						<Label text="" />
+						<l:HorizontalLayout>
+							<Button text="Buscar" press="onSearch"
+								icon="sap-icon://search" class="sapUiSmallMarginBeginEnd" />
+							<Button text="Limpar Filtros" press="onClearFilters" />
+						</l:HorizontalLayout>
+					</l:VerticalLayout>
+				</l:HorizontalLayout>					
+			</Panel>
+			
+			<Table id="List" items="{ordens>/}" showNoData="true" fixedLayout="false" width="auto" growing="true" mode="MultiSelect">
+				<columns>
+					<Column id="nameColumn1" hAlign="Left">
+						<Text text="Nº OV"/>
+					</Column>
+					<Column id="nameColumn2" hAlign="Left">
+						<Text text="Emissor"/>
+					</Column>
+					<Column id="nameColumn3" hAlign="Left">
+						<Text text="Nome"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<ObjectIdentifier title="{= parseFloat(${ordens>Vbeln}) }" titleActive="true" titlePress="onOrdemVendaPress">
+								<customData>
+									<core:CustomData key="auth" value="btnEncerrarOV" writeToDom="true"/>
+								</customData>
+							</ObjectIdentifier>
+							<Text text="{ordens>Kunnr}"/>
+							<Text text="{ordens>Name1}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>			
+		</content>
+		<footer>
+			<Bar>			
+				<contentRight>
+					<Button id="button-recusar" enabled="false" text="Recusar" press="onRecusar" icon="sap-icon://sys-cancel"/>
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</mvc:View>

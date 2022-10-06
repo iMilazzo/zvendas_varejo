@@ -1,0 +1,28 @@
+<mvc:View xmlns="sap.uxap" xmlns:f="sap.ui.layout.form" xmlns:m="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	controllerName="arcelor.controller.LiberacaoBloqueio" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout">
+	<semantic:DetailPage id="page" showNavButton="true" navButtonPress="onNavBase" title="Liberação de Bloqueio de Fatura"
+		enableScrolling="true" xmlns:semantic="sap.m.semantic" xmlns:layout="sap.ui.layout">
+		<semantic:content>
+			<m:VBox class="sapUiSmallMargin">
+				<f:Form editable="true">
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4"
+							emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="Número da Ordem de Venda">
+									<f:fields>
+										<m:Input id="idBilling" value="{librBloqueioModel>/billingNumber}"></m:Input>
+										<m:Button text="Confirmar Dados" type="Default" iconFirst="true" width="auto" press="onRealeaseBilling" iconDensityAware="false"/>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+			</m:VBox>
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>

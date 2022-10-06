@@ -1,0 +1,112 @@
+<mvc:View 
+    xmlns:core="sap.ui.core" 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:semantic="sap.m.semantic" 
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout" 
+    xmlns:f="sap.ui.layout.form" 
+    controllerName="arcelor.controller.ClientesCadastroNFCe">
+    <semantic:DetailPage id="page" showNavButton="true" navButtonPress="onNavBack" title="Cadastrar Clientes" enableScrolling="true">
+        <semantic:customHeaderContent>
+            <Button icon="sap-icon://full-screen" press="onPressMenuButton" />
+        </semantic:customHeaderContent>
+        <semantic:content id="semantic-content">
+                <!-- <Panel id="ClientesCadastro-Painel1">
+                    <content>
+                        <HBox width="100%" id="HBox-TipoPessoa" justifyContent="SpaceAround" alignItems="Center">
+                            <HBox alignItems="Center" justifyContent="SpaceBetween">
+                                <Text text="{i18n>tipoPessoa}: " />
+                                <ComboBox id="combo-tipoPessoa">
+                                    <core:Item key="0" text="" />
+                                    <core:Item key="F" text="{i18n>pessoaFisica}" />
+                                    <core:Item key="J" text="{i18n>pessoaJuridica}" />
+                                    <core:Item key="C" text="{i18n>enderecoCobranca}" />
+                                    <core:Item key="E" text="{i18n>enderecoEntrega}" />
+                                    <core:Item key="G" text="{i18n>enderecoEntregaFisica}" />
+                                </ComboBox>
+                            </HBox>
+                            <HBox alignItems="Center" justifyContent="SpaceBetween">
+                                <Label text="{i18n>cpfcnpj}:" />
+                                <SearchField width="100%" placeholder="Pesquisar por CNPJ/CPF" id="searchCnpjCpf" search="onSearch" maxLength="20" enableSuggestions="true" liveChange="onMaskCPFCNPJ" />
+                            </HBox>
+                        </HBox>
+                    </content>
+                </Panel> -->
+			<Panel id="Painel1">
+				<HBox justifyContent="SpaceBetween" width="100%">
+					<VBox width="100%" justifyContent="SpaceBetween">
+                        <Label text="{i18n>codigoCliente}"/>
+                        <Input id="inputCodCliente" value="{CodCliente}" enabled="false" width="40%"/>
+						<Label text="{i18n>nome}" required="true"/>
+						<Input id="inputNome" value="{Nome}" maxLength="35" enabled="false" submit="onTabField" width="85%" valueHelpRequest="onTabField"
+							required="true" validateFieldGroup="onTabField" suggestionItemSelected="suggestionItemSelected"/>
+						<Label text="{i18n>cep}" required="true"/>
+						<Input id="inputCEP" value="{Cep}" maxLength="9" enabled="false" width="60%" submit="onTabField" liveChange="onMaskCEP" required="true"/>
+						<Label text="{i18n>rua}" required="true"/>
+						<Input id="inputEndereco" value="{Endereco}" maxLength="60" enabled="false" width="90%" submit="onTabField" required="true"/>
+						<Label text="{i18n>numero}" required="true"/>
+						<Input id="inputNumero" value="{Numero}" maxLength="10" enabled="false" width="40%" submit="onTabField" required="true"/>
+						<Label text="{i18n>complemento}"/>
+						<Input id="inputComplemento" value="{Complemento}" maxLength="10" enabled="false" width="70%" submit="onTabField" required="true"/>
+						<Label text="{i18n>bairro}" required="true"/>
+						<Input id="inputBairro" value="{Bairro}" maxLength="35" enabled="false" width="90%" submit="onTabField" required="true"/>
+					</VBox>
+					<VBox width="100%">
+                        <Label text="{i18n>conceitoPesquisa}"/>
+                        <Input id="inputConPesquisa" value="{ConPesquisa}" enabled="false" width="40%"/>
+						<Label text="{i18n>uf}" required="true"/>
+						<ComboBox id="inputRegiao" placeholder="" width="75%" items="{/modelDataUf}" selectionChange="onSearchCity" enabled="false"
+							fieldGroupIds="">
+							<core:Item key="{CodDadoMestre}" text="{CodDadoMestre} - {Textodadomestre}"/>
+						</ComboBox>
+                        <Label text="{i18n>cidade}" required="true"/>
+                        <ComboBox id="inputCidade" placeholder="" width="75%" items="{/DM_CidadesSet}" selectionChange="onSelectCity" enabled="false"
+                            fieldGroupIds="" change="onLimiteCidade">
+                            <core:Item key="{CodCidade}" text="{Cidade}"/>
+                        </ComboBox>
+						<Label text="{i18n>telefone}"/>
+						<Input id="inputTelefone" value="{Telefone}" maxLength="15" enabled="false" width="50%" submit="onTabField" liveChange="onMaskTelefone"/>
+						<Label text="{i18n>email}"/>
+						<Input id="Email" value="{Email}" maxLength="240" enabled="false" width="68%" submit="onTabField"/>
+						<Label text="{i18n>grupoContas}"/>
+						<Input id="inputGrupoContas" value="{GrupoContas}" enabled="false" width="60%" submit="onTabField" maxLength="20"/>
+						<Label text="{i18n>pagador}"/>
+						<Input id="inputPagador" value="{Pagador}" enabled="false" width="60%" submit="onTabField" maxLength="20"/>
+						<Label text="{i18n>notaFiscal}:" visible="false"/>
+						<Input id="inputNotaFiscal" value="{NotaFiscal}" enabled="false" visible="false"/>
+					</VBox>
+					<VBox width="100%">
+						<Label text="{i18n>cpfcnpj}:"/>
+						<Input id="inputCPFCNPJ" value="{CPFCNPJ}" enabled="false"/>
+						<Label text="{i18n>domicilioFiscal}" required="true"/>
+						<ComboBox id="inputDomicilioFiscal" placeholder="{i18n>domicilioFiscal}" width="65%" items="" enabled="false"
+							selectionChange="onLojaFilter">
+							<core:Item key="X" text="{i18n>contribuinte}"/>
+							<core:Item key="Z" text="{i18n>naoContribuinte}"/>
+							<core:Item key="S" text="{i18n>simplesNacional}"/>
+						</ComboBox>
+						<Label text="{i18n>canalDistrib}" required="true"/>
+						<Input id="inputCanalDistrib" value="{CanalDistrib}" enabled="false"/>
+						<Label text="{i18n>condPagto}"/>
+						<Input id="inputCondPagto" value="{CondPagto}" enabled="false"/>
+						<Label text="{i18n>setorInd}" required="true"/>
+						<ComboBox id="inputSetorInd" placeholder="Setor industrial" width="60%" items="{/modelDataSetorInd}" enabled="false" selectionChange="onLojaFilter" fieldGroupIds="">
+							<core:Item key="{CodDadoMestre}" text="{CodDadoMestre} - {Textodadomestre}"/>
+						</ComboBox>
+						<Label text="{i18n>inscricaoEstadual}"/>
+						<Input id="inputInscricaoEstadual" maxLength="18" value="{Inscrestadual}" liveChange="onChangeIe" enabled="false" width="70%"/>
+						<Label text="{i18n>suframa}"/>
+						<Input id="inputSuframa" maxLength="9" value="{Suframa}" enabled="false" width="70%" change="onChangeSuframa"/>
+						<Label text="{i18n>valSuframa}"/>
+						<DatePicker id="inputDtSuframa" enabled="false" valueFormat="dd/MM/yyyy" displayFormat="dd/MM/yyyy" width="50%"/>
+					</VBox>
+				</HBox>
+			</Panel>
+        </semantic:content>
+        <semantic:customFooterContent>
+            <Button id="save" text="Salvar" visible="false" press="handleSavePress" />
+            <Button id="edit" text="Alterar" visible="false" press="handleEditPress" />
+            <Button id="cancel" text="Cancelar" visible="false" press="handleCancelPress" />
+        </semantic:customFooterContent>
+    </semantic:DetailPage>
+</mvc:View>

@@ -1,0 +1,40 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="arcelor.controller.ClientesConsulta">
+	<App>
+		<pages>
+			<Page title="Consulta de Clientes" showNavButton="true" navButtonPress="onNavBack">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button icon="sap-icon://nav-back" press="onNavBack"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title level="H2" tooltip="{i18n>welcomeDescription}" text="Consultar Cliente"/>
+						</contentMiddle>
+						<contentRight>
+							<Button icon="sap-icon://full-screen" press="onPressMenuButton"/>
+						</contentRight>
+					</Bar>
+				</customHeader>
+				<subHeader>
+					<Bar>
+						<contentLeft>
+							<SearchField width="100%" placeholder="{i18n>pesquisarPorCodigoClienteCPFCNPJ}" id="__field3" search="onSearch" maxLength="20"
+								enableSuggestions="true"/>
+						</contentLeft>
+					</Bar>
+				</subHeader>
+				<content>
+					<List id="List" items="{ path: '/ClientesSet', sorter: { path: 'Nome' }, length: 30 }" growing="true" growingThreshold="30"
+						itemPress="onItemPress">
+						<ObjectListItem type="Navigation" intro="{i18n>endereco} {Endereco} - Cidade: {Cidade}" id="__item0" press="onItemPress"
+							title="{i18n>codigoCliente}: {Codcliente} / Nome: {Nome} / CNPJ/CPF: {Cnpj}{Cpf}"></ObjectListItem>
+					</List>
+				</content>
+				<footer>
+					<Bar></Bar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

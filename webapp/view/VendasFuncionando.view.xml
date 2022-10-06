@@ -1,0 +1,138 @@
+<mvc:View xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns="sap.m"
+	xmlns:m="sap.m" xmlns:semantic="sap.m.semantic" xmlns:u="sap.ui.unified" controllerName="arcelor.controller.Vendas">
+	<semantic:DetailPage xmlns:action="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" id="page" navButtonPress="onNavBack"
+		title="Carrinho Venda" busy="{viewModel>/busy}" showNavButton="true">
+		<semantic:content>
+			<VBox class="sapUiSmallMargin">
+				<!-- VML Backup: enableScrolling="true" -->
+				<f:SimpleForm id="SimpleFormToolbar" editable="true" layout="ResponsiveGridLayout" minWidth="1024" maxContainerCols="3" columnsL="3"
+					columnsM="3">
+					<f:content>
+						<Toolbar height="10%"/>
+						<Label text="Tipo Operação" textAlign="Left"/>
+						<Select forceSelection="false" autoAdjustWidth="true">
+							<core:Item key="0" text="Cotação"/>
+							<core:Item key="1" text="Ordem de Venda"/>
+							<core:Item key="1" text="Venda Triangular"/>
+							<core:Item key="1" text="Venda não Identificada"/>
+						</Select>
+						<Label text="Dados Básicos" textAlign="Left" design="Bold"/>
+						<Label text="Pesquisa Cliente"/>
+						<SearchField width="100%" placeholder="Buscar Cliente" id="__field5" search="onSearchClientes" maxLength="20"/>
+						<Label text="Código"/>
+						<Text id="textClienteCodigo"/>
+						<Label text="Descrição"/>
+						<Text id="textClienteTexto"/>
+						<Label text="Entrega" textAlign="Left"/>
+						<Select forceSelection="false" autoAdjustWidth="true">
+							<core:Item key="0" text="Entrega 1"/>
+							<core:Item key="1" text="Entrega 2"/>
+							<core:Item key="1" text="Entrega 3"/>
+						</Select>
+						<Toolbar height="10%"/>
+						<Label text="Canal" textAlign="Left"/>
+						<Select forceSelection="false" autoAdjustWidth="true">
+							<core:Item key="0" text="10 Coligadas"/>
+							<core:Item key="1" text="20 Indústrias"/>
+							<core:Item key="1" text="30 Distribuidores"/>
+							<core:Item key="1" text="40 Consumidores"/>
+						</Select>
+						<Label text="Setor" textAlign="Left"/>
+						<Select forceSelection="false" autoAdjustWidth="true">
+							<core:Item key="0" text="00 Planos"/>
+							<core:Item key="1" text="10 Constução Civil"/>
+							<core:Item key="1" text="50 Produtos Industriais"/>
+							<core:Item key="1" text="70 Industrialização"/>
+							<core:Item key="1" text="80 Produtos Trefilados"/>
+							<core:Item key="1" text="95 Sucata"/>
+							<core:Item key="1" text="98 Imobilizado"/>
+							<core:Item key="1" text="99 Materiais Diversos"/>
+						</Select>
+						<Label text="CNPJ"/>
+						<Text text="55.096.598/0001-56"/>
+						<Label text="Pagamento" textAlign="Left"/>
+						<Select forceSelection="false" autoAdjustWidth="true">
+							<core:Item key="0" text="Condição 1"/>
+							<core:Item key="1" text="Condição 2"/>
+						</Select>
+						<Toolbar height="10%"/>
+						<Label text="Status"/>
+						<!-- VML Backup: state="Error" -->
+						<Text text="Não Registrado"/>
+						<Label text="Data Venda"/>
+						<Text id="idDateToday" text=""/>
+					</f:content>
+				</f:SimpleForm>
+				<!-- VML Backup: enableScrolling="true" -->
+				<f:SimpleForm editable="true" layout="ResponsiveGridLayout" minWidth="1024" maxContainerCols="2" columnsL="2" columnsM="2">
+					<f:content>
+						<HBox alignItems="Center" justifyContent="Inherit" alignContent="Center">
+							<items>
+								<core:Icon src="sap-icon://cart" alt="Cart" size="2.25rem"/>
+								<HBox width="2%" id="__hbox1"/>
+								<Label text="Material:"/>
+								<SearchField width="100%" placeholder="Buscar Material" id="__field4" search="onSearchMaterial" maxLength="20"/>
+							</items>
+						</HBox>
+						<Toolbar height="10%"/>
+						<Label text="Valor Total da Venda"/>
+						<Text id="valorItens" text="8000,00"/>
+					</f:content>
+				</f:SimpleForm>
+				<Table id="List" items="{/modelData}" showNoData="true" fixedLayout="false" width="auto" growing="true">
+					<columns>
+						<Column id="nameColumn1" hAlign="Left" width="8%">
+							<Text id="nameColumnTitle" text="Código"/>
+						</Column>
+						<Column id="nameColumn2" hAlign="Left">
+							<Text text="Produto"/>
+						</Column>
+						<Column id="nameColumn4" hAlign="Left" width="10%">
+							<Text text="Preço"/>
+						</Column>
+						<Column id="nameColumn6" hAlign="Left" width="5%">
+							<Text text="Qtde"/>
+						</Column>
+						<Column id="nameColumn7" hAlign="Left" width="8%">
+							<Text text="Unid"/>
+						</Column>
+						<Column id="nameColumn9" hAlign="Left" width="8%">
+							<Text text="Centro"/>
+						</Column>
+						<Column id="nameColumn10" hAlign="Left" width="8%">
+							<Text text="Tipo Frete"/>
+						</Column>
+						<Column id="nameColumn12" hAlign="Left" width="10%">
+							<Text text="SubTotal"/>
+						</Column>
+						<Column id="nameColumn13" hAlign="Left" width="6%">
+							<Text text=""/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem press="onPress" type="Active">
+							<cells>
+								<ObjectNumber number="{= parseFloat(${Codproduto}) }"/>
+								<Text text="{Descrprod}"/>
+								<ObjectNumber number="{ path: 'Preco', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 11, scale: 2} }"/>
+								<Input value="{Quantidade}" editable="true" class="InputStyle" change="onCalculateProduct"/>
+								<Text text="{Unidade}"/>
+								<Text text="{Centro}"/>
+								<Select>
+									<core:Item key="0" text="CIF Entrega"/>
+									<core:Item key="1" text="EXW - Retira"/>
+								</Select>
+								<ObjectNumber number="{ path: 'Subtotal', type: 'sap.ui.model.odata.type.Decimal', constraints: {precision: 10, scale: 3} }"/>
+								<Button icon="sap-icon://sys-cancel-2" press="onDeleteSelectedItems"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</VBox>
+		</semantic:content>
+		<semantic:negativeAction><semantic:NegativeAction text="Calcular $"/>
+		</semantic:negativeAction>
+		<semantic:positiveAction><semantic:PositiveAction text="Finalizar" press="onPressFinalizar"/>
+		</semantic:positiveAction>
+	</semantic:DetailPage>
+</mvc:View>
